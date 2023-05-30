@@ -53,6 +53,7 @@
     - 'gitignore.io' 사이트에서 .gitignore 설정 내용 만들기
 - 프로젝트 실습
     - 1. 자바 프로젝트 준비하기
+    - 2. 리터럴을 사용하여 데이터 저장하기
 
 
 ### 5일(5/26, 금)
@@ -65,4 +66,11 @@
     - 변수 선언, 변수에 값 할당
     - Primitive Data Type 소개 : byte, short, int, long, char, float, double, boolean
 - 프로젝트 실습
-    - 
+    - 3. 변수를 사용하여 데이터를 저장하기
+
+### 6일 (5/30, 화)
+
+- 자바 프로그래밍
+    - 표준 입출력 API 사용법(com.eomcs.lang.ex99)
+    - 변수 사용법 (com.eomcs.lang.ex04)
+  - 프로젝트 실습 
