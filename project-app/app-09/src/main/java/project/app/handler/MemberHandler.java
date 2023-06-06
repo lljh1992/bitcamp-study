@@ -1,6 +1,6 @@
 package project.app.handler;
 
-import project.util.prompt;
+import project.util.Prompt;
 
 public class MemberHandler {
     
@@ -22,15 +22,15 @@ public class MemberHandler {
 
   public static void inputMember(){
     
-    a[length] = prompt.inputString("동: ");
-    b[length] = prompt.inputString("호수: ");
-    name[length] = prompt.inputString("이름: ");
-    number[length] = prompt.inputString("H.P: ");
-    carnumber[length] = prompt.inputString("차량 번호: ");
-    VehicleOwnership[length] = prompt.inputString("차량 보유 현황: ");
+    a[length] = Prompt.inputString("동: ");
+    b[length] = Prompt.inputString("호수: ");
+    name[length] = Prompt.inputString("이름: ");
+    number[length] = Prompt.inputString("H.P: ");
+    carnumber[length] = Prompt.inputString("차량 번호: ");
+    VehicleOwnership[length] = Prompt.inputString("차량 보유 현황: ");
          
   loop:while (true) {
-    String live = prompt.inputString("거주 여부:\n" +
+    String live = Prompt.inputString("거주 여부:\n" +
     " 1. 거주자\n" +
     " 2. 외부인\n" +
     " > ");

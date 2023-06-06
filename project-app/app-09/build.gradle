@@ -33,7 +33,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'project.app.App'
+    mainClass = 'project.app.App_1'
 }
 
 tasks.named('test') {

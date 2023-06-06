@@ -2,7 +2,7 @@ package project.util;
 
 import java.util.Scanner;
 
-public class prompt {
+public class Prompt {
   
     static Scanner scanner = new Scanner(System.in);
 

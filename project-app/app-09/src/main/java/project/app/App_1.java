@@ -1,7 +1,9 @@
 package project.app;
 
+
 import project.app.handler.MemberHandler;
-import project.util.prompt;
+import project.util.Prompt;
+
 
 public class App_1 {
     
@@ -18,7 +20,7 @@ public class App_1 {
     
     MemberHandler.pirntMembers();
 
-    prompt.close();
+    Prompt.close();
   }
 
   static void printTitle() {
@@ -28,7 +30,7 @@ public class App_1 {
   }
   
   static boolean promptContinue() {
-    String response = prompt("등록을 계속 하시겠습니까?(Y/n) ");
+    String response = Prompt.inputMember("등록을 계속 하시겠습니까?(Y/n) ");
     if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
       return false;
     }
