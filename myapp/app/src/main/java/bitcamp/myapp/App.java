@@ -1,5 +1,6 @@
 package bitcamp.myapp;
 
+<<<<<<< HEAD
 // 코드 본문에서 사용할 클래스가 어떤 패키지인지 지정한다.
 import java.util.Scanner;
 
@@ -42,9 +43,26 @@ public class App {
       rightEye[count] = scanner.nextFloat();
 
       // count++; // = count += +1;// = count = count +1;
+=======
+import bitcamp.myapp.handler.MemberHandler;
+import bitcamp.util.Prompt;
 
+// 코드 본문에서 사용할 클래스가 어떤 패키지의 클래스인지 지정한다.
+
+public class App {
+    public static void main(String[] args) {
+
+    printTitle();
+>>>>>>> 67ae9ed06ef9111ff8779ee624a2601bd4f87f93
+
+    while (MemberHandler.available()) {
+      MemberHandler.inputMember();
+      if (!promptContinue()) {
+        break;
+      }
     }
 
+<<<<<<< HEAD
     System.out.println("---------------------------------");
 
     for (int count = 0; count < 3; count++) {
@@ -56,4 +74,25 @@ public class App {
       System.out.printf("좌우시력: %f,%f\n", leftEye[count], rightEye[count]);
     }
   }
+=======
+    MemberHandler.printMembers();
+
+    Prompt.close();
+  }
+
+  static void printTitle() {
+    System.out.println("나의 목록 관리 시스템");
+    System.out.println("----------------------------------");
+  }
+ 
+  static boolean promptContinue() {
+    System.out.print("계속 하시겠습니까?(Y/n) ");
+    String response = Prompt.scanner.nextLine();
+    if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
+      return false;
+    }
+    return true;
+  }
+   
+>>>>>>> 67ae9ed06ef9111ff8779ee624a2601bd4f87f93
 }

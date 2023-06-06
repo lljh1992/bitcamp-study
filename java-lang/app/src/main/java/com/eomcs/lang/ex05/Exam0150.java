@@ -28,7 +28,7 @@ public class Exam0150 {
     // byte + int = int
     // => byte가 int로 암시적 형변환 한 이후 연산을 수행한다.
     int r4 = b + i; // OK
-
+  
     // short + int = int
     // => short가 int로 암시적 형변환 한 이후 연산을 수행한다.
     int r5 = s + i; // OK

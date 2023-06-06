@@ -14,7 +14,7 @@ public class Exam0430 {
     System.out.println(i); //                       => 105
 
 
-    System.out.println(i >>> 1);
+    System.out.println(i >>> 1);    // 오른쪽 시프트 연산
     // [ 0000000000000000000000000110100]1
     // [00000000000000000000000000110100]1          => 52
 

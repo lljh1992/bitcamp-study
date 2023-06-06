@@ -12,6 +12,8 @@ public class Exam0421 {
     System.out.println(i); //                   => -87
 
     System.out.println(i >> 1);
+    System.out.println(i >>> 1);
+
     // [ 1111111111111111111111111010100]1
     // [11111111111111111111111111010100]1      => -44
 
