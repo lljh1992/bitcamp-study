@@ -12,7 +12,7 @@ public class MemberHandler {
     static String[] a = new String[SIZE];
     static String[] b = new String[SIZE];
     static String[] name = new String[SIZE];
-    static String[] number = new String[SIZE];
+    static String[] phonenumber = new String[SIZE];
     static String[] carnumber = new String[SIZE];
     static String[] VehicleOwnership = new String[SIZE];
     static char[] type = new char[SIZE]; // 05번에서는 boolean 이였는데 switch 문 사용으로 char로 변경
@@ -25,7 +25,7 @@ public class MemberHandler {
         a[length] = Prompt.inputString("동: ");
         b[length] = Prompt.inputString("호수: ");
         name[length] = Prompt.inputString("이름: ");
-        number[length] = Prompt.inputString("H.P: ");
+        phonenumber[length] = Prompt.inputString("H.P: ");
         carnumber[length] = Prompt.inputString("차량 번호: ");
         VehicleOwnership[length] = Prompt.inputString("차량 보유 현황: ");
 
@@ -58,7 +58,7 @@ public class MemberHandler {
         System.out.println("-----------------------------------------------------------");
 
         for (int i = 0; i < length; i++) {
-            System.out.printf("%s,  %s,  %s,  %s,  %s,  %s,  %c\n", a[i], b[i], name[i], number[i], carnumber[i],
+            System.out.printf("%s,  %s,  %s,  %s,  %s,  %s,  %c\n", a[i], b[i], name[i], phonenumber[i], carnumber[i],
                     VehicleOwnership[i], type[i]);
         }
     }

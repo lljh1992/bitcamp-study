@@ -11,7 +11,7 @@ public class App {
     int[] a = new int[SIZE];
     int[] b = new int[SIZE];
     String[] name = new String[SIZE];
-    String[] number = new String[SIZE];
+    String[] phonenumber = new String[SIZE];
     String[] carnumber = new String[SIZE];
     String[] VehicleOwnership = new String[SIZE];
     boolean[] type = new boolean[SIZE];
@@ -32,7 +32,7 @@ public class App {
       name[i] = scanner.next();
 
       System.out.printf("H.P: ");
-      number[i] = scanner.next();
+      phonenumber[i] = scanner.next();
 
       System.out.printf("차량 번호: ");
       carnumber[i] = scanner.next();
@@ -51,7 +51,7 @@ public class App {
       System.out.printf("동: %d\n", a[i]);
       System.out.printf("호수: %d\n", b[i]);
       System.out.printf("이름: %s\n", name[i]);
-      System.out.printf("H.P: %s\n", number[i]);
+      System.out.printf("H.P: %s\n", phonenumber[i]);
       System.out.printf("차량 번호: %s\n", carnumber[i]);
       System.out.printf("차량 보유 현황: %s\n", VehicleOwnership[i]);
       System.out.printf("거주 여부: %b\n", type[i]);

@@ -15,7 +15,7 @@ public class App {
     int[] a = new int[SIZE];
     int[] b = new int[SIZE];
     String[] name = new String[SIZE];
-    String[] number = new String[SIZE];
+    String[] phonenumber = new String[SIZE];
     String[] carnumber = new String[SIZE];
     String[] VehicleOwnership = new String[SIZE];
     char[] type = new char[SIZE];    // 05번에서는 boolean 이였는데 switch 문 사용으로 char로 변경
@@ -36,7 +36,7 @@ public class App {
       name[i] = scanner.next();
 
       System.out.printf("H.P: ");
-      number[i] = scanner.next();
+      phonenumber[i] = scanner.next();
 
       System.out.printf("차량 번호: ");
       carnumber[i] = scanner.next();
@@ -80,7 +80,7 @@ public class App {
 
 
     for (int i = 0; i < length; i++) {
-      System.out.printf("%d,  %d,  %s,  %s,  %s,  %s,  %c\n", a[i], b[i], name[i], number[i], carnumber[i], VehicleOwnership[i], type[i]);
+      System.out.printf("%d,  %d,  %s,  %s,  %s,  %s,  %c\n", a[i], b[i], name[i], phonenumber[i], carnumber[i], VehicleOwnership[i], type[i]);
     }
     scanner.close();
   }

@@ -21,7 +21,7 @@ public class App {
     String name = scanner.next();
 
     System.out.printf("H.P: ");
-    String number = scanner.next();
+    String phonenumber = scanner.next();
 
     System.out.printf("차량 번호: ");
     String carnumber = scanner.next();
@@ -37,7 +37,7 @@ public class App {
     System.out.printf("동: %d\n", a);
     System.out.printf("호수: %d\n", b);
     System.out.printf("이름: %s\n", name);
-    System.out.printf("H.P: %s\n", number);
+    System.out.printf("H.P: %s\n", phonenumber);
     System.out.printf("차량 번호: %s\n", carnumber);
     System.out.printf("차량 보유 현황: %s\n", VehicleOwnership);
     System.out.printf("거주 여부: %b\n", type);

@@ -13,7 +13,7 @@ public class App {
   static String[] a = new String[SIZE];
   static String[] b = new String[SIZE];
   static String[] name = new String[SIZE];
-  static String[] number = new String[SIZE];
+  static String[] phonenumber = new String[SIZE];
   static String[] carnumber = new String[SIZE];
   static String[] VehicleOwnership = new String[SIZE];
   static char[] type = new char[SIZE];    // 05번에서는 boolean 이였는데 switch 문 사용으로 char로 변경
@@ -52,7 +52,7 @@ public class App {
     a[length] = prompt("동: ");
     b[length] = prompt("호수: ");
     name[length] = prompt("이름: ");
-    number[length] = prompt("H.P: ");
+    phonenumber[length] = prompt("H.P: ");
     carnumber[length] = prompt("차량 번호: ");
     VehicleOwnership[length] = prompt("차량 보유 현황: ");
          
@@ -94,7 +94,7 @@ public class App {
     System.out.println("-----------------------------------------------------------");
 
     for (int i = 0; i < length; i++) {
-      System.out.printf("%s,  %s,  %s,  %s,  %s,  %s,  %c\n", a[i], b[i], name[i], number[i], carnumber[i], VehicleOwnership[i], type[i]);
+      System.out.printf("%s,  %s,  %s,  %s,  %s,  %s,  %c\n", a[i], b[i], name[i], phonenumber[i], carnumber[i], VehicleOwnership[i], type[i]);
     }
   }
 

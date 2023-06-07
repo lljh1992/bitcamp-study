@@ -14,7 +14,7 @@ public class App {
     int[] a = new int[SIZE];
     int[] b = new int[SIZE];
     String[] name = new String[SIZE];
-    String[] number = new String[SIZE];
+    String[] phonenumber = new String[SIZE];
     String[] carnumber = new String[SIZE];
     String[] VehicleOwnership = new String[SIZE];
     char[] type = new char[SIZE];    // 05번에서는 boolean 이였는데 switch 문 사용으로 char로 변경
@@ -22,7 +22,7 @@ public class App {
     printTitle();
     
     for (int i = 0; i < SIZE; i++){
-      inputMember(scanner, i, a, b, name, number, carnumber, VehicleOwnership, type, no, userID++);
+      inputMember(scanner, i, a, b, name, phonenumber, carnumber, VehicleOwnership, type, no, userID++);
       length++;
       if (!promptContinue(scanner)) {
         break;
@@ -31,7 +31,7 @@ public class App {
 
   }
     
-    pirntMembers(length, no, a, b, name, number, carnumber, VehicleOwnership, type);
+    pirntMembers(length, no, a, b, name, phonenumber, carnumber, VehicleOwnership, type);
 
     scanner.close();
   }

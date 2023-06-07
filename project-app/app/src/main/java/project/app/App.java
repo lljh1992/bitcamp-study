@@ -30,7 +30,7 @@ public class App {
   }
   
   static boolean promptContinue() {
-    String response = Prompt.inputMember("등록을 계속 하시겠습니까?(Y/n) ");
+    String response = Prompt.inputString("등록을 계속 하시겠습니까?(Y/n) ");
     if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
       return false;
     }
