@@ -10,32 +10,30 @@ public class App {
     printTitle();
 
     printMenu();
-    
+
     while (true) {
-    String menuNo = Prompt.inputString("메인> ");
-    if (menuNo.equals("6")){
-      break;
-    } else if (menuNo.equals("menu")){
-      printMenu();
-    } else if (menuNo.equals("1")) {
-      MemberHandler.inputMember();
-    } else if (menuNo.equals("2")) {
-      MemberHandler.printMembers();
-    } else if (menuNo.equals("3")) {
-      MemberHandler.viewMember();
-    } else if (menuNo.equals("4")) {
-      MemberHandler.updateMember();
-    } else if (menuNo.equals("5")) {
-      MemberHandler.delMember();
-    } else {
-      System.out.println(menuNo);
+      String menuNo = Prompt.inputString("메인> ");
+      if (menuNo.equals("6")) {
+        break;
+      } else if (menuNo.equals("menu")) {
+        printMenu();
+      } else if (menuNo.equals("1")) {
+        MemberHandler.inputMember();
+      } else if (menuNo.equals("2")) {
+        MemberHandler.printMembers();
+      } else if (menuNo.equals("3")) {
+        MemberHandler.viewMember();
+      } else if (menuNo.equals("4")) {
+        MemberHandler.updateMember();
+      } else if (menuNo.equals("5")) {
+        MemberHandler.deleteMember();
+      } else {
+        System.out.println(menuNo);
+      }
     }
-  }
-  
+
     Prompt.close();
   }
-
-  
 
   static void printMenu() {
     System.out.println("1. 회원등록");
@@ -49,8 +47,6 @@ public class App {
   static void printTitle() {
     System.out.println("나의 목록 관리 시스템");
     System.out.println("----------------------------------");
-    
-
   }
 
   static boolean promptContinue() {
@@ -60,6 +56,4 @@ public class App {
     }
     return true;
   }
-
-  
 }
