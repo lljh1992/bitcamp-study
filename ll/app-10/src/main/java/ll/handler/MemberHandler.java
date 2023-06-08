@@ -41,7 +41,7 @@ public class MemberHandler {
 
     public static void pirntMembers() {
         System.out.println("----------------------------------------------------------------");
-        System.out.println("번호, 동, 호수,  이름,  H.P,  차량 번호,  차량 보유 현황,  거주 여부");
+        System.out.println("번호, 동,   호수,  이름,  H.P,  차량 번호,  차량 보유 현황,  거주 여부");
         System.out.println("----------------------------------------------------------------");
 
         for (int i = 0; i < length; i++) {
