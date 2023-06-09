@@ -7,7 +7,6 @@ public class MemberHandler {
 
   static final int MAX_SIZE = 100;
   static Member[] members = new Member[MAX_SIZE];
-
   static int userId = 1;
   static int length = 0;
 
@@ -21,17 +20,15 @@ public class MemberHandler {
     }
 
     Member m = new Member();
-
     m.name = Prompt.inputString("이름? ");
     m.email = Prompt.inputString("이메일? ");
     m.password = Prompt.inputString("암호? ");
     m.gender = inputGender((char)0);
     m.no = userId++;
 
-    // 위에서 만든 Member 인스턴스의 주소를 잃어버리지 않게
+    // 위에서 만든 Member 인스턴스의 주소를 잃어버리지 않게 
     // 레퍼런스 배열에 담는다.
     members[length++] = m;
-    
   }
 
   public static void printMembers() {
@@ -90,7 +87,7 @@ public class MemberHandler {
     } else {
       label = String.format("성별(%s)?\n", toGenderString(gender));
     }
-    while (true) {
+    loop: while (true) {
       String menuNo = Prompt.inputString(label + 
       "  1. 남자\n" + 
       "  2. 여자\n" + 
@@ -118,7 +115,6 @@ public class MemberHandler {
 
     for (int i = deletedIndex; i < length - 1; i++) {
       members[i] = members[i + 1];
-
     }
 
     members[--length] = null;
