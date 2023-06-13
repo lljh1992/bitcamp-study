@@ -70,3 +70,9 @@
 - 인스턴스 필드에 값을 저장하고 꺼내는 방법: sttter/getter
 - 스태틱 필드 및 생성자 활용
 - 스태틱 상수 필드 활용 + GRASP 패턴의 Information Expert
+
+## 13. 게시판 관리 기능 추가
+
+- 
+- 게시판 CRUD 메뉴 추가
+- 게시판 vo 클래스 및 Handler 클래스 추가
