@@ -116,6 +116,7 @@ public class MemberHandler {
     int memberNo = this.prompt.inputInt("번호? ");
 
     int deletedIndex = indexOf(memberNo);
+    
     if (deletedIndex == -1) {
       System.out.println("해당 번호의 회원이 없습니다.");
       return;
