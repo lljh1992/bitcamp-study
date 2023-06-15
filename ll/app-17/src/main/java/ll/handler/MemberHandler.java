@@ -7,8 +7,11 @@ import ll.vo.Member;
 // 즉 Handler 인터페이스에 선언된 메서드를 모두 정의했다.
 public class MemberHandler implements Handler {
 
-  private MemberList list = new MemberList();
+  private static final int SIZE = 100;
+
   private Prompt prompt;
+  private Member[] members = new Member[SIZE];
+  private int length = 0;
   private String title;
 
   public MemberHandler(Prompt prompt, String title) {
@@ -52,8 +55,14 @@ public class MemberHandler implements Handler {
     System.out.println("0. 메인");
   }
 
-  private void inputMember() {
+  public void inputMember() {
+    if (!this.available()) {
+      System.out.println("더이상 입력할 수 없습니다.");
+      return;
+    }
+
     Member m = new Member();
+
     m.setA(this.prompt.inputString("동: "));
     m.setB(this.prompt.inputString("호수: "));
     m.setName(this.prompt.inputString("이름: "));
@@ -62,9 +71,8 @@ public class MemberHandler implements Handler {
     m.setVehicleOwnership(this.prompt.inputString("차량 보유 현황: "));
     m.setType(inputResident((char) 0));
 
-    if (!this.list.add(m)) {
-      System.out.println("입력 실패입니다!");
-    }
+    this.members[this.length++] = m;
+
   }
 
   private void printMembers() {
@@ -72,47 +80,51 @@ public class MemberHandler implements Handler {
     System.out.println("번호 | 동 | 호수 | 이름 | H.P | 차량번호 | 차량등록현황 | 거주여부");
     System.out.println("----------------------------------------------------------------");
 
-    Member[] arr = this.list.list();
-    for (Member m : arr) {
+    for (int i = 0; i < this.length; i++) {
+      Member m = this.members[i];
       System.out.printf("%s,     %s, %s, %s, %s, %s, %s, %c\n", m.getNo(), m.getA(), m.getB(),
           m.getName(), m.getPhonenumber(), m.getCarnumber(), m.getVehicleOwnership(), m.getType());
     }
   }
 
-  private void viewMember() {
-    int memberNo = this.prompt.inputInt("번호? ");
-    Member m = this.list.get(memberNo);
-    if (m == null) {
-      System.out.println("해당 번호의 회원이 없습니다!");
-      return;
+  public void viewMember() {
+    String memberNo = this.prompt.inputString("번호? ");
+    for (int i = 0; i < this.length; i++) {
+      Member m = this.members[i];
+      if (m.getNo() == Integer.parseInt(memberNo)) {
+        System.out.printf("동: %s\n", m.getA());
+        System.out.printf("호수: %s\n", m.getB());
+        System.out.printf("이름: %s\n", m.getName());
+        System.out.printf("H.P: %s\n", m.getPhonenumber());
+        System.out.printf("차량 번호: %s\n", m.getCarnumber());
+        System.out.printf("차량 보유 현황: %s\n", m.getVehicleOwnership());
+        System.out.printf("거주 여부: %s\n", m.getType());
+        return;
+      }
     }
-    System.out.printf("동: %s\n", m.getA());
-    System.out.printf("호수: %s\n", m.getB());
-    System.out.printf("이름: %s\n", m.getName());
-    System.out.printf("H.P: %s\n", m.getPhonenumber());
-    System.out.printf("차량 번호: %s\n", m.getCarnumber());
-    System.out.printf("차량 보유 현황: %s\n", m.getVehicleOwnership());
-    System.out.printf("거주 여부: %s\n", m.getType());
+    System.out.println("해당 번호의 회원이 없습니다!");
   }
 
-  private static String toResidentString(char type) {
+  public static String toResidentString(char type) {
     return type == 'Y' ? "거주자" : "외부인";
   }
 
-  private void updateMember() {
-    int memberNo = this.prompt.inputInt("번호? ");
-    Member m = this.list.get(memberNo);
-    if (m == null) {
-      System.out.println("해당 번호의 회원이 없습니다!");
-      return;
+  public void updateMember() {
+    String memberNo = this.prompt.inputString("번호? ");
+    for (int i = 0; i < this.length; i++) {
+      Member m = this.members[i];
+      if (m.getNo() == Integer.parseInt(memberNo)) {
+        m.setA(this.prompt.inputString("동:(%s)? ", m.getA()));
+        m.setB(this.prompt.inputString("호수:(%s)? ", m.getB()));
+        m.setName(this.prompt.inputString("이름:(%s)? ", m.getName()));
+        m.setPhonenumber(this.prompt.inputString("H.P:(%s)? ", m.getPhonenumber()));
+        m.setCarnumber(this.prompt.inputString("차량 번호:(%s)? ", m.getCarnumber()));
+        m.setVehicleOwnership(this.prompt.inputString("차량 등록 현황:(%s)? ", m.getVehicleOwnership()));
+        m.setType(inputResident(m.getType()));
+        return;
+      }
     }
-    m.setA(this.prompt.inputString("동:(%s)? ", m.getA()));
-    m.setB(this.prompt.inputString("호수:(%s)? ", m.getB()));
-    m.setName(this.prompt.inputString("이름:(%s)? ", m.getName()));
-    m.setPhonenumber(this.prompt.inputString("H.P:(%s)? ", m.getPhonenumber()));
-    m.setCarnumber(this.prompt.inputString("차량 번호:(%s)? ", m.getCarnumber()));
-    m.setVehicleOwnership(this.prompt.inputString("차량 등록 현황:(%s)? ", m.getVehicleOwnership()));
-    m.setType(inputResident(m.getType()));
+    System.out.println("해당 번호의 회원이 없습니다!");
   }
 
   private char inputResident(char type) {
@@ -137,9 +149,35 @@ public class MemberHandler implements Handler {
     }
   }
 
-  private void deleteMember() {
-    if (!this.list.delete(this.prompt.inputInt("번호? "))) {
+  public void deleteMember() {
+    int memberNo = this.prompt.inputInt("번호? ");
+
+    int deletedIndex = indexOf(memberNo);
+    if (deletedIndex == -1) {
       System.out.println("해당 번호의 회원이 없습니다.");
+      return;
     }
+
+    for (int i = deletedIndex; i < this.length - 1; i++) {
+      this.members[i] = this.members[i + 1];
+
+    }
+
+    this.members[--this.length] = null;
+
+  }
+
+  private int indexOf(int memberNo) {
+    for (int i = 0; i < this.length; i++) {
+      Member m = this.members[i];
+      if (m.getNo() == memberNo) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  public boolean available() {
+    return this.length < SIZE;
   }
 }
