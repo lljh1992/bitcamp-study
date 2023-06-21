@@ -6,6 +6,15 @@ public class LinkedList implements List {
   Node tail;
   int size;
 
+  static void print(LinkedList list) {
+    Object[] arr = list.toArray();
+    for (Object obj : arr) {
+      System.out.print(obj);
+      System.out.print(", ");
+    }
+    System.out.println();
+  }
+
   @Override
   public boolean add(Object value) {
     Node node = new Node();
@@ -78,6 +87,10 @@ public class LinkedList implements List {
 
   @Override
   public Object remove(int index) {
+    if (!isValid(index)) {
+      return null;
+    }
+
     Node prev = null;
     Node cursor = this.head;
 
