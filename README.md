@@ -217,6 +217,33 @@ https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
 - 프로젝트 실습
   - 16. GRASP 패턴: Information Expert 적용
   - 17. 인터페이스를 이용한 객체 사용 규칙 정의
+  - 18. 인스턴스 목록 제어 기능을 별도의 클래스로 캡슐화: 재사용성 높임
+
+### 18일(6/16,금)
+
+- 자바 프로그래밍(com.eomcs.basic.ex01.*)
+  - java.lang.Object 클래스 사용법
+- 프로젝트 실습
+  - 19. 다형성을 이용하여 범용으로 사용할 수 있는 목록 클래스 만들기
+
+### 19일(6/19,월)
+
+- 프로젝트 실습
+  - 20. LinkedList 자료구조 구현하기
+  - 21. 인터페이스를 이용하여 List 사용 규칙 정의하기
+
+### 20일(6/20,화)
+
+- 프로젝트 실습
+  - 22. Stack, Queue 자료구조 구현하기
+
+### 21일(6/21,수)
+
+- 자바 프로그래밍(com.eomcs.oop)
+  - 상속: Specialization vs Generalization
+  - 추상 클래스와 추상 메서드
+- 프로젝트 실습
+  - 23. Composite, Command, Observer 디자인 패턴, 추상 클래스/메서드 활용하기
 
 
 ## 웨일즈 화상회의
