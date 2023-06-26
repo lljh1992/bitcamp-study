@@ -1,23 +1,23 @@
 package ll.util;
 
-public class Stack extends LinkedList {
+public class Stack<E> extends LinkedList<E> {
 
   public static void main(String[] args) {
 
   }
 
-  public void push(Object value) {
+  public void push(E value) {
     this.add(value);
   }
 
-  public Object pop() {
+  public E pop() {
     if (this.empty()) {
       return null;
     }
     return this.remove(this.size() - 1);
   }
 
-  public Object peek() {
+  public E peek() {
     if (this.empty()) {
       return null;
     }
@@ -28,5 +28,18 @@ public class Stack extends LinkedList {
     return this.size() == 0;
   }
 
+  @Override
+  public Iterator<E> iterator() {
+    return new Iterator<>() {
+      @Override
+      public boolean hasNext() {
+        return !Stack.this.empty();
+      }
 
+      @Override
+      public E next() {
+        return Stack.this.pop();
+      }
+    };
+  }
 }

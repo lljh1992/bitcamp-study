@@ -1,17 +1,18 @@
 package ll.util;
 
-public class ArrayList implements List {
+import java.lang.reflect.Array;
+
+public class ArrayList<E> extends AbstractList<E> {
   private static final int DEFAULT_SIZE = 3;
 
   private Object[] list = new Object[DEFAULT_SIZE];
-  private int length;
 
   @Override
-  public boolean add(Object obj) {
-    if (this.length == list.length) {
+  public boolean add(E obj) {
+    if (this.size == list.length) {
       increase();
     }
-    this.list[this.length++] = obj;
+    this.list[this.size++] = obj;
     return true;
   }
 
@@ -26,60 +27,71 @@ public class ArrayList implements List {
 
   @Override
   public Object[] toArray() {
-    Object[] arr = new Object[this.length];
-    for (int i = 0; i < this.length; i++) {
+    Object[] arr = new Object[this.size];
+    for (int i = 0; i < this.size; i++) {
       arr[i] = this.list[i];
     }
     return arr;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public Object get(int index) {
+  public <T> T[] toArray(T[] arr) {
+    T[] values = null;
+
+    if (arr.length < this.size) {
+      values = (T[]) Array.newInstance(arr.getClass().getComponentType(), this.size);
+    } else {
+      values = arr;
+    }
+
+    for (int i = 0; i < this.size; i++) {
+      values[i] = (T) list[i];
+    }
+    return values;
+  }
+
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public E get(int index) {
     if (!isValid(index)) {
       return null;
     }
-    return this.list[index];
+    return (E) this.list[index];
   }
 
   @Override
-  public boolean remove(Object obj) {
+  public boolean remove(E obj) {
     int deletedIndex = indexOf(obj);
     if (deletedIndex == -1) {
       return false;
     }
 
-    for (int i = deletedIndex; i < this.length - 1; i++) {
+    for (int i = deletedIndex; i < this.size - 1; i++) {
       this.list[i] = this.list[i + 1];
     }
-    this.list[--this.length] = null;
+    this.list[--this.size] = null;
     return true;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public Object remove(int index) {
+  public E remove(int index) {
     if (!isValid(index)) {
       return null;
     }
     Object old = this.list[index];
 
-    for (int i = index; i < this.length - 1; i++) {
+    for (int i = index; i < this.size - 1; i++) {
       this.list[i] = this.list[i + 1];
     }
-    this.list[--this.length] = null;
-    return old;
+    this.list[--this.size] = null;
+    return (E) old;
   }
 
-  @Override
-  public int size() {
-    return this.length;
-  }
-
-  private boolean isValid(int index) {
-    return index >= 0 && index < this.length;
-  }
-
-  private int indexOf(Object obj) {
-    for (int i = 0; i < this.length; i++) {
+  private int indexOf(E obj) {
+    for (int i = 0; i < this.size; i++) {
       Object item = this.list[i];
       if (item.equals(obj)) {
         return i;
@@ -88,5 +100,4 @@ public class ArrayList implements List {
 
     return -1;
   }
-
 }
