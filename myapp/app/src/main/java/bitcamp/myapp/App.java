@@ -1,5 +1,7 @@
 package bitcamp.myapp;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -103,7 +105,8 @@ public class App {
 
   private void loadMember() {
     try {
-      DataInputStream in = new DataInputStream("member.data");
+      FileInputStream in0 = new FileInputStream("member.data");
+      DataInputStream in = new DataInputStream(in0); // Decorator 역할을 수행!
 
       int size = in.readShort();
 
@@ -129,7 +132,8 @@ public class App {
 
   private void loadBoard(String filename, List<Board> list) {
     try {
-      DataInputStream in = new DataInputStream(filename);
+      FileInputStream in0 = new FileInputStream(filename);
+      DataInputStream in = new DataInputStream(in0); // Decorator 역할을 수행!
 
       int size = in.readShort();
 
@@ -156,7 +160,8 @@ public class App {
 
   private void saveMember() {
     try {
-      DataOutputStream out = new DataOutputStream("member.data");
+      FileOutputStream out0 = new FileOutputStream("member.data");
+      DataOutputStream out = new DataOutputStream(out0);
 
       // 저장할 데이터의 개수를 먼저 출력한다.
       out.writeShort(memberList.size());
@@ -178,7 +183,8 @@ public class App {
 
   private void saveBoard(String filename, List<Board> list) {
     try {
-      DataOutputStream out = new DataOutputStream(filename);
+      FileOutputStream out0 = new FileOutputStream(filename);
+      DataOutputStream out = new DataOutputStream(out0);
 
       out.writeShort(list.size());
 
