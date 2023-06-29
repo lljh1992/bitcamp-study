@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import ll.handler.BoardAddListener;
 import ll.handler.BoardDeleteListener;
 import ll.handler.BoardDetailListener;
@@ -62,12 +63,12 @@ public class App {
 
   private void loadData() {
     loadMember();
-    loadBoard();
+    loadBoard(boardList);
   }
 
   private void saveData() {
     saveMember();
-    saveBoard();
+    saveBoard(boardList);
   }
 
   public void prepareMenu() {
@@ -145,7 +146,7 @@ public class App {
     }
   }
 
-  private void loadBoard() {
+  private void loadBoard(List<Board> list) {
     try {
       FileInputStream in = new FileInputStream("board.data");
       int size = in.read() << 8;
@@ -183,9 +184,7 @@ public class App {
       }
 
       // 보드로 여러개의 데이터를 받을때 사
-      // Board.boardNo = Math.max(
-      // Board.boardNo,
-      // list.get(list.size() - 1).getNo() + 1);
+      Board.boardNo = Math.max(Board.boardNo, list.get(list.size() - 1).getNo() + 1);
 
       in.close();
 
@@ -253,7 +252,7 @@ public class App {
     }
   }
 
-  private void saveBoard() {
+  private void saveBoard(List<Board> list) {
     try {
       FileOutputStream out = new FileOutputStream("board.data");
 
