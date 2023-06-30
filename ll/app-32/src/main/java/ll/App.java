@@ -71,8 +71,8 @@ public class App {
   }
 
   private void saveData() {
-    saveMember("member.data2", memberList);
-    saveBoard("board.data2", boardList);
+    saveMember("member.csv", memberList);
+    saveBoard("board.csv", boardList);
   }
 
   public void prepareMenu() {
