@@ -13,5 +13,4 @@ plugins {
 }
 
 rootProject.name = 'll'
-// include('app')
-include('app-32')
+include('app')
