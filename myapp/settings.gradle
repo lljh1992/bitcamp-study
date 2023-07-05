@@ -13,15 +13,7 @@ plugins {
 }
 
 rootProject.name = 'myapp'
-include('app')
-include('app-01')
-// include('app-02')
-// include('app-02')
-// include('app-02')
-// include('app-02')
-// include('app-02')
-// include('app-02')
-// include('app-02')
-// include('app-02')
-
+// include('app')
+include('app-client')
+include('app-server')
 
