@@ -1,0 +1,72 @@
+[
+  {
+    "no": 2,
+    "a": "108",
+    "b": "1704",
+    "name": "홍길동",
+    "phonenumber": "010-0000-0000",
+    "carnumber": "24모0000",
+    "VehicleOwnership": "1",
+    "type": "Y"
+  },
+  {
+    "no": 3,
+    "a": "107",
+    "b": "1503",
+    "name": "임꺽정",
+    "phonenumber": "010-1111-1111",
+    "carnumber": "15가1111",
+    "VehicleOwnership": "2",
+    "type": "Y"
+  },
+  {
+    "no": 5,
+    "a": "110",
+    "b": "2002",
+    "name": "유관순",
+    "phonenumber": "010-3333-3333",
+    "carnumber": "33유3333",
+    "VehicleOwnership": "1",
+    "type": "Y"
+  },
+  {
+    "no": 6,
+    "a": "111",
+    "b": "1111",
+    "name": "ㅁㅁㅁ",
+    "phonenumber": "010-1111-1111",
+    "carnumber": "24마1111",
+    "VehicleOwnership": "1",
+    "type": "Y"
+  },
+  {
+    "no": 7,
+    "a": "888",
+    "b": "8888",
+    "name": "8888",
+    "phonenumber": "010-8888-8888",
+    "carnumber": "88나8888",
+    "VehicleOwnership": "2",
+    "type": "N"
+  },
+  {
+    "no": 8,
+    "a": "999",
+    "b": "9999",
+    "name": "9999",
+    "phonenumber": "010-9999-9999",
+    "carnumber": "99가9999",
+    "VehicleOwnership": "1",
+    "type": "Y"
+  },
+  {
+    "no": 9,
+    "a": "222",
+    "b": "2222",
+    "name": "2222",
+    "phonenumber": "010-2222-2222",
+    "carnumber": "22바2222",
+    "VehicleOwnership": "2",
+    "type": "Y"
+  }
+]
