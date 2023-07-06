@@ -1,12 +1,5 @@
 [
   {
-    "no": 16,
-    "name": "3",
-    "email": "3",
-    "password": "3",
-    "gender": "W"
-  },
-  {
     "no": 17,
     "name": "4",
     "email": "4",
@@ -32,6 +25,13 @@
     "name": "7",
     "email": "7",
     "password": "7",
+    "gender": "M"
+  },
+  {
+    "no": 21,
+    "name": "8",
+    "email": "8",
+    "password": "8",
     "gender": "M"
   }
 ]
