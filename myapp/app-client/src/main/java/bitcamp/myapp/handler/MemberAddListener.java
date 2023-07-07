@@ -18,7 +18,7 @@ public class MemberAddListener implements MemberActionListener {
     m.setName(prompt.inputString("이름? "));
     m.setEmail(prompt.inputString("이메일? "));
     m.setPassword(prompt.inputString("암호? "));
-    m.setGender(MemberActionListener.inputGender((char) 0, prompt));
+    m.setGender(MemberActionListener.inputGender((char)0, prompt));
 
     memberDao.insert(m);
   }

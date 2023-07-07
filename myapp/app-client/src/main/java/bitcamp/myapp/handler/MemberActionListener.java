@@ -6,7 +6,6 @@ import bitcamp.util.BreadcrumbPrompt;
 
 public interface MemberActionListener extends ActionListener {
 
-
   static char inputGender(char gender, BreadcrumbPrompt prompt) {
     String label;
     if (gender == 0) {
@@ -16,7 +15,10 @@ public interface MemberActionListener extends ActionListener {
     }
 
     while (true) {
-      String menuNo = prompt.inputString(label + "  1. 남자\n" + "  2. 여자\n" + "> ");
+      String menuNo = prompt.inputString(label +
+          "  1. 남자\n" +
+          "  2. 여자\n" +
+          "> ");
 
       switch (menuNo) {
         case "1":

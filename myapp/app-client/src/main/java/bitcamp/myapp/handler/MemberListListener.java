@@ -22,7 +22,8 @@ public class MemberListListener implements ActionListener {
 
     List<Member> list = memberDao.list();
     for (Member m : list) {
-      System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
+      System.out.printf("%d, %s, %s, %s\n",
+          m.getNo(), m.getName(), m.getEmail(),
           m.getGender() == 'M' ? "남성" : "여성");
     }
   }

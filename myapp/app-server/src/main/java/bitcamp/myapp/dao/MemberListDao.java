@@ -64,5 +64,4 @@ public class MemberListDao implements MemberDao {
     }
     return 0;
   }
-
 }

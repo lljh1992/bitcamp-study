@@ -1,13 +1,11 @@
 package bitcamp.myapp;
 
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import bitcamp.dao.DaoBuilder;
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.BoardNetworkDao;
 import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.dao.MemberNetworkDao;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -46,9 +44,11 @@ public class ClientApp {
     this.out = new DataOutputStream(socket.getOutputStream());
     this.in = new DataInputStream(socket.getInputStream());
 
-    this.memberDao = new MemberNetworkDao("member", in, out);
-    this.boardDao = new BoardNetworkDao("board", in, out);
-    this.readingDao = new BoardNetworkDao("reading", in, out);
+    DaoBuilder daoBuilder = new DaoBuilder(in, out);
+
+    this.memberDao = daoBuilder.build("member", MemberDao.class);
+    this.boardDao = daoBuilder.build("board", BoardDao.class);
+    this.readingDao = daoBuilder.build("reading", BoardDao.class);
 
     prepareMenu();
   }
@@ -62,18 +62,17 @@ public class ClientApp {
 
   public static void main(String[] args) throws Exception {
     if (args.length < 2) {
-      System.out.println("실행 예) java ... bitcamp.myapp.ClientApp 서버주소 포트주소");
+      System.out.println("실행 예) java ... bitcamp.myapp.ClientApp 서버주소 포트번호");
       return;
     }
 
     ClientApp app = new ClientApp(args[0], Integer.parseInt(args[1]));
     app.execute();
     app.close();
-
   }
 
   static void printTitle() {
-    System.out.println("      나의 목록 관리 시스템");
+    System.out.println("나의 목록 관리 시스템");
     System.out.println("----------------------------------");
   }
 
@@ -121,7 +120,4 @@ public class ClientApp {
     helloMenu.addActionListener(new FooterListener());
     mainMenu.add(helloMenu);
   }
-
 }
-
-

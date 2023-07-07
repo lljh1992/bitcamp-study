@@ -40,88 +40,62 @@ public class Member implements Serializable, CsvObject, AutoIncrement {
 
   @Override
   public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%c", this.getNo(), this.getName(), this.getEmail(),
-        this.getPassword(), this.getGender());
+    return String.format("%d,%s,%s,%s,%c",
+        this.getNo(),
+        this.getName(),
+        this.getEmail(),
+        this.getPassword(),
+        this.getGender());
   }
 
   @Override
   public void updateKey() {
-    if (this.no >= Member.userId) {
+    if (Member.userId <= this.no) {
       Member.userId = this.no + 1;
     }
   }
 
-  @Override
   public boolean equals(Object obj) {
     if (obj == null) {
       return false;
     }
-
     if (this.getClass() != obj.getClass()) {
       return false;
     }
-
     Member m = (Member) obj;
-
     if (this.getNo() != m.getNo()) {
       return false;
     }
-
-    // if (this.getName() != null && !this.getName().equals(m.getName())) {
-    // return false;
-    // }
-    //
-    // if (this.getEmail() != null && !this.getEmail().equals(m.getEmail())) {
-    // return false;
-    // }
-    //
-    // if (this.getPassword() != null && !this.getPassword().equals(m.getPassword())) {
-    // return false;
-    // }
-    //
-    // if (this.getGender() != m.getGender()) {
-    // return false;
-    // }
-
     return true;
   }
 
   public int getNo() {
     return no;
   }
-
   public void setNo(int no) {
     this.no = no;
   }
-
   public String getName() {
     return name;
   }
-
   public void setName(String name) {
     this.name = name;
   }
-
   public String getEmail() {
     return email;
   }
-
   public void setEmail(String email) {
     this.email = email;
   }
-
   public String getPassword() {
     return password;
   }
-
   public void setPassword(String password) {
     this.password = password;
   }
-
   public char getGender() {
     return gender;
   }
-
   public void setGender(char gender) {
     this.gender = gender;
   }
