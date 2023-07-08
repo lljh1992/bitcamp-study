@@ -5,8 +5,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import ll.dao.BoardDao;
-import ll.dao.DaoBuilder;
+import ll.dao.BoardNetworkDao;
 import ll.dao.MemberDao;
+import ll.dao.MemberNetworkDao;
 import ll.handler.BoardAddListener;
 import ll.handler.BoardDeleteListener;
 import ll.handler.BoardDetailListener;
@@ -44,10 +45,8 @@ public class ClientApp {
     this.out = new DataOutputStream(socket.getOutputStream());
     this.in = new DataInputStream(socket.getInputStream());
 
-    DaoBuilder daoBuilder = new DaoBuilder(in, out);
-
-    this.memberDao = daoBuilder.build("member", MemberDao.class);
-    this.boardDao = daoBuilder.build("board", BoardDao.class);
+    this.memberDao = new MemberNetworkDao("member", in, out);
+    this.boardDao = new BoardNetworkDao("board", in, out);
 
     prepareMenu();
   }

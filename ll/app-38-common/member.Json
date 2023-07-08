@@ -1,5 +1,15 @@
 [
   {
+    "no": 2,
+    "a": "108",
+    "b": "1704",
+    "name": "홍길동",
+    "phonenumber": "010-0000-0000",
+    "carnumber": "24모0000",
+    "VehicleOwnership": "1",
+    "type": "Y"
+  },
+  {
     "no": 3,
     "a": "107",
     "b": "1503",
@@ -8,6 +18,16 @@
     "carnumber": "15가1111",
     "VehicleOwnership": "2",
     "type": "Y"
+  },
+  {
+    "no": 4,
+    "a": "10",
+    "b": "1101",
+    "name": "마가렛",
+    "phonenumber": "010-2222-2222",
+    "carnumber": "11마2222",
+    "VehicleOwnership": "2",
+    "type": "N"
   },
   {
     "no": 5,
@@ -46,26 +66,6 @@
     "name": "9999",
     "phonenumber": "010-9999-9999",
     "carnumber": "99가9999",
-    "VehicleOwnership": "1",
-    "type": "Y"
-  },
-  {
-    "no": 9,
-    "a": "333",
-    "b": "3333",
-    "name": "3333",
-    "phonenumber": "010-3333-3333",
-    "carnumber": "33바3333",
-    "VehicleOwnership": "1",
-    "type": "N"
-  },
-  {
-    "no": 10,
-    "a": "444",
-    "b": "4444",
-    "name": "4444",
-    "phonenumber": "010-4444-4444",
-    "carnumber": "44사4444",
     "VehicleOwnership": "1",
     "type": "Y"
   }

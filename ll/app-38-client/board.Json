@@ -1,11 +1,20 @@
 [
   {
+    "no": 2,
+    "title": "2222",
+    "content": "2222222222222222",
+    "writer": "2222",
+    "password": "2222",
+    "viewCount": 0,
+    "createdDate": 1688388608855
+  },
+  {
     "no": 3,
     "title": "3333",
     "content": "33333333333333333",
     "writer": "3333",
     "password": "3333",
-    "viewCount": 1,
+    "viewCount": 0,
     "createdDate": 1688389364148
   },
   {
@@ -25,23 +34,5 @@
     "password": "5555",
     "viewCount": 0,
     "createdDate": 1688562370314
-  },
-  {
-    "no": 6,
-    "title": "6666",
-    "content": "66666666666666666",
-    "writer": "6666",
-    "password": "6666",
-    "viewCount": 0,
-    "createdDate": 1688636955638
-  },
-  {
-    "no": 7,
-    "title": "7777",
-    "content": "77777777777",
-    "writer": "7777",
-    "password": "7777",
-    "viewCount": 0,
-    "createdDate": 1688713898402
   }
 ]
