@@ -3,27 +3,19 @@ package project.handler;
 import util.Prompt;
 import vo.Member;
 
-public class MemberHandler implements Handler {
+public class MemberHandler {
 
-  private Prompt prompt;
   static final int SIZE = 100;
   static Member[] member = new Member[SIZE];
-  static int length;
-  private String title;
 
+  static int length = 0;
 
-  public MemberHandler(Prompt prompt, String title) {
-    this.prompt = prompt;
-    this.title = title;
-  }
-
-  @Override
-  public void execute() {
+  static void execute() {
 
     printMenu();
 
     while (true) {
-      String menuNo = Prompt.inputString("%s > ", this.title);
+      String menuNo = Prompt.inputString("메인> ");
       if (menuNo.equals("0")) {
         LoginHandler.printLoginMenu();
         break;

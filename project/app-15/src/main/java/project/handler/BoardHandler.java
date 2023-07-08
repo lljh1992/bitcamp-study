@@ -3,59 +3,74 @@ package project.handler;
 import util.Prompt;
 import vo.Board;
 
-public class BoardHandler implements Handler {
+public class BoardHandler {
 
   private static final int SIZE = 100;
 
   private Prompt prompt;
   static Board[] boards = new Board[SIZE];
   static int length = 0;
-  private String title;
-
-  public BoardHandler(Prompt prompt, String title) {
-    this.prompt = prompt;
-    this.title = title;
-  }
 
 
-  @Override
   public void execute() {
-    BoardHandler boardHandler = new BoardHandler(prompt, title);
-    BoardHandler readingHandler = new BoardHandler(prompt, title);
+    BoardHandler boardHandler = new BoardHandler(prompt);
+    BoardHandler readingHandler = new BoardHandler(prompt);
 
     printMainMenu();
 
     while (true) {
-      String menuNo = prompt.inputString("%s > ", this.title);
+      String menuNo = Prompt.inputString("메인> ");
       if (menuNo.equals("0")) {
         LoginHandler.printLoginMenu();
         break;
       } else if (menuNo.equals("menu")) {
         printMainMenu();
       } else if (menuNo.equals("1")) {
-        this.inputBoard();
+        boardHandler.inputBoard();
       } else if (menuNo.equals("2")) {
-        this.pirntBoards();
+        boardHandler.pirntBoards();
       } else if (menuNo.equals("3")) {
-        this.viewBoard();
+        boardHandler.viewBoard();
       } else if (menuNo.equals("4")) {
-        this.updateBoard();
+        boardHandler.updateBoard();
       } else if (menuNo.equals("5")) {
-        this.deleteBoard();
+        boardHandler.deleteBoard();
+      } else if (menuNo.equals("6")) {
+        readingHandler.inputBoard();
+      } else if (menuNo.equals("7")) {
+        readingHandler.pirntBoards();
+      } else if (menuNo.equals("8")) {
+        readingHandler.viewBoard();
+      } else if (menuNo.equals("9")) {
+        readingHandler.updateBoard();
+      } else if (menuNo.equals("10")) {
+        readingHandler.deleteBoard();
       } else {
         System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
   }
 
+
+  public BoardHandler(Prompt prompt) {
+    this.prompt = prompt;
+  }
+
   public static void printMainMenu() {
-    System.out.println("1. 등록");
-    System.out.println("2. 목록");
-    System.out.println("3. 조회");
-    System.out.println("4. 변경");
-    System.out.println("5. 삭제");
+    System.out.println("1. 민원사항 등록");
+    System.out.println("2. 민원사항 목록");
+    System.out.println("3. 민원사항 조회");
+    System.out.println("4. 민원사항 변경");
+    System.out.println("5. 민원사항 삭제");
+    System.out.println("6. 공지사항 등록");
+    System.out.println("7. 공지사항 목록");
+    System.out.println("8. 공지사항 조회");
+    System.out.println("9. 공지사항 변경");
+    System.out.println("10. 공지사항 삭제");
     System.out.println("0. 이전 메뉴");
   }
+
+
 
   public void inputBoard() {
     if (!this.available()) {
@@ -121,7 +136,7 @@ public class BoardHandler implements Handler {
   public void deleteBoard() {
     int deletedIndex = indexOf(this.prompt.inputInt("번호? "));
     if (deletedIndex == -1) {
-      System.out.println("해당 번호의 글이 없습니다.");
+      System.out.println("해당 번호의 회원이 없습니다.");
       return;
     }
 

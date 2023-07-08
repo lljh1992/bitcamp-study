@@ -3,29 +3,26 @@ package project.handler;
 import util.Prompt;
 import vo.NewMember;
 
-public class NewMemberHandler implements Handler {
-
-  private Prompt prompt;
+public class NewMemberHandler {
   static final int NEWSIZE = 100;
   static NewMember[] nmember = new NewMember[NEWSIZE];
-  static int newlength;
-  private String title;
 
-  private static LoginHandler loginHandler;
+  static int newlength = 0;
 
-  public NewMemberHandler(Prompt prompt, String title) {
+  private LoginHandler loginHandler;
+  private Prompt prompt;
+
+  public NewMemberHandler(Prompt prompt) {
     this.prompt = prompt;
-    this.title = title;
-    this.loginHandler = new LoginHandler(prompt, title);
+    this.loginHandler = new LoginHandler(prompt);
   }
 
-  @Override
   public void execute() {
 
     printMainMenu();
 
     while (true) {
-      String menuNo = Prompt.inputString("%s > ", this.title);
+      String menuNo = Prompt.inputString("해당 번호를 입력하세요 > ");
       if (menuNo.equals("0")) {
         break;
       } else if (menuNo.equals("menu")) {
@@ -33,13 +30,11 @@ public class NewMemberHandler implements Handler {
       } else if (menuNo.equals("1")) {
         NewMemberHandler.inputNewMember();
       } else if (menuNo.equals("2")) {
-        NewMemberHandler.login();
+        login();
       } else if (menuNo.equals("3")) {
         NewMemberHandler.updateNewMember();
       } else if (menuNo.equals("4")) {
         NewMemberHandler.pirntBoards();
-      } else {
-        System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
 
@@ -78,7 +73,7 @@ public class NewMemberHandler implements Handler {
 
   }
 
-  public static void login() {
+  public void login() {
     String memberNewId = Prompt.inputString("아이디 : ");
     for (int i = 0; i < newlength; i++) {
       NewMember nm = nmember[i];

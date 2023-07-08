@@ -1,38 +1,39 @@
 package project.handler;
 
 import util.Prompt;
+import vo.NewMember;
 
-public class LoginHandler implements Handler {
+public class LoginHandler {
+  static final int NEWSIZE = 100;
+  static NewMember[] nmember = new NewMember[NEWSIZE];
+
+  static int newlength = 0;
 
   private Prompt prompt;
-  private String title;
 
-  public LoginHandler(Prompt prompt, String title) {
+  public LoginHandler(Prompt prompt) {
     this.prompt = prompt;
-    this.title = title;
   }
 
-  @Override
   public  void execute() {
-    MemberHandler memberHandler = new MemberHandler(prompt, title);
-    BoardHandler boardHandler = new BoardHandler(prompt, title);
-    BoardHandler noticeHandler = new BoardHandler(prompt, title);
+    MemberHandler memberHandler = new MemberHandler();
+    BoardHandler boardHandler = new BoardHandler(prompt);
 
     printLoginMenu();
 
     while (true) {
-      String menuNo = Prompt.inputString("%s > ", this.title);
+      String menuNo = Prompt.inputString("해당 번호를 입력하세요 > ");
       if (menuNo.equals("0")) {
         NewMemberHandler.printMainMenu();
         break;
       } else if (menuNo.equals("menu")) {
-        printLoginMenu();
+        LoginHandler.printLoginMenu();
       } else if (menuNo.equals("1")) {
-        memberHandler.execute();
+        MemberHandler.execute();
       } else if (menuNo.equals("2")) {
         boardHandler.execute();
       } else if (menuNo.equals("3")) {
-        noticeHandler.execute();
+        boardHandler.execute();
       }
     }
   }

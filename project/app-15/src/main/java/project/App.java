@@ -3,9 +3,6 @@
  */
 package project;
 
-import project.handler.BoardHandler;
-import project.handler.LoginHandler;
-import project.handler.MemberHandler;
 import project.handler.NewMemberHandler;
 import util.Prompt;
 
@@ -15,13 +12,9 @@ public class App {
 
     Prompt prompt = new Prompt();
 
-    NewMemberHandler newMemberHandler = new NewMemberHandler(prompt, "로비");
-    MemberHandler memberHandler = new MemberHandler(prompt, "입주자");
-    LoginHandler loginHandler = new LoginHandler(prompt, "민원사항");
-    BoardHandler boardHandler = new BoardHandler(prompt, "공지사항");
-
     printTitle();
 
+    NewMemberHandler newMemberHandler = new NewMemberHandler(prompt);
     newMemberHandler.execute();
 
     Prompt.close();
