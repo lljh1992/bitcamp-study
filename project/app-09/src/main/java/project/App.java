@@ -3,7 +3,7 @@
  */
 package project;
 
-import project.handler.NewMemberHandler;
+import project.handler.MemberHandler;
 import util.Prompt;
 
 public class App {
@@ -12,24 +12,15 @@ public class App {
 
     printTitle();
 
-    NewMemberHandler.printMainMenu();
-
-    while (true) {
-      String menuNo = Prompt.inputString("해당 번호를 입력하세요 > ");
-      if (menuNo.equals("0")) {
+    while (MemberHandler.available()) {
+      MemberHandler.inputMember();
+      if (!promptContinue()) {
         break;
-      } else if (menuNo.equals("menu")) {
-        NewMemberHandler.printMainMenu();
-      } else if (menuNo.equals("1")) {  // 회원가입
-        NewMemberHandler.inputNewMember();
-      } else if (menuNo.equals("2")) {  // 로그인
-        NewMemberHandler.login();
-      } else if (menuNo.equals("3")) {
-        NewMemberHandler.updateNewMember(); // 회원정보 변경
-      } else if (menuNo.equals("4")) {
-        NewMemberHandler.pirntBoards(); // 회원 정보 조회
       }
     }
+
+    MemberHandler.pirntMembers();
+
     Prompt.close();
   }
 

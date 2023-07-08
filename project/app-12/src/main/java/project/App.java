@@ -20,14 +20,12 @@ public class App {
         break;
       } else if (menuNo.equals("menu")) {
         NewMemberHandler.printMainMenu();
-      } else if (menuNo.equals("1")) {  // 회원가입
+      } else if (menuNo.equals("1")) {
         NewMemberHandler.inputNewMember();
-      } else if (menuNo.equals("2")) {  // 로그인
+      } else if (menuNo.equals("2")) {
         NewMemberHandler.login();
       } else if (menuNo.equals("3")) {
-        NewMemberHandler.updateNewMember(); // 회원정보 변경
-      } else if (menuNo.equals("4")) {
-        NewMemberHandler.pirntBoards(); // 회원 정보 조회
+        NewMemberHandler.updateNewMember();
       }
     }
     Prompt.close();
