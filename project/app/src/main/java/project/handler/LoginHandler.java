@@ -21,7 +21,7 @@ public class LoginHandler implements Handler {
     printLoginMenu();
 
     while (true) {
-      String menuNo = Prompt.inputString("%s > ", this.title);
+      String menuNo = prompt.inputString("%s > ", this.title);
       if (menuNo.equals("0")) {
         NewMemberHandler.printMainMenu();
         break;

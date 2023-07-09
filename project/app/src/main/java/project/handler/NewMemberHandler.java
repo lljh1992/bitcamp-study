@@ -5,10 +5,8 @@ import vo.NewMember;
 
 public class NewMemberHandler implements Handler {
 
+  private NewMemberHandler list = new NewMemberHandler();
   private Prompt prompt;
-  static final int NEWSIZE = 100;
-  static NewMember[] nmember = new NewMember[NEWSIZE];
-  static int newlength;
   private String title;
 
   private static LoginHandler loginHandler;
@@ -16,33 +14,35 @@ public class NewMemberHandler implements Handler {
   public NewMemberHandler(Prompt prompt, String title) {
     this.prompt = prompt;
     this.title = title;
-    this.loginHandler = new LoginHandler(prompt, title);
+    loginHandler = new LoginHandler(prompt, title);
+  }
+
+  public NewMemberHandler() {
+    // TODO Auto-generated constructor stub
   }
 
   @Override
   public void execute() {
-
     printMainMenu();
 
     while (true) {
-      String menuNo = Prompt.inputString("%s > ", this.title);
+      String menuNo = prompt.inputString("%s > ", this.title);
       if (menuNo.equals("0")) {
-        break;
+        return;
       } else if (menuNo.equals("menu")) {
-        NewMemberHandler.printMainMenu();
+        printMainMenu();
       } else if (menuNo.equals("1")) {
-        NewMemberHandler.inputNewMember();
+        this.inputNewMember();
       } else if (menuNo.equals("2")) {
-        NewMemberHandler.login();
+        login();
       } else if (menuNo.equals("3")) {
-        NewMemberHandler.updateNewMember();
+        updateNewMember();
       } else if (menuNo.equals("4")) {
-        NewMemberHandler.pirntBoards();
+        pirntBoards();
       } else {
         System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
-
   }
 
   public static void printMainMenu() {
@@ -54,38 +54,33 @@ public class NewMemberHandler implements Handler {
   }
 
 
-  public static void inputNewMember() {
-    if (!newavailable()) {
-      System.out.println("더이상 입력할 수 없습니다.");
-    }
-
+  private void inputNewMember() {
     NewMember nm = new NewMember();
 
-    nm.setNewid(Prompt.inputString("아이디: "));
+    nm.setNewpassword(prompt.inputString("비밀번호: "));
+    nm.setNewname(prompt.inputString("이름: "));
+    nm.setNewphonenumber(prompt.inputString("H.P: "));
 
-    for (int i = 0; i < newlength; i++) {
-      if (nm.getNewid().equals(nmember[i].getNewid())) {
-        System.out.println("해당 계정을 사용할 수 없습니다!");
-        return;
-      }
+    if (!list.add(nm)) {
+      System.out.println("더이상 입력할 수 없습니다.");
     }
-
-    nm.setNewpassword(Prompt.inputString("비밀번호: "));
-    nm.setNewname(Prompt.inputString("이름: "));
-    nm.setNewphonenumber(Prompt.inputString("H.P: "));
-
-    nmember[newlength++] = nm;
-
   }
 
-  public static void login() {
-    String memberNewId = Prompt.inputString("아이디 : ");
+  private boolean add(NewMember nm) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  public void login() {
+    String memberNewId = prompt.inputString("아이디 : ");
     for (int i = 0; i < newlength; i++) {
       NewMember nm = nmember[i];
       if (nm.getNewid().equals(memberNewId)) {
-        String memberNewpw = Prompt.inputString("비밀번호 : ");
+        String memberNewpw = prompt.inputString("비밀번호 : ");
         if (nm.getNewpassword().equals(memberNewpw)) {
           loginHandler.execute();
+        } else if(!nm.getNewpassword().equals(memberNewpw)) {
+          System.out.println("비밀번호가 틀렸습니다!");
         }
         return;
       }
@@ -93,39 +88,44 @@ public class NewMemberHandler implements Handler {
     System.out.println("등록되지 않은 사용자입니다!");
   }
 
-  public static void pirntBoards() {
+  private  void pirntBoards() {
     System.out.println("----------------------");
     System.out.println("번호 | 아이디 | 이름 ");
     System.out.println("----------------------");
 
-    for (int i = 0; i < newlength; i++) {
-      NewMember nm = nmember[i];
+    NewMember[] arr = this.list.list();
+
+
+    for (NewMember nm : arr) {
       System.out.printf("%d, %s, %s\n", nm.getNewno(), nm.getNewid(), nm.getNewname());
     }
   }
 
-  public static void updateNewMember() {
-    String memberNewId = Prompt.inputString("아이디 : ");
+  private NewMember[] list() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  private  void updateNewMember() {
+    String memberNewId = this.prompt.inputString("아이디 : ");
+    NewMember nm = this.list.get(memberNewId);
+
+
     for (int i = 0; i < newlength; i++) {
-      NewMember nm = nmember[i];
       if (nm.getNewid().equals(memberNewId)) {
-        String memberNewpw = Prompt.inputString("비밀번호 : ");
+        String memberNewpw = prompt.inputString("비밀번호 : ");
         if (nm.getNewpassword().equals(memberNewpw)) {
           System.out.printf("아이디: %s", nm.getNewid());
-          nm.setNewid(Prompt.inputString(" > "));
+          nm.setNewid(prompt.inputString(" > "));
           System.out.printf("비밀번호: %s", nm.getNewpassword());
-          nm.setNewpassword(Prompt.inputString(" > "));
+          nm.setNewpassword(prompt.inputString(" > "));
           System.out.printf("H.P: %s", nm.getNewphonenumber());
-          nm.setNewphonenumber(Prompt.inputString(" > "));
+          nm.setNewphonenumber(prompt.inputString(" > "));
           return;
         }
       }
     }
     System.out.println("등록되지 않은 사용자입니다!");
-  }
-
-  public static boolean newavailable() {
-    return newlength < NEWSIZE;
   }
 
 }

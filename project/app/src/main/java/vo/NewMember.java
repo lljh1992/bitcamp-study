@@ -14,6 +14,8 @@ public class NewMember {
     this.newno = newuserId++;
   }
 
+
+
   public int getNewno() {
     return newno;
   }
@@ -45,5 +47,21 @@ public class NewMember {
     this.newphonenumber = newphonenumber;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
 
+    if (this.getClass() != obj.getClass()) {
+      return false;
+    }
+    NewMember nm = (NewMember) obj;
+
+    if (this.getNewno() != nm.getNewno()) {
+      return false;
+    }
+    return true;
+  }
 }
+
