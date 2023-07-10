@@ -2,14 +2,14 @@ package project.handler;
 
 import vo.NewMember;
 
-public class NewMamberList {
+public class NewMemberList {
 
   private static final int DEFAULT_NEWSIZE = 3;
   private NewMember[] nmember = new NewMember[DEFAULT_NEWSIZE];
   private int newlength;
 
   public boolean add(NewMember nm) {
-    if (this.newlength == nmember.length ) {
+    if (this.newlength == nmember.length) {
       increase();
     }
 
@@ -40,6 +40,16 @@ public class NewMamberList {
     return arr;
   }
 
+  public NewMember getStr(String newmemberId) {
+    for (int i = 0; i < this.newlength; i++) {
+      NewMember nm = this.nmember[i];
+      if (nm.getNewid() == newmemberId) {
+        return nm;
+      }
+    }
+    return null;
+  }
+
   public NewMember get(int no) {
     for (int i = 0; i < this.newlength; i++) {
       NewMember m = this.nmember[i];
@@ -50,23 +60,33 @@ public class NewMamberList {
     return null;
   }
 
-  public boolean delete(int no) {
-    int deletedIndex = indexOf(no);
+  // private int indexOf(int memberNo) {
+  // for (int i = 0; i < this.newlength; i++) {
+  // NewMember m = this.nmember[i];
+  // if (m.getNewno() == memberNo) {
+  // return i;
+  // }
+  // }
+  // return -1;
+  // }
+
+  boolean delete(String newmemberid) {
+    int deletedIndex = loginindexOf(newmemberid);
     if (deletedIndex == -1) {
       return false;
     }
-
-    for (int i = deletedIndex; i < this.newlength - 1; i++) {
+    for (int i = deletedIndex; i < this.newlength; i++) {
       this.nmember[i] = this.nmember[i + 1];
     }
     this.nmember[--this.newlength] = null;
     return true;
   }
 
-  private int indexOf(int memberNo) {
-    for (int i = 0; i < this.newlength; i++) {
-      NewMember m = this.nmember[i];
-      if (m.getNewno() == memberNo) {
+  private int loginindexOf(String newmemberid) {
+    NewMember[] arr = this.list();
+    for (int i = 0; i < arr.length; i++) {
+      NewMember nm = this.nmember[i];
+      if (nm.getNewid().equals(newmemberid)) {
         return i;
       }
     }

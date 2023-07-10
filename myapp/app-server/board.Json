@@ -1,14 +1,5 @@
 [
   {
-    "no": 1,
-    "title": "1",
-    "content": "1",
-    "writer": "1",
-    "password": "1",
-    "viewCount": 0,
-    "createdDate": 1688009031509
-  },
-  {
     "no": 2,
     "title": "2",
     "content": "2",
@@ -34,15 +25,6 @@
     "password": "1111",
     "viewCount": 2,
     "createdDate": 1688023186454
-  },
-  {
-    "no": 16,
-    "title": "제목4",
-    "content": "내용4",
-    "writer": "안중근",
-    "password": "1111",
-    "viewCount": 0,
-    "createdDate": 1688107003795
   },
   {
     "no": 25,
@@ -79,5 +61,14 @@
     "password": "1111",
     "viewCount": 0,
     "createdDate": 1688630000699
+  },
+  {
+    "no": 34,
+    "title": "yes",
+    "content": "yes",
+    "writer": "no",
+    "password": "1",
+    "viewCount": 0,
+    "createdDate": 1688954973954
   }
 ]
