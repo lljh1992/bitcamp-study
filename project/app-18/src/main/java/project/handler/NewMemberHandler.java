@@ -55,6 +55,28 @@ public class NewMemberHandler implements Handler {
     System.out.println("0. 종료");
   }
 
+  // private void inputNewMember() {
+  // NewMember nm = new NewMember();
+  //
+  // nm.setNewid(prompt.inputString("아이디: "));
+  //
+  // NewMember[] arr = this.list.list();
+  // for (NewMember existingMember : arr) {
+  // if (existingMember != null && existingMember.getNewid().equals(nm.getNewid())) {
+  // System.out.println("해당 계정을 사용할 수 없습니다!");
+  // return;
+  // }
+  // }
+  //
+  // nm.setNewpassword(prompt.inputString("비밀번호: "));
+  // nm.setNewname(prompt.inputString("이름: "));
+  // nm.setNewphonenumber(prompt.inputString("H.P: "));
+  //
+  // if (!this.list.add(nm)) {
+  // System.out.println("더이상 입력할 수 없습니다.");
+  // }
+  // }
+
 
   private void inputNewMember() {
     NewMember nm = new NewMember();
