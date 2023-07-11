@@ -18,8 +18,8 @@ public class BoardHandler implements Handler {
   @Override
   public void execute() {
 
-    BoardHandler boardHandler = new BoardHandler(prompt, title);
-    BoardHandler readingHandler = new BoardHandler(prompt, title);
+    // BoardHandler boardHandler = new BoardHandler(prompt, title);
+    // BoardHandler readingHandler = new BoardHandler(prompt, title);
 
     printMainMenu();
 
@@ -81,7 +81,7 @@ public class BoardHandler implements Handler {
   private void viewBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = (Board) this.list.get(boardNo);
+    Board board = (Board) this.list.get(new Board(boardNo));
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -92,12 +92,13 @@ public class BoardHandler implements Handler {
     System.out.printf("작성자: %s\n", board.getWriter());
     System.out.printf("조회수: %s\n", board.getViewCount());
     System.out.printf("등록일: %tY-%1$tm-%1$td\n", board.getCreatedDate());
+    board.setViewCount(board.getViewCount() + 1);
   }
 
   private void updateBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = (Board) this.list.get(boardNo);
+    Board board = (Board) this.list.get(new Board(boardNo));
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -113,7 +114,7 @@ public class BoardHandler implements Handler {
   }
 
   private void deleteBoard() {
-    if (!this.list.delete(this.prompt.inputInt("번호? "))) {
+    if (!this.list.delete(new Board(this.prompt.inputInt("번호? ")))) {
       System.out.println("해당 번호의 게시글이 없습니다!");
     }
   }

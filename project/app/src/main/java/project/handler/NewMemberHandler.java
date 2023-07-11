@@ -21,7 +21,7 @@ public class NewMemberHandler implements Handler {
   @Override
   public void execute() {
 
-    NewMemberHandler newmemberHandler = new NewMemberHandler(prompt, title);
+    // NewMemberHandler newmemberHandler = new NewMemberHandler(prompt, title);
 
     printMainMenu();
 
