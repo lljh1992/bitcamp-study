@@ -45,26 +45,13 @@ public class ServerApp {
   }
 
   public void execute() throws Exception {
-    class RequestAgentThread extends Thread {
-      Socket socket;
-
-      public RequestAgentThread(Socket socket) {
-        this.socket = socket;
-      }
-
-      @Override
-      public void run() {
-        processRequest(socket);
-      }
-    }
-
     System.out.println("[MyList 서버 애플리케이션]");
 
     this.serverSocket = new ServerSocket(port);
     System.out.println("서버 실행 중...");
 
     while (true) {
-      new RequestAgentThread(serverSocket.accept()).start();
+      processRequest(serverSocket.accept());
     }
   }
 
@@ -99,8 +86,6 @@ public class ServerApp {
       System.out.printf("%s:%s 클라이언트가 접속했음!\n", socketAddress.getHostString(),
           socketAddress.getPort());
 
-      // 클라이언트 요청을 반복해서 처리하지 않는다.
-      // => 접속 => 요청 => 실행 => 응답 => 연결 끊
       RequestEntity request = RequestEntity.fromJson(in.readUTF());
 
       String command = request.getCommand();

@@ -238,25 +238,5 @@
     "carnumber": "1",
     "VehicleOwnership": "1",
     "type": "Y"
-  },
-  {
-    "no": 29,
-    "a": "1",
-    "b": "1",
-    "name": "1",
-    "phonenumber": "1",
-    "carnumber": "1",
-    "VehicleOwnership": "1",
-    "type": "Y"
-  },
-  {
-    "no": 30,
-    "a": "1",
-    "b": "1",
-    "name": "1",
-    "phonenumber": "1",
-    "carnumber": "1",
-    "VehicleOwnership": "2",
-    "type": "N"
   }
 ]
