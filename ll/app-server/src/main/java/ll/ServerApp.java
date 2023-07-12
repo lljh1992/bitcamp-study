@@ -93,11 +93,6 @@ public class ServerApp {
         String command = request.getCommand();
         System.out.println(command);
 
-
-        if (command.equals("quit")) {
-          break;
-        }
-
         String[] values = command.split("/");
         String dataName = values[0];
         String methodName = values[1];
@@ -106,14 +101,14 @@ public class ServerApp {
         if (dao == null) {
           out.writeUTF(
               new ResponseEntity().status(ResponseEntity.ERROR).result("데이터를 찾을 수 없습니다.").toJson());
-          continue;
+          return;
         }
 
         Method method = findMethod(dao, methodName);
         if (method == null) {
           out.writeUTF(
               new ResponseEntity().status(ResponseEntity.ERROR).result("메서드를 찾을 수 없습니다.").toJson());
-          continue;
+          return;
         }
 
         try {

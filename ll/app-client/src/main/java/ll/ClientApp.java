@@ -1,9 +1,6 @@
 
 package ll;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
 import ll.dao.BoardDao;
 import ll.dao.DaoBuilder;
 import ll.dao.MemberDao;
@@ -20,16 +17,11 @@ import ll.handler.MemberDeleteListener;
 import ll.handler.MemberDetailListener;
 import ll.handler.MemberListListener;
 import ll.handler.MemberUpdateListener;
-import ll.net.RequestEntity;
 import ll.util.BreadcrumbPrompt;
 import ll.util.Menu;
 import ll.util.MenuGroup;
 
 public class ClientApp {
-
-  Socket socket;
-  DataOutputStream out;
-  DataInputStream in;
 
   BoardDao boardDao;
   MemberDao memberDao;
@@ -40,11 +32,7 @@ public class ClientApp {
 
   public ClientApp(String ip, int port) throws Exception {
 
-    this.socket = new Socket(ip, port);
-    this.out = new DataOutputStream(socket.getOutputStream());
-    this.in = new DataInputStream(socket.getInputStream());
-
-    DaoBuilder daoBuilder = new DaoBuilder(in, out);
+    DaoBuilder daoBuilder = new DaoBuilder(ip, port);
 
     this.memberDao = daoBuilder.build("member", MemberDao.class);
     this.boardDao = daoBuilder.build("board", BoardDao.class);
@@ -54,9 +42,6 @@ public class ClientApp {
 
   public void close() throws Exception {
     prompt.close();
-    out.close();
-    in.close();
-    socket.close();
   }
 
 
@@ -81,14 +66,6 @@ public class ClientApp {
   public void execute() {
     printTitle();
     mainMenu.execute(prompt);
-
-    try {
-      out.writeUTF(new RequestEntity().command("quit").toJson());
-
-    } catch (Exception e) {
-      System.out.println("종료 오류!");
-      e.printStackTrace();
-    }
   }
 
   public void prepareMenu() {
