@@ -22,7 +22,9 @@ public class DaoBuilder {
 
   @SuppressWarnings("unchecked")
   public <T> T build(String dataName, Class<T> type) {
-    return (T) Proxy.newProxyInstance(ClientApp.class.getClassLoader(), new Class[] {type},
+    return (T) Proxy.newProxyInstance(
+        ClientApp.class.getClassLoader(),
+        new Class[] {type},
         (proxy, method, args) -> {
           // 요청 정보 준비
           RequestEntity requestEntity = new RequestEntity();
@@ -56,7 +58,7 @@ public class DaoBuilder {
               return null;
 
             } else if (returnType == List.class) {
-              ParameterizedType paramType = (ParameterizedType) method.getGenericReturnType();
+              ParameterizedType paramType = (ParameterizedType)method.getGenericReturnType();
               Class<?> itemType = (Class<?>) paramType.getActualTypeArguments()[0];
               return response.getList(itemType);
             } else {
@@ -68,5 +70,5 @@ public class DaoBuilder {
         });
   }
 
-}
 
+}

@@ -64,7 +64,6 @@ public class ClientApp {
   public void execute() {
     printTitle();
     mainMenu.execute(prompt);
-
   }
 
   private void prepareMenu() {

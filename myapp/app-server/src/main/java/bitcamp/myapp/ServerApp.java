@@ -13,25 +13,19 @@ import bitcamp.myapp.dao.MemberListDao;
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
 
-// 1) 클라이언트가 보낸 명령을 데이터이름과 메서드 이름으로 분리한다.
-// 2) 클라이언트가 요청한 DAO 객체와 메서드를 찾는다.
-// 3) 메서드의 파라미터와 리턴 타입을 알아내기
-// 4) 메서드 호출 및 리턴 값 받기
-// 5) 리펙토링
 public class ServerApp {
 
   int port;
   ServerSocket serverSocket;
 
-
   HashMap<String, Object> daoMap = new HashMap<>();
 
   public ServerApp(int port) throws Exception {
     this.port = port;
+
     daoMap.put("member", new MemberListDao("member.json"));
     daoMap.put("board", new BoardListDao("board.json"));
     daoMap.put("reading", new BoardListDao("reading.json"));
-
   }
 
   public void close() throws Exception {
@@ -50,18 +44,29 @@ public class ServerApp {
   }
 
   public void execute() throws Exception {
+    class RequestAgentThread extends Thread {
+      Socket socket;
+
+      public RequestAgentThread(Socket socket) {
+        this.socket = socket;
+      }
+
+      @Override
+      public void run() {
+        processRequest(socket);
+      }
+    }
     System.out.println("[MyList 서버 애플리케이션]");
 
     this.serverSocket = new ServerSocket(port);
     System.out.println("서버 실행 중...");
 
     while (true) {
-      processRequest(serverSocket.accept());
+      new RequestAgentThread(serverSocket.accept()).start();
     }
-
   }
 
-  public Method findMethod(Object obj, String methodName) {
+  public static Method findMethod(Object obj, String methodName) {
     Method[] methods = obj.getClass().getDeclaredMethods();
     for (int i = 0; i < methods.length; i++) {
       if (methods[i].getName().equals(methodName)) {
@@ -70,7 +75,6 @@ public class ServerApp {
     }
     return null;
   }
-
 
   public static Object call(Object obj, Method method, RequestEntity request) throws Exception {
     Parameter[] params = method.getParameters();
@@ -82,7 +86,6 @@ public class ServerApp {
   }
 
   public void processRequest(Socket socket) {
-
     try (Socket s = socket;
         DataInputStream in = new DataInputStream(socket.getInputStream());
         DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
@@ -91,9 +94,8 @@ public class ServerApp {
       System.out.printf("%s:%s 클라이언트가 접속했음!\n", socketAddress.getHostString(),
           socketAddress.getPort());
 
-
       // 클라이언트 요청을 반복해서 처리하지 않는다.
-      // 접속 -> 요청 -> 실행 -> 응답 ->연결 끊기
+      // => 접속 -> 요청 -> 실행 -> 응답 -> 연결 끊기
       RequestEntity request = RequestEntity.fromJson(in.readUTF());
 
       String command = request.getCommand();
@@ -103,24 +105,19 @@ public class ServerApp {
       String dataName = values[0];
       String methodName = values[1];
 
-
       Object dao = daoMap.get(dataName);
-      if (dao == null) { // 만약 데이터를 처리할 DAO를 찾지 못한다면 오류 정보를 클라이언트에게 보낸다.
+      if (dao == null) {
         out.writeUTF(
             new ResponseEntity().status(ResponseEntity.ERROR).result("데이터를 찾을 수 없습니다.").toJson());
         return;
       }
 
-
       Method method = findMethod(dao, methodName);
-
       if (method == null) {
         out.writeUTF(
             new ResponseEntity().status(ResponseEntity.ERROR).result("메서드를 찾을 수 없습니다.").toJson());
         return;
       }
-
-      // System.out.printf("%s.%s\n", dataName, methodName);
 
       try {
         Object result = call(dao, method, request);
@@ -129,6 +126,7 @@ public class ServerApp {
         response.status(ResponseEntity.SUCCESS);
         response.result(result);
         out.writeUTF(response.toJson());
+
       } catch (Exception e) {
         ResponseEntity response = new ResponseEntity();
         response.status(ResponseEntity.ERROR);
@@ -137,9 +135,9 @@ public class ServerApp {
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
-
     }
   }
+
 }
 
 
