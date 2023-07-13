@@ -1,5 +1,9 @@
 package vo;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Member {
 
   private static int userId = 1;
@@ -16,9 +20,17 @@ public class Member {
   public String VehicleOwnership;
   public char type;
 
+  // 입출차 기록
+  private boolean isInside;
+  private List<LocalDateTime> entryTimes;
+  private List<LocalDateTime> exitTimes;
+
 
   public Member() {
     this.no = userId++;
+    this.isInside = false;
+    this.entryTimes = new ArrayList<>();
+    this.exitTimes = new ArrayList<>();
   }
 
   public Member(int no) {
@@ -107,5 +119,59 @@ public class Member {
   public void setType(char type) {
     this.type = type;
   }
+
+
+
+  public List<LocalDateTime> getEntryTimes() {
+    return entryTimes;
+  }
+
+  public void setEntryTimes(List<LocalDateTime> entryTimes) {
+    this.entryTimes = entryTimes;
+  }
+
+  public List<LocalDateTime> getExitTimes() {
+    return exitTimes;
+  }
+
+  public void setExitTimes(List<LocalDateTime> exitTimes) {
+    this.exitTimes = exitTimes;
+  }
+
+  // 입차 시간 추가 메서드
+  public void addEntryTime(LocalDateTime entryTime) {
+    entryTimes.add(entryTime);
+  }
+
+  // 출차 시간 추가 메서드
+  public void addExitTime(LocalDateTime exitTime) {
+    exitTimes.add(exitTime);
+  }
+
+  // 입차 시간 출력 메서드
+  public void printEntryTimes() {
+    for (LocalDateTime entryTime : entryTimes) {
+      System.out.printf("%s: 차량 입차 시간: " + entryTime, getCarnumber());
+      System.out.println();
+    }
+  }
+
+  // 출차 시간 출력 메서드
+  public void printExitTimes() {
+    for (LocalDateTime exitTime : exitTimes) {
+      System.out.printf("%s: 차량 출차 시간: " + exitTime, getCarnumber());
+      System.out.println();
+    }
+  }
+
+  public boolean isInside() {
+    return isInside;
+  }
+
+  public void setInside(boolean isInside) {
+    this.isInside = isInside;
+  }
+
+
 
 }

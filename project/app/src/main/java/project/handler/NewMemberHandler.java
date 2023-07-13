@@ -1,12 +1,12 @@
 package project.handler;
 
-import util.LinkedList;
+import util.ArrayList;
 import util.Prompt;
 import vo.NewMember;
 
 public class NewMemberHandler implements Handler {
 
-  private LinkedList list = new LinkedList();
+  private ArrayList list = new ArrayList();
   private Prompt prompt;
   private String title;
 
@@ -79,7 +79,7 @@ public class NewMemberHandler implements Handler {
     String memberNewId = prompt.inputString("아이디: ");
     String memberNewPw = prompt.inputString("비밀번호: ");
 
-    Object[] arr = list.getList();
+    Object[] arr = list.list();
     for (Object obj : arr) {
       NewMember nm = (NewMember) obj;
       if (nm != null && nm.getNewid().equals(memberNewId)) {
@@ -100,7 +100,7 @@ public class NewMemberHandler implements Handler {
     System.out.println("번호 | 아이디 | 이름 ");
     System.out.println("----------------------");
 
-    Object[] arr = this.list.getList();
+    Object[] arr = this.list.list();
     for (Object obj : arr) {
       NewMember nm = (NewMember) obj;
       System.out.printf("%d, %s, %s\n", nm.getNewno(), nm.getNewid(), nm.getNewname());
@@ -110,7 +110,7 @@ public class NewMemberHandler implements Handler {
   private void updateNewMember() {
     String memberNewId = this.prompt.inputString("아이디 : ");
 
-    Object[] arr = this.list.getList();
+    Object[] arr = this.list.list();
     for (Object obj : arr) {
       NewMember nm = (NewMember) obj;
       if (nm.getNewid().equals(memberNewId)) {
@@ -140,7 +140,7 @@ public class NewMemberHandler implements Handler {
   }
 
   private boolean isExistingMember(String newmemberid) {
-    Object[] arr = this.list.getList();
+    Object[] arr = this.list.list();
     for (Object obj : arr) {
       NewMember nm = (NewMember) obj;
       if (nm != null && nm.getNewid().equals(newmemberid)) {
@@ -153,7 +153,7 @@ public class NewMemberHandler implements Handler {
   private void deleteNewMember() {
     String memberNewId = this.prompt.inputString("아이디: ");
 
-    Object[] arr = this.list.getList();
+    Object[] arr = this.list.list();
     for (Object obj : arr) {
       NewMember nm = (NewMember) obj;
       if (nm.getNewid().equals(memberNewId)) {
@@ -161,7 +161,7 @@ public class NewMemberHandler implements Handler {
         if (nm.getNewpassword().equals(memberNewpw)) {
           String response = prompt.inputString("회원탈퇴를 진행하시겠습니까? (Y/n) ");
           if (response.equals("") || response.equalsIgnoreCase("Y")) {
-            if (this.list.remove(nm)) {
+            if (this.list.deleteLogin(memberNewId)) {
               System.out.println("회원탈퇴가 완료되었습니다.");
             } else {
               System.out.println("회원탈퇴에 실패하였습니다.");

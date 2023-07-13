@@ -1,5 +1,6 @@
 package project.handler;
 
+import java.time.LocalDateTime;
 import util.LinkedList;
 import util.Prompt;
 import vo.Member;
@@ -30,13 +31,17 @@ public class MemberHandler implements Handler {
       } else if (menuNo.equals("1")) {
         this.inputMember();
       } else if (menuNo.equals("2")) {
-        this.pirntMembers();
+        this.printMemer();
       } else if (menuNo.equals("3")) {
         this.viewMember();
       } else if (menuNo.equals("4")) {
         this.updateMember();
       } else if (menuNo.equals("5")) {
         this.deleteMember();
+      } else if (menuNo.equals("6")) {
+        this.entryVehicle();
+      } else if (menuNo.equals("7")) {
+        this.exitVehicle();
       } else {
         System.out.println("메뉴 번호가 옳지 않습니다!");
       }
@@ -49,6 +54,8 @@ public class MemberHandler implements Handler {
     System.out.println("3. 차량 조회");
     System.out.println("4. 정보 변경");
     System.out.println("5. 차량 삭제");
+    System.out.println("6. 차량 입차 기록");
+    System.out.println("7. 차량 출차 기록");
     System.out.println("0. 이전 메뉴");
 
   }
@@ -68,7 +75,7 @@ public class MemberHandler implements Handler {
 
   }
 
-  private void pirntMembers() {
+  private void printMemer() {
     System.out.println("----------------------------------------------------------------");
     System.out.println("번호, 동,   호수,  이름,  H.P,  차량 번호,  차량 보유 현황,  거주 여부");
     System.out.println("----------------------------------------------------------------");
@@ -147,6 +154,61 @@ public class MemberHandler implements Handler {
     if (!this.list.remove(new Member(this.prompt.inputInt("번호? ")))) {
       System.out.println("해당 번호의 회원이 없습니다!");
     }
+  }
+
+  private void entryVehicle() {
+    String recordVehicle = this.prompt.inputString("차량번호: ");
+    boolean found = false;
+
+    Object[] arr = this.list.getList();
+    for (Object obj : arr) {
+      Member m = (Member) obj;
+      if (m.getCarnumber().equals(recordVehicle)) {
+        printEntryTime();
+        found = true;
+        LocalDateTime entryTime = LocalDateTime.now();
+        m.addEntryTime(entryTime);
+        m.printEntryTimes();
+      }
+    }
+    if (!found) {
+      System.out.println("등록된 차량이 아닙니다.");
+    }
+  }
+
+
+  private void exitVehicle() {
+    String recordVehicle = this.prompt.inputString("차량번호: ");
+    boolean found = false;
+
+    Object[] arr = this.list.getList();
+    for (Object obj : arr) {
+      Member m = (Member) obj;
+      if (m.getCarnumber().equals(recordVehicle)) {
+        printExitTime();
+        found = true;
+        LocalDateTime exitTime = LocalDateTime.now();
+        m.addExitTime(exitTime);
+        m.printExitTimes();
+      }
+    }
+    if (!found) {
+      System.out.println("등록된 차량이 아닙니다.");
+    }
+  }
+
+  private void printEntryTime() {
+    System.out.println("------------------------------");
+    System.out.println("        차량 입차 기록        ");
+    System.out.println("------------------------------");
+
+  }
+
+  private void printExitTime() {
+    System.out.println("------------------------------");
+    System.out.println("        차량 출차 기록        ");
+    System.out.println("------------------------------");
+
   }
 
 }
