@@ -1,7 +1,5 @@
 package util;
 
-import vo.NewMember;
-
 public class ArrayList implements List {
   private static final int DEFAULT_SIZE = 3;
 
@@ -42,16 +40,6 @@ public class ArrayList implements List {
       return null;
     }
     return this.list[index];
-  }
-
-  public NewMember getStr(Object obj) {
-    for (int i = 0; i < this.length; i++) {
-      Object nm = this.list[i];
-      if (((NewMember) nm).getNewid().equals(obj)) {
-        return (NewMember) nm;
-      }
-    }
-    return null;
   }
 
   @Override
@@ -99,31 +87,6 @@ public class ArrayList implements List {
 
   private boolean isValid(int index) {
     return index >= 0 && index < this.length;
-  }
-
-
-
-  public boolean deleteLogin(String newmemberid) {
-    int deletedIndex = loginindexOf(newmemberid);
-    if (deletedIndex == -1) {
-      return false;
-    }
-    for (int i = deletedIndex; i < this.length; i++) {
-      this.list[i] = this.list[i + 1];
-    }
-    this.list[--this.length] = null;
-    return true;
-  }
-
-  private int loginindexOf(Object obj) {
-    Object[] arr = this.toArray();
-    for (int i = 0; i < arr.length; i++) {
-      Object nm = this.list[i];
-      if (((NewMember) nm).getNewid().equals(obj)) {
-        return i;
-      }
-    }
-    return -1;
   }
 
 }
