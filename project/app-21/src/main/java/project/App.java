@@ -4,6 +4,7 @@
 package project;
 
 import project.handler.NewMemberHandler;
+import util.ArrayList;
 import util.Prompt;
 
 public class App {
@@ -12,7 +13,7 @@ public class App {
 
     Prompt prompt = new Prompt();
 
-    NewMemberHandler newMemberHandler = new NewMemberHandler(prompt, "로비");
+    NewMemberHandler newMemberHandler = new NewMemberHandler(prompt, "로비", new ArrayList());
 
     printTitle();
 

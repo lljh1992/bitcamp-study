@@ -1,27 +1,26 @@
 package project.handler;
 
-import util.ArrayList;
+import util.List;
 import util.Prompt;
 import vo.NewMember;
 
 public class NewMemberHandler implements Handler {
 
-  private ArrayList list = new ArrayList();
+  private List list;
   private Prompt prompt;
   private String title;
 
   private static LoginHandler loginHandler;
 
-  public NewMemberHandler(Prompt prompt, String title) {
+  public NewMemberHandler(Prompt prompt, String title, List list) {
     this.prompt = prompt;
     this.title = title;
+    this.list = list;
     loginHandler = new LoginHandler(prompt, title);
   }
 
   @Override
   public void execute() {
-
-    // NewMemberHandler newmemberHandler = new NewMemberHandler(prompt, title);
 
     printMainMenu();
 
@@ -100,9 +99,11 @@ public class NewMemberHandler implements Handler {
     System.out.println("번호 | 아이디 | 이름 ");
     System.out.println("----------------------");
 
-    Object[] arr = this.list.toArray();
-    for (Object obj : arr) {
-      NewMember nm = (NewMember) obj;
+    for (int i = 0; i < this.list.size(); i++) {
+      NewMember nm = (NewMember) this.list.get(i);
+      // Object[] arr = this.list.toArray();
+      // for (Object obj : arr) {
+      // NewMember nm = (NewMember) obj;
       System.out.printf("%d, %s, %s\n", nm.getNewno(), nm.getNewid(), nm.getNewname());
     }
   }
@@ -110,9 +111,11 @@ public class NewMemberHandler implements Handler {
   private void updateNewMember() {
     String memberNewId = this.prompt.inputString("아이디 : ");
 
-    Object[] arr = this.list.toArray();
-    for (Object obj : arr) {
-      NewMember nm = (NewMember) obj;
+    for (int i = 0; i < this.list.size(); i++) {
+      NewMember nm = (NewMember) this.list.get(i);
+      // Object[] arr = this.list.toArray();
+      // for (Object obj : arr) {
+      // NewMember nm = (NewMember) obj;
       if (nm.getNewid().equals(memberNewId)) {
         String memberNewpw = prompt.inputString("비밀번호 : ");
         if (nm.getNewpassword().equals(memberNewpw)) {
@@ -140,9 +143,12 @@ public class NewMemberHandler implements Handler {
   }
 
   private boolean isExistingMember(String newmemberid) {
-    Object[] arr = this.list.toArray();
-    for (Object obj : arr) {
-      NewMember nm = (NewMember) obj;
+
+    for (int i = 0; i < this.list.size(); i++) {
+      NewMember nm = (NewMember) this.list.get(i);
+      // Object[] arr = this.list.toArray();
+      // for (Object obj : arr) {
+      // NewMember nm = (NewMember) obj;
       if (nm != null && nm.getNewid().equals(newmemberid)) {
         return true;
       }
@@ -153,15 +159,18 @@ public class NewMemberHandler implements Handler {
   private void deleteNewMember() {
     String memberNewId = this.prompt.inputString("아이디: ");
 
-    Object[] arr = this.list.toArray();
-    for (Object obj : arr) {
-      NewMember nm = (NewMember) obj;
+    for (int i = 0; i < this.list.size(); i++) {
+      NewMember nm = (NewMember) this.list.get(i);
+
+      // Object[] arr = this.list.toArray();
+      // for (Object obj : arr) {
+      // NewMember nm = (NewMember) obj;
       if (nm.getNewid().equals(memberNewId)) {
         String memberNewpw = prompt.inputString("비밀번호: ");
         if (nm.getNewpassword().equals(memberNewpw)) {
           String response = prompt.inputString("회원탈퇴를 진행하시겠습니까? (Y/n) ");
           if (response.equals("") || response.equalsIgnoreCase("Y")) {
-            if (this.list.deleteLogin(memberNewId)) {
+            if (this.list.remove(nm)) {
               System.out.println("회원탈퇴가 완료되었습니다.");
             } else {
               System.out.println("회원탈퇴에 실패하였습니다.");
@@ -178,7 +187,5 @@ public class NewMemberHandler implements Handler {
     }
     System.out.println("등록되지 않은 사용자입니다!");
   }
-
-
 
 }
