@@ -78,9 +78,12 @@ public class NewMemberHandler implements Handler {
     String memberNewId = prompt.inputString("아이디: ");
     String memberNewPw = prompt.inputString("비밀번호: ");
 
-    Object[] arr = list.toArray();
-    for (Object obj : arr) {
-      NewMember nm = (NewMember) obj;
+
+    for (int i = 0; i < this.list.size(); i++) {
+      NewMember nm = (NewMember) this.list.get(i);
+      // Object[] arr = list.toArray();
+      // for (Object obj : arr) {
+      // NewMember nm = (NewMember) obj;
       if (nm != null && nm.getNewid().equals(memberNewId)) {
         if (nm.getNewpassword().equals(memberNewPw)) {
           loginHandler.execute();
