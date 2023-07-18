@@ -1,18 +1,18 @@
 package project.handler;
 
 import util.List;
-import util.Prompt;
+import util.MenuPrompt;
 import vo.NewMember;
 
 public class NewMemberHandler implements Handler {
 
   private List list;
-  private Prompt prompt;
+  private MenuPrompt prompt;
   private String title;
 
   private static LoginHandler loginHandler;
 
-  public NewMemberHandler(Prompt prompt, String title, List list) {
+  public NewMemberHandler(MenuPrompt prompt, String title, List list) {
     this.prompt = prompt;
     this.title = title;
     this.list = list;

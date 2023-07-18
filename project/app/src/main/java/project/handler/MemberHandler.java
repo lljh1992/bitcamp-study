@@ -2,16 +2,16 @@ package project.handler;
 
 import java.time.LocalDateTime;
 import util.List;
-import util.Prompt;
+import util.MenuPrompt;
 import vo.Member;
 
 public class MemberHandler implements Handler {
 
   private List list;
-  private Prompt prompt;
+  private MenuPrompt prompt;
   private String title;
 
-  public MemberHandler(Prompt prompt, String title, List list) {
+  public MemberHandler(MenuPrompt prompt, String title, List list) {
     this.prompt = prompt;
     this.title = title;
     this.list = list;
@@ -20,44 +20,78 @@ public class MemberHandler implements Handler {
   @Override
   public void execute() {
 
-    printMenu();
+    prompt.appendBreadcrumb(this.title, getMenu());
+    prompt.printMenu();
 
     while (true) {
-      String menuNo = prompt.inputString("%s > ", this.title);
-      if (menuNo.equals("0")) {
-        LoginHandler.printLoginMenu();
-        break;
-      } else if (menuNo.equals("menu")) {
-        printMenu();
-      } else if (menuNo.equals("1")) {
-        this.inputMember();
-      } else if (menuNo.equals("2")) {
-        this.printMembers();
-      } else if (menuNo.equals("3")) {
-        this.viewMember();
-      } else if (menuNo.equals("4")) {
-        this.updateMember();
-      } else if (menuNo.equals("5")) {
-        this.deleteMember();
-      } else if (menuNo.equals("6")) {
-        this.entryVehicle();
-      } else if (menuNo.equals("7")) {
-        this.exitVehicle();
-      } else {
-        System.out.println("메뉴 번호가 옳지 않습니다!");
+      String menuNo = prompt.inputMenu();
+      switch (menuNo) {
+        case "0":
+          LoginHandler.printLoginMenu();
+          break;
+        case "1":
+          this.inputMember();
+          break;
+        case "2":
+          this.printMembers();
+          break;
+        case "3":
+          this.viewMember();
+          break;
+        case "4":
+          this.updateMember();
+          break;
+        case "5":
+          this.deleteMember();
+          break;
+        case "6":
+          this.entryVehicle();
+          break;
+        case "7":
+          this.exitVehicle();
+          break;
       }
     }
+
+
+    // while (true) {
+    // String menuNo = prompt.inputString("%s > ", this.title);
+    // if (menuNo.equals("0")) {
+    // LoginHandler.printLoginMenu();
+    // break;
+    // } else if (menuNo.equals("menu")) {
+    // getMenu();
+    // } else if (menuNo.equals("1")) {
+    // this.inputMember();
+    // } else if (menuNo.equals("2")) {
+    // this.printMembers();
+    // } else if (menuNo.equals("3")) {
+    // this.viewMember();
+    // } else if (menuNo.equals("4")) {
+    // this.updateMember();
+    // } else if (menuNo.equals("5")) {
+    // this.deleteMember();
+    // } else if (menuNo.equals("6")) {
+    // this.entryVehicle();
+    // } else if (menuNo.equals("7")) {
+    // this.exitVehicle();
+    // } else {
+    // System.out.println("메뉴 번호가 옳지 않습니다!");
+    // }
+    // }
   }
 
-  public void printMenu() {
-    System.out.println("1. 차량 등록");
-    System.out.println("2. 차량 목록");
-    System.out.println("3. 차량 조회");
-    System.out.println("4. 정보 변경");
-    System.out.println("5. 차량 삭제");
-    System.out.println("6. 차량 입차 기록");
-    System.out.println("7. 차량 출차 기록");
-    System.out.println("0. 이전 메뉴");
+  private String getMenu() {
+    StringBuilder menu = new StringBuilder();
+    menu.append("1. 차량 등록\n");
+    menu.append("2. 차량 목록\n");
+    menu.append("3. 차량 조회\n");
+    menu.append("4. 정보 변경\n");
+    menu.append("5. 차량 삭제\n");
+    menu.append("6. 차량 입차 기록\n");
+    menu.append("7. 차량 출차 기록\n");
+    menu.append("0. 이전 메뉴");
+    return menu.toString();
 
   }
 

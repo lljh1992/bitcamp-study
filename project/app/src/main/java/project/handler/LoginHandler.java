@@ -2,14 +2,14 @@ package project.handler;
 
 import util.ArrayList;
 import util.LinkedList;
-import util.Prompt;
+import util.MenuPrompt;
 
 public class LoginHandler implements Handler {
 
-  private Prompt prompt;
+  private MenuPrompt prompt;
   private String title;
 
-  public LoginHandler(Prompt prompt, String title) {
+  public LoginHandler(MenuPrompt prompt, String title) {
     this.prompt = prompt;
     this.title = title;
   }

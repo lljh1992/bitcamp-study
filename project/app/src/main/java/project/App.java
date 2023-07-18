@@ -5,13 +5,13 @@ package project;
 
 import project.handler.NewMemberHandler;
 import util.ArrayList;
-import util.Prompt;
+import util.MenuPrompt;
 
 public class App {
 
   public static void main(String[] args) {
 
-    Prompt prompt = new Prompt();
+    MenuPrompt prompt = new MenuPrompt();
 
     NewMemberHandler newMemberHandler = new NewMemberHandler(prompt, "로비", new ArrayList());
 
