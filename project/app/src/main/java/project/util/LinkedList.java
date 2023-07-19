@@ -1,4 +1,4 @@
-package util;
+package project.util;
 
 public class LinkedList implements List {
   Node head;

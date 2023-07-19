@@ -1,4 +1,4 @@
-package vo;
+package project.vo;
 
 public class NewMember {
 

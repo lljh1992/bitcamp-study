@@ -1,4 +1,4 @@
-package vo;
+package project.vo;
 
 public class Board {
   private static int boardNo = 1;

@@ -1,27 +1,32 @@
 package project.handler;
 
-import util.ArrayList;
-import util.LinkedList;
-import util.MenuPrompt;
+import project.util.ArrayList;
+import project.util.LinkedList;
+import project.util.List;
+import project.util.MenuPrompt;
 
 public class LoginHandler implements Handler {
 
+  private List list;
   private MenuPrompt prompt;
   private String title;
 
-  public LoginHandler(MenuPrompt prompt, String title) {
+  public LoginHandler(MenuPrompt prompt, String title, List list) {
     this.prompt = prompt;
     this.title = title;
   }
 
+
+
   @Override
   public void execute() {
 
-    MemberHandler memberHandler = new MemberHandler(prompt, "차량관리", new ArrayList());
-    BoardHandler boardHandler = new BoardHandler(prompt, "민원사항", new LinkedList());
-    BoardHandler noticeHandler = new BoardHandler(prompt, "공지사항", new LinkedList());
-
     prompt.appendBreadcrumb(this.title, getMenu());
+
+    Handler memberHandler = new MemberHandler(prompt, "차량관리", new ArrayList());
+    Handler boardHandler = new BoardHandler(prompt, "민원사항", new LinkedList());
+    Handler noticeHandler = new BoardHandler(prompt, "공지사항", new LinkedList());
+
     prompt.printMenu();
 
 

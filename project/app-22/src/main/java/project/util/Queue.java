@@ -1,4 +1,4 @@
-package util;
+package project.util;
 
 public class Queue extends LinkedList {
   public static void main(String[] args) {

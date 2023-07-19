@@ -1,4 +1,4 @@
-package util;
+package project.util;
 
 public class MenuPrompt extends Prompt {
   private Queue commandHistory = new Queue();

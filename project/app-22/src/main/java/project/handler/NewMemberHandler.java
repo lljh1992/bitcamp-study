@@ -1,9 +1,9 @@
 package project.handler;
 
-import util.ArrayList;
-import util.List;
-import util.MenuPrompt;
-import vo.NewMember;
+import project.util.ArrayList;
+import project.util.List;
+import project.util.MenuPrompt;
+import project.vo.NewMember;
 
 public class NewMemberHandler implements Handler {
 
@@ -17,7 +17,7 @@ public class NewMemberHandler implements Handler {
     this.prompt = prompt;
     this.title = title;
     this.list = list;
-    loginHandler = new LoginHandler(prompt, title);
+    loginHandler = new LoginHandler(prompt, title, list);
   }
 
   @Override

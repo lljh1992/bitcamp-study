@@ -4,8 +4,8 @@
 package project;
 
 import project.handler.NewMemberHandler;
-import util.ArrayList;
-import util.MenuPrompt;
+import project.util.ArrayList;
+import project.util.MenuPrompt;
 
 public class App {
 

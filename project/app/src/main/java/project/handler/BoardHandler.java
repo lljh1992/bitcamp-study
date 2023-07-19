@@ -1,8 +1,8 @@
 package project.handler;
 
-import util.List;
-import util.MenuPrompt;
-import vo.Board;
+import project.util.List;
+import project.util.MenuPrompt;
+import project.vo.Board;
 
 public class BoardHandler implements Handler {
 

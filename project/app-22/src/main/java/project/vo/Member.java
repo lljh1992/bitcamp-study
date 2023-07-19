@@ -1,4 +1,4 @@
-package vo;
+package project.vo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package util;
+package project.util;
 
 public class ArrayList implements List {
   private static final int DEFAULT_SIZE = 3;
