@@ -1,13 +1,17 @@
 package project.handler;
 
 import java.util.List;
+import project.dao.NewMemberDao;
+import project.util.ActionListener;
 import project.util.BreadcrumbPrompt;
 import project.vo.NewMember;
 
-public class NewMemberListListener extends AbstractNewMemberListener {
+public class NewMemberListListener implements ActionListener {
 
-  public NewMemberListListener(List<NewMember> list) {
-    super(list);
+  NewMemberDao newmemberDao;
+
+  public NewMemberListListener(NewMemberDao newmemberDao) {
+    this.newmemberDao = newmemberDao;
   }
 
   @Override
@@ -16,9 +20,11 @@ public class NewMemberListListener extends AbstractNewMemberListener {
     System.out.println("번호 | 아이디 | 이름 ");
     System.out.println("----------------------");
 
-    for (int i = 0; i < this.list.size(); i++) {
-      NewMember nm = this.list.get(i);
-      System.out.printf("%d, %s, %s\n", nm.getNewno(), nm.getNewid(), nm.getNewname());
+    List<NewMember> list = newmemberDao.list();
+
+    for (NewMember newmember : list) {
+      System.out.printf("%d, %s, %s\n", newmember.getNewno(), newmember.getNewid(),
+          newmember.getNewname());
     }
   }
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Member {
 
-  private static int userId = 1;
+  public static int userId = 1;
 
   public static final char RESIDENT = 'Y';
   public static final char OUTSIDER = 'N';
@@ -163,10 +163,6 @@ public class Member {
     }
   }
 
-  // 타임스탬프를 읽기 쉬운 문자열 형태로 변환하는 도우미 메서드
-  // private String convertTimestampToString(long timestamp) {
-  // return String.valueOf(timestamp);
-  // }
 
 
   public boolean isInside() {

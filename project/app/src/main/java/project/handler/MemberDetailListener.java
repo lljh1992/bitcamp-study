@@ -1,21 +1,24 @@
 package project.handler;
 
-import java.util.List;
+import project.dao.MemberDao;
+import project.util.ActionListener;
 import project.util.BreadcrumbPrompt;
 import project.vo.Member;
 
-public class MemberDetailListener extends AbstractMemberListener {
+public class MemberDetailListener implements ActionListener {
+
+  MemberDao memberDao;
 
 
-  public MemberDetailListener(List<Member> list) {
-    super(list);
+  public MemberDetailListener(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
     int memberNo = prompt.inputInt("번호?");
 
-    Member m = this.findBy(memberNo);
+    Member m = memberDao.findBy(memberNo);
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다!");
       return;

@@ -1,13 +1,17 @@
 package project.handler;
 
 import java.util.List;
+import project.dao.MemberDao;
+import project.util.ActionListener;
 import project.util.BreadcrumbPrompt;
 import project.vo.Member;
 
-public class MemberEntryListener extends AbstractMemberListener {
+public class MemberEntryListener implements ActionListener {
 
-  public MemberEntryListener(List<Member> list) {
-    super(list);
+  MemberDao memberDao;
+
+  public MemberEntryListener(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
@@ -15,7 +19,9 @@ public class MemberEntryListener extends AbstractMemberListener {
     String recordVehicle = prompt.inputString("차량번호: ");
     boolean vehicleFound = false;
 
-    for (Member member : this.list) {
+    List<Member> list = memberDao.list();
+
+    for (Member member : list) {
       if (member.getCarnumber().equals(recordVehicle)) {
         System.out.println("------------------------------");
         System.out.println(" 차량 입차 기록 ");

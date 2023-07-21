@@ -1,13 +1,16 @@
 package project.handler;
 
-import java.util.List;
+import project.dao.MemberDao;
+import project.util.ActionListener;
 import project.util.BreadcrumbPrompt;
 import project.vo.Member;
 
-public class MemberAddListener extends AbstractMemberListener {
+public class MemberAddListener implements ActionListener {
 
-  public MemberAddListener(List<Member> list) {
-    super(list);
+  MemberDao memberDao;
+
+  public MemberAddListener(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
@@ -20,8 +23,8 @@ public class MemberAddListener extends AbstractMemberListener {
     m.setPhonenumber(prompt.inputString("H.P: "));
     m.setCarnumber(prompt.inputString("차량 번호: "));
     m.setVehicleOwnership(prompt.inputString("차량 보유 현황: "));
-    m.setType(inputResident((char) 0, prompt));
+    m.setType(MemberActionListener.inputResident((char) 0, prompt));
 
-    this.list.add(m);
+    memberDao.insert(m);
   }
 }

@@ -1,13 +1,16 @@
 package project.handler;
 
-import java.util.List;
+import project.dao.NewMemberDao;
+import project.util.ActionListener;
 import project.util.BreadcrumbPrompt;
 import project.vo.NewMember;
 
-public class NewMemberAddListener extends AbstractNewMemberListener {
+public class NewMemberAddListener implements ActionListener {
 
-  public NewMemberAddListener(List<NewMember> list) {
-    super(list);
+  NewMemberDao newmemberDao;
+
+  public NewMemberAddListener(NewMemberDao newmemberDao) {
+    this.newmemberDao = newmemberDao;
   }
 
   @Override
@@ -16,7 +19,7 @@ public class NewMemberAddListener extends AbstractNewMemberListener {
 
     String newMemberid = prompt.inputString("아이디: ");
 
-    if (isExistingMember(newMemberid)) {
+    if (newmemberDao.isExistingMember(newMemberid)) {
       System.out.println("해당 계정을 사용할 수 없습니다!");
       return;
     }
@@ -26,7 +29,7 @@ public class NewMemberAddListener extends AbstractNewMemberListener {
     nm.setNewname(prompt.inputString("이름: "));
     nm.setNewphonenumber(prompt.inputString("H.P: "));
 
-    this.list.add(nm);
+    newmemberDao.insert(nm);
 
   }
 }

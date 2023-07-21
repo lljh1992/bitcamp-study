@@ -1,37 +1,42 @@
 package project.handler;
 
 import java.util.List;
+import project.dao.NewMemberDao;
+import project.util.ActionListener;
 import project.util.BreadcrumbPrompt;
 import project.vo.NewMember;
 
-public class NewMemberUpdateListener extends AbstractNewMemberListener {
+public class NewMemberUpdateListener implements ActionListener {
 
-  public NewMemberUpdateListener(List<NewMember> list) {
-    super(list);
+  NewMemberDao newmemberDao;
+
+  public NewMemberUpdateListener(NewMemberDao newmemberDao) {
+    this.newmemberDao = newmemberDao;
   }
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
     String memberNewId = prompt.inputString("아이디 : ");
 
-    for (int i = 0; i < this.list.size(); i++) {
-      NewMember nm = this.list.get(i);
-      if (nm.getNewid().equals(memberNewId)) {
+    List<NewMember> list = newmemberDao.list();
+
+    for (NewMember newmember : list) {
+      if (newmember.getNewid().equals(memberNewId)) {
         String memberNewpw = prompt.inputString("비밀번호 : ");
-        if (nm.getNewpassword().equals(memberNewpw)) {
-          System.out.printf("아이디: %s", nm.getNewid());
+        if (newmember.getNewpassword().equals(memberNewpw)) {
+          System.out.printf("아이디: %s", newmember.getNewid());
 
           String newId = prompt.inputString(" > ");
-          if (isExistingMember(newId)) {
+          if (newmemberDao.isExistingMember(newId)) {
             System.out.println("사용할 수 없는 아이디입니다!");
             return;
           }
-          nm.setNewid(newId);
+          newmember.setNewid(newId);
 
-          System.out.printf("비밀번호: %s", nm.getNewpassword());
-          nm.setNewpassword(prompt.inputString(" > "));
-          System.out.printf("H.P: %s", nm.getNewphonenumber());
-          nm.setNewphonenumber(prompt.inputString(" > "));
+          System.out.printf("비밀번호: %s", newmember.getNewpassword());
+          newmember.setNewpassword(prompt.inputString(" > "));
+          System.out.printf("H.P: %s", newmember.getNewphonenumber());
+          newmember.setNewphonenumber(prompt.inputString(" > "));
           return;
         } else {
           System.out.println("비밀번호가 틀렸습니다!");

@@ -3,17 +3,13 @@
  */
 package project;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import project.dao.BoardDao;
+import project.dao.BoardListDao;
+import project.dao.MemberDao;
+import project.dao.MemberListDao;
+import project.dao.NewMemberDao;
+import project.dao.NewMemberListDao;
 import project.handler.BoardAddListener;
 import project.handler.BoardDeleteListener;
 import project.handler.BoardDetailListener;
@@ -37,19 +33,19 @@ import project.handler.NewMemberUpdateListener;
 import project.util.BreadcrumbPrompt;
 import project.util.Menu;
 import project.util.MenuGroup;
-import project.vo.AutoIncrement;
-import project.vo.Board;
 import project.vo.Member;
-import project.vo.NewMember;
 
 public class App {
 
-  ArrayList<NewMember> newmemberList = new ArrayList<>();
   static ArrayList<Member> memberList = new ArrayList<>();
-  static LinkedList<Board> boardList = new LinkedList<>();
-  static LinkedList<Board> noticeList = new LinkedList<>();
+
+  NewMemberDao newmemberDao = new NewMemberListDao("newmember.json");
+  static MemberDao memberDao = new MemberListDao("member.json");
+  static BoardDao boardDao = new BoardListDao("board.json");
+  static BoardDao noticeDao = new BoardListDao("notice.json");
 
   BreadcrumbPrompt prompt = new BreadcrumbPrompt();
+
   MenuGroup mainMenu = new MenuGroup("메인");
 
 
@@ -71,33 +67,17 @@ public class App {
 
     printTitle();
 
-    loadData();
     mainMenu.execute(prompt);
-    saveData();
     prompt.close();
-  }
-
-  private void loadData() {
-    loadJson("member.json", memberList, Member.class);
-    loadJson("newmember.json", newmemberList, NewMember.class);
-    loadJson("board.json", boardList, Board.class);
-    loadJson("notice.json", noticeList, Board.class);
-  }
-
-  private void saveData() {
-    saveJson("member.json", memberList);
-    saveJson("newmember.json", newmemberList);
-    saveJson("board.json", boardList);
-    saveJson("notice.json", noticeList);
   }
 
   public void prepareMenu() {
     MenuGroup newmemberMenu = new MenuGroup("주차 관리 시스템");
-    newmemberMenu.add(new Menu("회원가입", new NewMemberAddListener(newmemberList)));
-    newmemberMenu.add(new Menu("로그인", new NewMemberLoginListener(newmemberList)));
-    newmemberMenu.add(new Menu("회원정보 변경", new NewMemberUpdateListener(newmemberList)));
-    newmemberMenu.add(new Menu("회원정보 조회", new NewMemberListListener(newmemberList)));
-    newmemberMenu.add(new Menu("회원탈퇴", new NewMemberDeleteListener(newmemberList)));
+    newmemberMenu.add(new Menu("회원가입", new NewMemberAddListener(newmemberDao)));
+    newmemberMenu.add(new Menu("로그인", new NewMemberLoginListener(newmemberDao)));
+    newmemberMenu.add(new Menu("회원정보 변경", new NewMemberUpdateListener(newmemberDao)));
+    newmemberMenu.add(new Menu("회원정보 조회", new NewMemberListListener(newmemberDao)));
+    newmemberMenu.add(new Menu("회원탈퇴", new NewMemberDeleteListener(newmemberDao)));
     mainMenu.add(newmemberMenu);
 
     Menu helloMenu = new Menu("안녕하세요.");
@@ -114,83 +94,32 @@ public class App {
     MenuGroup mainMenu = new MenuGroup("로비");
 
     MenuGroup memberMenu = new MenuGroup("주차관리");
-    memberMenu.add(new Menu("차량 등록", new MemberAddListener(memberList)));
-    memberMenu.add(new Menu("차량 목록", new MemberListListener(memberList)));
-    memberMenu.add(new Menu("차량 조회", new MemberDetailListener(memberList)));
-    memberMenu.add(new Menu("정보 변경", new MemberUpdateListener(memberList)));
-    memberMenu.add(new Menu("차량 삭제", new MemberDeleteListener(memberList)));
-    memberMenu.add(new Menu("차량 입차 기록", new MemberEntryListener(memberList)));
-    memberMenu.add(new Menu("차량 출차 기록", new MemberExitListener(memberList)));
+    memberMenu.add(new Menu("차량 등록", new MemberAddListener(memberDao)));
+    memberMenu.add(new Menu("차량 목록", new MemberListListener(memberDao)));
+    memberMenu.add(new Menu("차량 조회", new MemberDetailListener(memberDao)));
+    memberMenu.add(new Menu("정보 변경", new MemberUpdateListener(memberDao)));
+    memberMenu.add(new Menu("차량 삭제", new MemberDeleteListener(memberDao)));
+    memberMenu.add(new Menu("차량 입차 기록", new MemberEntryListener(memberDao)));
+    memberMenu.add(new Menu("차량 출차 기록", new MemberExitListener(memberDao)));
     mainMenu.add(memberMenu);
 
     MenuGroup boardMenu = new MenuGroup("민원사항");
-    boardMenu.add(new Menu("민원사항 등록", new BoardAddListener(boardList)));
-    boardMenu.add(new Menu("민원사항 목록", new BoardListListener(boardList)));
-    boardMenu.add(new Menu("민원사항 조회", new BoardDetailListener(boardList)));
-    boardMenu.add(new Menu("민원사항 변경", new BoardUpdateListener(boardList)));
-    boardMenu.add(new Menu("민원사항 삭제", new BoardDeleteListener(boardList)));
+    boardMenu.add(new Menu("민원사항 등록", new BoardAddListener(boardDao)));
+    boardMenu.add(new Menu("민원사항 목록", new BoardListListener(boardDao)));
+    boardMenu.add(new Menu("민원사항 조회", new BoardDetailListener(boardDao)));
+    boardMenu.add(new Menu("민원사항 변경", new BoardUpdateListener(boardDao)));
+    boardMenu.add(new Menu("민원사항 삭제", new BoardDeleteListener(boardDao)));
     mainMenu.add(boardMenu);
 
     MenuGroup noticeMenu = new MenuGroup("공지사항");
-    noticeMenu.add(new Menu("공지사항 등록", new BoardAddListener(noticeList)));
-    noticeMenu.add(new Menu("공지사항 목록", new BoardListListener(noticeList)));
-    noticeMenu.add(new Menu("공지사항 조회", new BoardDetailListener(noticeList)));
-    noticeMenu.add(new Menu("공지사항 변경", new BoardUpdateListener(noticeList)));
-    noticeMenu.add(new Menu("공지사항 삭제", new BoardDeleteListener(noticeList)));
+    noticeMenu.add(new Menu("공지사항 등록", new BoardAddListener(noticeDao)));
+    noticeMenu.add(new Menu("공지사항 목록", new BoardListListener(noticeDao)));
+    noticeMenu.add(new Menu("공지사항 조회", new BoardDetailListener(noticeDao)));
+    noticeMenu.add(new Menu("공지사항 변경", new BoardUpdateListener(noticeDao)));
+    noticeMenu.add(new Menu("공지사항 삭제", new BoardDeleteListener(noticeDao)));
     mainMenu.add(noticeMenu);
 
     mainMenu.execute(prompt);
-  }
-
-
-  public <T> void loadJson(String filename, List<T> list, Class<T> clazz) {
-    try {
-      FileReader in0 = new FileReader(filename);
-      BufferedReader in = new BufferedReader(in0);
-
-      StringBuilder strBuilder = new StringBuilder();
-      String line = null;
-
-      while ((line = in.readLine()) != null) {
-        strBuilder.append(line);
-
-      }
-
-      in.close();
-
-      Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-      Collection<T> objects = gson.fromJson(strBuilder.toString(),
-          TypeToken.getParameterized(Collection.class, clazz).getType());
-
-      list.addAll(objects);
-
-      Class<?>[] interfaces = clazz.getInterfaces();
-      for (Class<?> info : interfaces) {
-        if (info == AutoIncrement.class) {
-          AutoIncrement autoIncrement = (AutoIncrement) list.get(list.size() - 1);
-          autoIncrement.updateKey();
-          break;
-        }
-      }
-
-    } catch (Exception e) {
-      System.out.println(filename + "파일을 읽는 중 오류 발생!");
-    }
-  }
-
-  public void saveJson(String filename, List<?> list) {
-    try {
-      FileWriter out0 = new FileWriter(filename);
-      BufferedWriter out = new BufferedWriter(out0);
-
-      Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting().create();
-      out.write(gson.toJson(list));
-
-      out.close();
-
-    } catch (Exception e) {
-      System.out.println(filename + "파일을 저장하는 중 오류 발생!");
-    }
   }
 
 }

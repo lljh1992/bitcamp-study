@@ -2,13 +2,17 @@ package project.handler;
 
 import java.util.List;
 import project.App;
+import project.dao.NewMemberDao;
+import project.util.ActionListener;
 import project.util.BreadcrumbPrompt;
 import project.vo.NewMember;
 
-public class NewMemberLoginListener extends AbstractNewMemberListener {
+public class NewMemberLoginListener implements ActionListener {
 
-  public NewMemberLoginListener(List<NewMember> list) {
-    super(list);
+  NewMemberDao newmemberDao;
+
+  public NewMemberLoginListener(NewMemberDao newmemberDao) {
+    this.newmemberDao = newmemberDao;
   }
 
   @Override
@@ -16,13 +20,12 @@ public class NewMemberLoginListener extends AbstractNewMemberListener {
     String memberNewId = prompt.inputString("아이디: ");
     String memberNewPw = prompt.inputString("비밀번호: ");
 
+    List<NewMember> list = newmemberDao.list();
 
-    for (int i = 0; i < this.list.size(); i++) {
-      NewMember nm = this.list.get(i);
-      if (nm != null && nm.getNewid().equals(memberNewId)) {
-        if (nm.getNewpassword().equals(memberNewPw)) {
+    for (NewMember newmember : list) {
+      if (newmember != null && newmember.getNewid().equals(memberNewId)) {
+        if (newmember.getNewpassword().equals(memberNewPw)) {
           App.service(prompt);
-          // LoginHandler.service(prompt);
           return;
         } else {
           System.out.println("비밀번호가 틀렸습니다!");

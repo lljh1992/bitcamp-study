@@ -1,13 +1,17 @@
 package project.handler;
 
 import java.util.List;
+import project.dao.MemberDao;
+import project.util.ActionListener;
 import project.util.BreadcrumbPrompt;
 import project.vo.Member;
 
-public class MemberListListener extends AbstractMemberListener {
+public class MemberListListener implements ActionListener {
 
-  public MemberListListener(List<Member> list) {
-    super(list);
+  MemberDao memberDao;
+
+  public MemberListListener(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
@@ -16,10 +20,11 @@ public class MemberListListener extends AbstractMemberListener {
     System.out.println("번호, 동,   호수,  이름,  H.P,  차량 번호,  차량 보유 현황,  거주 여부");
     System.out.println("----------------------------------------------------------------");
 
-    for (int i = 0; i < this.list.size(); i++) {
-      Member m = this.list.get(i);
-      System.out.printf("%s,  %s,  %s,  %s,  %s,  %s,  %s,  %c\n", m.getNo(), m.getA(), m.getB(),
-          m.getName(), m.getPhonenumber(), m.getCarnumber(), m.getVehicleOwnership(), m.getType());
+    List<Member> list = memberDao.list();
+    for (Member member : list) {
+      System.out.printf("%s,  %s,  %s,  %s,  %s,  %s,  %s,  %c\n", member.getNo(), member.getA(),
+          member.getB(), member.getName(), member.getPhonenumber(), member.getCarnumber(),
+          member.getVehicleOwnership(), member.getType());
     }
   }
 

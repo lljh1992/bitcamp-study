@@ -1,13 +1,16 @@
 package project.handler;
 
-import java.util.List;
+import project.dao.BoardDao;
+import project.util.ActionListener;
 import project.util.BreadcrumbPrompt;
 import project.vo.Board;
 
-public class BoardAddListener extends AbstractBoardListener {
+public class BoardAddListener implements ActionListener {
 
-  public BoardAddListener(List<Board> list) {
-    super(list);
+  BoardDao boardDao;
+
+  public BoardAddListener(BoardDao boardDao) {
+    this.boardDao = boardDao;
   }
 
   @Override
@@ -18,6 +21,6 @@ public class BoardAddListener extends AbstractBoardListener {
     board.setWriter(prompt.inputString("작성자? "));
     board.setPassword(prompt.inputString("암호? "));
 
-    this.list.add(board);
+    boardDao.insert(board);
   }
 }
