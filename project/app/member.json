@@ -1,21 +1,36 @@
 [
   {
     "no": 1,
-    "a": "108",
-    "b": "1704",
-    "name": "홍길동",
-    "phonenumber": "010-0000-0000",
-    "carnumber": "24모0000",
+    "a": "1",
+    "b": "1",
+    "name": "1",
+    "phonenumber": "1",
+    "carnumber": "1",
     "VehicleOwnership": "1",
     "type": "Y",
     "isInside": false,
     "entryTimes": [
-      1689899379881,
-      1689903301918
+      1689959850066,
+      1689959865683,
+      1689959939248,
+      1689959950488,
+      1689960122276
     ],
-    "exitTimes": [
-      1689899409043,
-      1689903307483
-    ]
+    "exitTimes": []
+  },
+  {
+    "no": 2,
+    "a": "2",
+    "b": "2",
+    "name": "2",
+    "phonenumber": "2",
+    "carnumber": "2",
+    "VehicleOwnership": "2",
+    "type": "N",
+    "isInside": false,
+    "entryTimes": [
+      1689959867204
+    ],
+    "exitTimes": []
   }
 ]

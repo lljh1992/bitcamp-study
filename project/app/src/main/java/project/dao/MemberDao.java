@@ -14,4 +14,6 @@ public interface MemberDao {
 
   int delete(int no);
 
+  void saveEntry(Member member);
+
 }

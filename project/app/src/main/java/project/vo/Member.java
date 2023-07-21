@@ -1,9 +1,12 @@
 package project.vo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Member {
+public class Member implements Serializable, AutoIncrement {
+
+  private static final long serialVersionUID = 1L;
 
   public static int userId = 1;
 
@@ -26,7 +29,7 @@ public class Member {
 
 
   public Member() {
-    this.no = userId++;
+    //    this.no = userId++;
     this.isInside = false;
     this.entryTimes = new ArrayList<>();
     this.exitTimes = new ArrayList<>();
@@ -34,6 +37,13 @@ public class Member {
 
   public Member(int no) {
     this.no = no;
+  }
+
+  @Override
+  public void updateKey() {
+    if (Member.userId <= this.no) {
+      Member.userId = this.no + 1;
+    }
   }
 
   @Override

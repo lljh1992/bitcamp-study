@@ -15,4 +15,6 @@ public interface NewMemberDao {
   int delete(int no);
 
   boolean deleteNew(NewMember newmember);
+
+
 }

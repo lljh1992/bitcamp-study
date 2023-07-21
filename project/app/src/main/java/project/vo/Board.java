@@ -1,6 +1,10 @@
 package project.vo;
 
-public class Board {
+import java.io.Serializable;
+
+public class Board implements Serializable, AutoIncrement {
+
+  private static final long serialVersionUID = 1L;
 
   public static int boardNo = 1;
 
@@ -12,13 +16,17 @@ public class Board {
   private int viewCount;
   private long createdDate;
 
-  public Board() {
-    this.no = boardNo++;
-    this.createdDate = System.currentTimeMillis();
-  }
+  public Board() {}
 
   public Board(int no) {
     this.no = no;
+  }
+
+  @Override
+  public void updateKey() {
+    if (Board.boardNo <= this.no) {
+      Board.boardNo = this.no + 1;
+    }
   }
 
   @Override
@@ -95,5 +103,6 @@ public class Board {
   public void setCreatedDate(long createdDate) {
     this.createdDate = createdDate;
   }
-
 }
+
+

@@ -19,7 +19,6 @@ public class NewMemberListDao implements NewMemberDao {
   public void insert(NewMember newmember) {
     newmember.setNewno(newmember.newno++);
     this.list.add(newmember);
-
     JsonDataHelper.saveJson(filename, list);
   }
 
@@ -75,6 +74,7 @@ public class NewMemberListDao implements NewMemberDao {
     }
     return false;
   }
+
 
 
 }

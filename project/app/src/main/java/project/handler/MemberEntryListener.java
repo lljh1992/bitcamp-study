@@ -16,6 +16,7 @@ public class MemberEntryListener implements ActionListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
+
     String recordVehicle = prompt.inputString("차량번호: ");
     boolean vehicleFound = false;
 
@@ -26,19 +27,19 @@ public class MemberEntryListener implements ActionListener {
         System.out.println("------------------------------");
         System.out.println(" 차량 입차 기록 ");
         System.out.println("------------------------------");
-
         vehicleFound = true;
-        long entryTime = System.currentTimeMillis();
-        member.addEntryTime(entryTime);
+        member.getEntryTimes();
         member.printEntryTimes();
-        break; // 차량번호가 중복되지 않기 때문에 루프 종료
+        memberDao.saveEntry(member); // 차량번호에 해당하는 멤버의 입차 시간을 저장합니다.
       }
+      break;
     }
 
     if (!vehicleFound) {
       System.out.println("등록된 차량이 아닙니다.");
     }
   }
-
-
 }
+
+
+

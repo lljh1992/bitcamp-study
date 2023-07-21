@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import project.vo.AutoIncrement;
+import project.vo.Member;
 
 public class JsonDataHelper {
   public static <T> void loadJson(String filename, List<T> list, Class<T> clazz) {
@@ -60,5 +61,10 @@ public class JsonDataHelper {
     } catch (Exception e) {
       System.out.println(filename + "파일을 저장하는 중 오류 발생!");
     }
+  }
+
+  public static List<Member> loadJson(String filename, Class<Member> class1) {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

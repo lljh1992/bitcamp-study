@@ -1,11 +1,11 @@
 [
   {
-    "no": 5,
-    "title": "테스트1",
-    "content": "테스트1",
-    "writer": "관리자",
+    "no": 3,
+    "title": "1",
+    "content": "1",
+    "writer": "1",
     "password": "1",
-    "viewCount": 1,
-    "createdDate": 1689928832480
+    "viewCount": 0,
+    "createdDate": 1689953256344
   }
 ]
