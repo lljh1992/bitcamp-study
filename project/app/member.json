@@ -1,0 +1,19 @@
+[
+  {
+    "no": 1,
+    "a": "108",
+    "b": "1704",
+    "name": "홍길동",
+    "phonenumber": "010-0000-0000",
+    "carnumber": "24모0000",
+    "VehicleOwnership": "1",
+    "type": "Y",
+    "isInside": false,
+    "entryTimes": [
+      1689899379881
+    ],
+    "exitTimes": [
+      1689899409043
+    ]
+  }
+]
