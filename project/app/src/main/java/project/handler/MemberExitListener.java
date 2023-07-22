@@ -25,7 +25,7 @@ public class MemberExitListener implements ActionListener {
     for (Member member : list) {
       if (member.getCarnumber().equals(recordVehicle)) {
         System.out.println("------------------------------");
-        System.out.println(" 차량 출차 기록 ");
+        System.out.printf(" %s             차량 출차 기록\n", recordVehicle);
         System.out.println("------------------------------");
         vehicleFound = true;
         member.getExitTimes();
@@ -39,6 +39,4 @@ public class MemberExitListener implements ActionListener {
     }
     JsonDataHelper.saveJson(recordVehicle, list);
   }
-
-
 }

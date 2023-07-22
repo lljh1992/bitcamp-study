@@ -9,7 +9,6 @@ public class MemberDetailListener implements ActionListener {
 
   MemberDao memberDao;
 
-
   public MemberDetailListener(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
@@ -29,7 +28,7 @@ public class MemberDetailListener implements ActionListener {
     System.out.printf("H.P: %s\n", m.getPhonenumber());
     System.out.printf("차량 번호: %s\n", m.getCarnumber());
     System.out.printf("차량 보유 현황: %s\n", m.getVehicleOwnership());
-    System.out.printf("거주 여부: %s\n", m.getType());
+    System.out.printf("거주 여부: %s\n", m.getType() == 'Y' ? "거주자" : "외부인");
   }
 
 }

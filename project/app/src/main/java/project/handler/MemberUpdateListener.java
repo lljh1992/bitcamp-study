@@ -21,7 +21,6 @@ public class MemberUpdateListener implements ActionListener {
       System.out.println("해당 번호의 회원이 없습니다!");
       return;
     }
-
     m.setA(prompt.inputString("동(%s) > ", m.getA()));
     m.setB(prompt.inputString("호수(%s) > ", m.getB()));
     m.setName(prompt.inputString("이름(%s) > ", m.getName()));
@@ -29,9 +28,6 @@ public class MemberUpdateListener implements ActionListener {
     m.setCarnumber(prompt.inputString("차량 번호(%s) > ", m.getCarnumber()));
     m.setVehicleOwnership(prompt.inputString("차량 보유 현황(%s) > ", m.getVehicleOwnership()));
     m.setType(MemberActionListener.inputResident(m.getType(), prompt));
-
     memberDao.update(m);
-
   }
-
 }

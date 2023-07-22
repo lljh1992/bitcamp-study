@@ -23,13 +23,10 @@ public class NewMemberAddListener implements ActionListener {
       System.out.println("해당 계정을 사용할 수 없습니다!");
       return;
     }
-
     nm.setNewid(newMemberid);
     nm.setNewpassword(prompt.inputString("비밀번호: "));
     nm.setNewname(prompt.inputString("이름: "));
     nm.setNewphonenumber(prompt.inputString("H.P: "));
-
     newmemberDao.insert(nm);
-
   }
 }

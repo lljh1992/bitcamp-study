@@ -6,6 +6,7 @@ import project.util.JsonDataHelper;
 import project.vo.Board;
 
 public class BoardListDao implements BoardDao {
+
   String filename;
   ArrayList<Board> list = new ArrayList<>();
 
@@ -30,9 +31,9 @@ public class BoardListDao implements BoardDao {
   @Override
   public Board findBy(int no) {
     for (int i = 0; i < this.list.size(); i++) {
-      Board m = this.list.get(i);
-      if (m.getNo() == no) {
-        return m;
+      Board b = this.list.get(i);
+      if (b.getNo() == no) {
+        return b;
       }
     }
     return null;

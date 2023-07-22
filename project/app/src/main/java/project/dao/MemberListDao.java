@@ -63,26 +63,6 @@ public class MemberListDao implements MemberDao {
     return 0;
   }
 
-  //  @Override
-  //  public void saveEntry(Member member) {
-  //    // 기존 데이터에서 입력한 차량번호와 일치하는 차량을 찾습니다.
-  //    boolean found = false;
-  //    for (Member existingMember : list) {
-  //      if (existingMember.getCarnumber().equals(member.getCarnumber())) {
-  //        // 일치하는 차량을 찾았을 경우 해당 차량 정보를 업데이트합니다.
-  //        existingMember.addEntryTime(System.currentTimeMillis());
-  //        found = true;
-  //        break;
-  //      }
-  //    }
-  //
-  //    if (!found) {
-  //      // 일치하는 차량을 찾지 못한 경우, 새로운 차량 정보를 리스트에 추가하고, 변경된 리스트를 파일에 저장합니다.
-  //      list.add(member);
-  //      JsonDataHelper.saveJson(filename, list);
-  //    }
-  //  }
-
   @Override
   public void saveEntry(Member member) {
     // 기존 데이터에서 입력한 차량번호와 일치하는 차량을 찾습니다.

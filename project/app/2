@@ -1,17 +1,18 @@
 [
   {
     "no": 1,
-    "a": "1",
-    "b": "1",
-    "name": "1",
-    "phonenumber": "1",
-    "carnumber": "1",
-    "VehicleOwnership": "1",
+    "a": "4",
+    "b": "4",
+    "name": "4",
+    "phonenumber": "4",
+    "carnumber": "4",
+    "VehicleOwnership": "2",
     "type": "Y",
     "isInside": false,
     "entryTimes": [
       1689985463121,
-      1689985548969
+      1689985548969,
+      1690006600475
     ],
     "exitTimes": [
       1689985487160,
@@ -29,7 +30,9 @@
     "type": "N",
     "isInside": false,
     "entryTimes": [
-      1689985551688
+      1689985551688,
+      1690006610482,
+      1690006613113
     ],
     "exitTimes": [
       1689985555344

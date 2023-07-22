@@ -1,14 +1,20 @@
 package project.vo;
 
-public class NewMember {
+import java.io.Serializable;
 
-  private static int newuserId = 1;
+public class NewMember implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
+  public static int newuserId = 1;
 
   public int newno;
   public String newid;
   public String newpassword;
   public String newname;
   public String newphonenumber;
+
+
 
   public NewMember() {
     this.newno = newuserId++;
@@ -17,7 +23,6 @@ public class NewMember {
   public NewMember(int newno) {
     this.newno = newno;
   }
-
 
   public int getNewno() {
     return newno;

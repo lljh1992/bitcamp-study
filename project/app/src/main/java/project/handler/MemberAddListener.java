@@ -16,7 +16,6 @@ public class MemberAddListener implements ActionListener {
   @Override
   public void service(BreadcrumbPrompt prompt) {
     Member m = new Member();
-
     m.setA(prompt.inputString("동: "));
     m.setB(prompt.inputString("호수: "));
     m.setName(prompt.inputString("이름: "));
@@ -24,7 +23,6 @@ public class MemberAddListener implements ActionListener {
     m.setCarnumber(prompt.inputString("차량 번호: "));
     m.setVehicleOwnership(prompt.inputString("차량 보유 현황: "));
     m.setType(MemberActionListener.inputResident((char) 0, prompt));
-
     memberDao.insert(m);
   }
 }
