@@ -16,4 +16,6 @@ public interface MemberDao {
 
   void saveEntry(Member member);
 
+  void saveExit(Member member);
+
 }

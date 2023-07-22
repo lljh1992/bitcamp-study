@@ -105,5 +105,21 @@ public class MemberListDao implements MemberDao {
     JsonDataHelper.saveJson(filename, list);
   }
 
+  @Override
+  public void saveExit(Member memeber) {
+    boolean found = false;
+    for (Member existingMember : list) {
+      if (existingMember.getCarnumber().equals(memeber.getCarnumber())) {
+        existingMember.addExitTime(System.currentTimeMillis());
+        found =  true;
+        break;
+      }
+    }
+    if(!found) {
+      System.out.println("등록된 차량이 없습니다.");
+    }
+    JsonDataHelper.saveJson(filename, list);
+  }
+
 
 }

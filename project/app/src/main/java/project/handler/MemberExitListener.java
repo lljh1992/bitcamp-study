@@ -27,20 +27,16 @@ public class MemberExitListener implements ActionListener {
         System.out.println("------------------------------");
         System.out.println(" 차량 출차 기록 ");
         System.out.println("------------------------------");
-
         vehicleFound = true;
-        long exitTime = System.currentTimeMillis();
-        member.addExitTime(exitTime);
+        member.getExitTimes();
         member.printExitTimes();
-
+        memberDao.saveExit(member);
         break; // 차량번호가 중복되지 않기 때문에 루프 종료
       }
     }
-
     if (!vehicleFound) {
       System.out.println("등록된 차량이 아닙니다.");
     }
-
     JsonDataHelper.saveJson(recordVehicle, list);
   }
 
