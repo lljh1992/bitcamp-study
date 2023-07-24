@@ -11,13 +11,13 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import project.dao.BoardListDao;
 import project.dao.MemberListDao;
 import project.dao.NewMemberListDao;
 import project.net.RequestEntity;
 import project.net.ResponseEntity;
+import project.util.ManagedThread;
+import project.util.ThreadPool;
 
 public class ServerApp {
 
@@ -26,8 +26,8 @@ public class ServerApp {
 
   HashMap<String,Object> daoMap = new HashMap<>();
 
-  // 자바 스레드풀 준비
-  ExecutorService threadPool = Executors.newFixedThreadPool(10);
+  // 스레드를 리턴해 줄 스레드풀 준비
+  ThreadPool threadPool = new ThreadPool();
 
   public ServerApp(int port) throws Exception {
     this.port = port;
@@ -61,25 +61,8 @@ public class ServerApp {
 
     while (true) {
       Socket socket = serverSocket.accept();
-
-      threadPool.execute(() -> processRequest(socket));
-
-      // 컴파일러는 위의 문장을 다음 문장으로 변환한다.
-      //      class $1 implements Runnable {
-      //        ServerApp this$0;
-      //        Socket socket;
-      //
-      //        public $1(ServerApp arg0, Socket arg1) {
-      //          this$0 = arg0;
-      //          socket = arg1;
-      //        }
-      //
-      //        public void run() {
-      //          this$0.processRequest(socket);
-      //        }
-      //      }
-      //      $1 obj = new $1(this, socket);
-      //      threadPool.execute(obj);
+      ManagedThread t = threadPool.getResource();
+      t.setJob(() ->processRequest(socket));
     }
   }
 
@@ -114,7 +97,7 @@ public class ServerApp {
 
       // 스레드풀이 새 스레드를 만드는 것을 테스트하기 위함.
       // => 스레드풀에 스레드가 없을 때 새 스레드를 만들 것이다.
-      //      Thread.sleep(10000);
+      Thread.sleep(10000);
 
       // 클라이언트 요청을 반복해서 처리하지 않는다.
       // => 접속 -> 요청 -> 실행 -> 응답 -> 연결 끊기
