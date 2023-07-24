@@ -11,7 +11,7 @@ dependencies {
     // 서브 프로젝트의 클래스를 사용하기
     implementation project(':app-common')
     
-    // MSSQL JDBC Driver
+    // MySQL JDBC Driver
     implementation 'mysql:mysql-connector-java:8.0.33'
     
     // Google JSON 라이브러리

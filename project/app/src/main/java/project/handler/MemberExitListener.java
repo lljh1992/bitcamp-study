@@ -4,7 +4,6 @@ import java.util.List;
 import project.dao.MemberDao;
 import project.util.ActionListener;
 import project.util.BreadcrumbPrompt;
-import project.util.JsonDataHelper;
 import project.vo.Member;
 
 public class MemberExitListener implements ActionListener {
@@ -37,6 +36,6 @@ public class MemberExitListener implements ActionListener {
     if (!vehicleFound) {
       System.out.println("등록된 차량이 아닙니다.");
     }
-    JsonDataHelper.saveJson(recordVehicle, list);
+    // JsonDataHelper.saveJson(recordVehicle, list);
   }
 }
