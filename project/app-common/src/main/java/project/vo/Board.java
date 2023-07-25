@@ -1,6 +1,7 @@
 package project.vo;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class Board implements Serializable, AutoIncrement {
 
@@ -14,7 +15,8 @@ public class Board implements Serializable, AutoIncrement {
   private String writer;
   private String password;
   private int viewCount;
-  private long createdDate;
+  private Timestamp createdDate;
+  private int category;
 
   public Board() {}
 
@@ -96,13 +98,24 @@ public class Board implements Serializable, AutoIncrement {
     this.viewCount = viewCount;
   }
 
-  public long getCreatedDate() {
+  public Timestamp getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(long createdDate) {
+  public void setCreatedDate(Timestamp createdDate) {
     this.createdDate = createdDate;
   }
+
+  public int getCategory() {
+    return category;
+  }
+
+  public void setCategory(int category) {
+    this.category = category;
+  }
+
+
+
 }
 
 

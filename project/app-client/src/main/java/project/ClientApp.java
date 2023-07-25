@@ -3,9 +3,13 @@
  */
 package project;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import project.dao.BoardDao;
-import project.dao.DaoBuilder;
 import project.dao.MemberDao;
+import project.dao.MySQLBoardDao;
+import project.dao.MySQLMemberDao;
+import project.dao.MySQLNewMemberDao;
 import project.dao.NewMemberDao;
 import project.handler.BoardAddListener;
 import project.handler.BoardDeleteListener;
@@ -44,12 +48,14 @@ public class ClientApp {
 
   public ClientApp(String ip, int port) throws Exception {
 
-    DaoBuilder daoBuilder = new DaoBuilder(ip, port);
+    Connection con = DriverManager.getConnection("jdbc:mysql://study:1111@localhost:3306/projectdb" // JDBC
+    // URL
+    );
 
-    this.newmemberDao = daoBuilder.build("newmember", NewMemberDao.class);
-    memberDao = daoBuilder.build("member", MemberDao.class);
-    boardDao = daoBuilder.build("board", BoardDao.class);
-    noticeDao = daoBuilder.build("notice", BoardDao.class);
+    this.newmemberDao = new MySQLNewMemberDao(con);
+    memberDao = new MySQLMemberDao(con);
+    boardDao = new MySQLBoardDao(con, 1);
+    noticeDao = new MySQLBoardDao(con, 2);
 
     prepareMenu();
   }
@@ -63,6 +69,7 @@ public class ClientApp {
       System.out.println("실행 예) java ... project.ClientApp 서버주소 포트번호");
       return;
     }
+
     ClientApp app = new ClientApp(args[0], Integer.parseInt(args[1]));
     app.execute();
     app.close();

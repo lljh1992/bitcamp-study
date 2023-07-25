@@ -1,6 +1,7 @@
 package project.vo;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class Member implements Serializable, AutoIncrement {
 
   // 입출차 기록
   private boolean isInside;
-  private List<Long> entryTimes;
-  private List<Long> exitTimes;
+  private List<Timestamp> entryTimes;
+  private List<Timestamp> exitTimes;
 
 
   public Member() {
@@ -156,35 +157,35 @@ public class Member implements Serializable, AutoIncrement {
 
 
 
-  public List<Long> getEntryTimes() {
+  public List<Timestamp> getEntryTimes() {
     return entryTimes;
   }
 
-  public void setEntryTimes(List<Long> entryTimes) {
+  public void setEntryTimes(List<Timestamp> entryTimes) {
     this.entryTimes = entryTimes;
   }
 
-  public List<Long> getExitTimes() {
+  public List<Timestamp> getExitTimes() {
     return exitTimes;
   }
 
-  public void setExitTimes(List<Long> exitTimes) {
+  public void setExitTimes(List<Timestamp> exitTimes) {
     this.exitTimes = exitTimes;
   }
 
   // 입차 시간 추가 메서드
-  public void addEntryTime(long entryTime) {
-    entryTimes.add(System.currentTimeMillis());
+  public void addEntryTime(Timestamp entryTime) {
+    entryTimes.add(entryTime);
   }
 
   // 출차 시간 추가 메서드
-  public void addExitTime(long exitTime) {
-    exitTimes.add(System.currentTimeMillis());
+  public void addExitTime(Timestamp exitTime) {
+    exitTimes.add(exitTime);
   }
 
   // 입차 시간 출력 메서드
   public void printEntryTimes() {
-    for (Long entryTime : entryTimes) {
+    for (Timestamp entryTime : entryTimes) {
       System.out.printf("차량 입차 시간: %tY-%<tm-%<td %<tT%n", entryTime);
       System.out.println();
     }
@@ -192,7 +193,7 @@ public class Member implements Serializable, AutoIncrement {
 
   // 출차 시간 출력 메서드
   public void printExitTimes() {
-    for (Long exitTime : exitTimes) {
+    for (Timestamp exitTime : exitTimes) {
       System.out.printf("차량 출차 시간: %tY-%<tm-%<td %<tT%n", exitTime);
       System.out.println();
     }

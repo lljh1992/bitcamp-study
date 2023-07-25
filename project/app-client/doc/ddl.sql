@@ -22,9 +22,9 @@ create table project_member(
   phonenumber varchar(20) not null,
   carnumber varchar(15) not null,
   VehiceOwnership varchar(2) default null,
-  residencestatus char(1) not null
-  entryTimes dateTime,
-  exitTimes dateTime
+  residencestatus char(1) not null,
+  entryTimes datetime default now(),
+  exitTimes datetime default now()
 );
 
 alter table project_member
@@ -38,7 +38,8 @@ create table project_board(
   writer varchar(20) not null,
   password varchar(100) null,
   view_count int default 0,
-  created_date datetime default now()
+  created_date datetime default now(),
+  category int not null
 );
 
 -- 게시판에 카테고리 컬럼 추가
