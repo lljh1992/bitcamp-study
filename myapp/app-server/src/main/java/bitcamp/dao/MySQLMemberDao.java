@@ -19,7 +19,8 @@ public class MySQLMemberDao implements MemberDao {
   @Override
   public void insert(Member member) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "insert into myapp_member(name,email,password,gender)" + " values(?,?,sha1(?),?)")) {
+        "insert into myapp_member(name,email,password,gender)"
+            + " values(?,?,sha1(?),?)")) {
 
       stmt.setString(1, member.getName());
       stmt.setString(2, member.getEmail());
@@ -35,9 +36,10 @@ public class MySQLMemberDao implements MemberDao {
 
   @Override
   public List<Member> list() {
-    try (
-        PreparedStatement stmt = con.prepareStatement(
-            "select member_no, name, email, gender" + " from myapp_member" + " order by name asc");
+    try (PreparedStatement stmt = con.prepareStatement(
+        "select member_no, name, email, gender"
+            + " from myapp_member"
+            + " order by name asc");
         ResultSet rs = stmt.executeQuery()) {
 
       List<Member> list = new ArrayList<>();
@@ -61,9 +63,10 @@ public class MySQLMemberDao implements MemberDao {
 
   @Override
   public Member findBy(int no) {
-    try (PreparedStatement stmt =
-        con.prepareStatement("select member_no, name, email, gender, created_date"
-            + " from myapp_member" + " where member_no=?")) {
+    try (PreparedStatement stmt = con.prepareStatement(
+        "select member_no, name, email, gender, created_date"
+            + " from myapp_member"
+            + " where member_no=?")) {
 
       stmt.setInt(1, no);
 
@@ -87,9 +90,10 @@ public class MySQLMemberDao implements MemberDao {
 
   @Override
   public Member findByEmailAndPassword(Member param) {
-    try (PreparedStatement stmt =
-        con.prepareStatement("select member_no, name, email, gender, created_date"
-            + " from myapp_member" + " where email=? and password=sha1(?)")) {
+    try (PreparedStatement stmt = con.prepareStatement(
+        "select member_no, name, email, gender, created_date"
+            + " from myapp_member"
+            + " where email=? and password=sha1(?)")) {
 
       stmt.setString(1, param.getEmail());
       stmt.setString(2, param.getPassword());
@@ -114,8 +118,13 @@ public class MySQLMemberDao implements MemberDao {
 
   @Override
   public int update(Member member) {
-    try (PreparedStatement stmt = con.prepareStatement("update myapp_member set" + " name=?,"
-        + " email=?," + " password=sha1(?)," + " gender=?" + " where member_no=?")) {
+    try (PreparedStatement stmt = con.prepareStatement(
+        "update myapp_member set"
+            + " name=?,"
+            + " email=?,"
+            + " password=sha1(?),"
+            + " gender=?"
+            + " where member_no=?")) {
 
       stmt.setString(1, member.getName());
       stmt.setString(2, member.getEmail());
@@ -132,8 +141,8 @@ public class MySQLMemberDao implements MemberDao {
 
   @Override
   public int delete(int no) {
-    try (PreparedStatement stmt =
-        con.prepareStatement("delete from myapp_member where member_no=?")) {
+    try (PreparedStatement stmt = con.prepareStatement(
+        "delete from myapp_member where member_no=?")) {
 
       stmt.setInt(1, no);
 
@@ -143,7 +152,5 @@ public class MySQLMemberDao implements MemberDao {
       throw new RuntimeException(e);
     }
   }
-
-
 
 }

@@ -8,11 +8,8 @@ public class BreadcrumbPrompt extends Prompt {
 
   private Stack<String> breadcrumbs = new Stack<>();
 
-
-
   public BreadcrumbPrompt(DataInputStream in, DataOutputStream out) {
     super(in, out);
-    // TODO Auto-generated constructor stub
   }
 
   public void appendBreadcrumb(String title) {
@@ -35,5 +32,11 @@ public class BreadcrumbPrompt extends Prompt {
     return this.inputString(titleBuilder.toString());
   }
 }
+
+
+
+
+
+
 
 

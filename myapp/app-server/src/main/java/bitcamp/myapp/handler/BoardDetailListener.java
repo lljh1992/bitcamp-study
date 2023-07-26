@@ -35,3 +35,12 @@ public class BoardDetailListener implements ActionListener {
 }
 
 
+
+
+
+
+
+
+
+
+

@@ -33,8 +33,7 @@ alter table myapp_member
 alter table myapp_board
   add constraint myapp_board_fk foreign key (writer) references myapp_member (member_no);
   
-  
-  
+
   
   
   

@@ -7,6 +7,7 @@ import java.util.Scanner;
 import bitcamp.net.NetProtocol;
 
 public class ClientApp {
+
   String ip;
   int port;
 
@@ -23,11 +24,6 @@ public class ClientApp {
 
     ClientApp app = new ClientApp(args[0], Integer.parseInt(args[1]));
     app.execute();
-  }
-
-  static void printTitle() {
-    System.out.println("나의 목록 관리 시스템");
-    System.out.println("----------------------------------");
   }
 
   public void execute() {
@@ -56,7 +52,15 @@ public class ClientApp {
       System.out.println("서버 통신 오류!");
       e.printStackTrace();
     }
-
   }
-
 }
+
+
+
+
+
+
+
+
+
+

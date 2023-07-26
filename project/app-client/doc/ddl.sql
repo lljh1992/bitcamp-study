@@ -5,7 +5,7 @@ drop table project_newmember;
 create table project_newmember(
   newmember_no int not null,
   newid varchar(20) not null,
-  newpassword varchar(100) null,
+  newpassword varchar(100) not null,
   newname varchar(20) not null,
   newphonenumber varchar(20) not null
 );

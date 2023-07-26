@@ -18,9 +18,6 @@ import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
 import bitcamp.myapp.handler.BoardListListener;
 import bitcamp.myapp.handler.BoardUpdateListener;
-import bitcamp.myapp.handler.FooterListener;
-import bitcamp.myapp.handler.HeaderListener;
-import bitcamp.myapp.handler.HelloListener;
 import bitcamp.myapp.handler.LoginListener;
 import bitcamp.myapp.handler.MemberAddListener;
 import bitcamp.myapp.handler.MemberDeleteListener;
@@ -34,6 +31,7 @@ import bitcamp.util.MenuGroup;
 
 public class ServerApp {
 
+  // 자바 스레드풀 준비
   ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
   Connection con;
@@ -49,9 +47,9 @@ public class ServerApp {
 
     this.port = port;
 
-    con = DriverManager.getConnection("jdbc:mysql://study:1111@localhost:3306/studydb" // JDBC
-                                                                                       // URL
-    );
+    con = DriverManager.getConnection(
+        "jdbc:mysql://study:1111@localhost:3306/studydb" // JDBC URL
+        );
 
     this.memberDao = new MySQLMemberDao(con);
     this.boardDao = new MySQLBoardDao(con, 1);
@@ -94,7 +92,8 @@ public class ServerApp {
       InetSocketAddress clientAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
       System.out.printf("%s 클라이언트 접속함!\n", clientAddress.getHostString());
 
-      out.writeUTF("나의 목록 관리 시스템\n" + "---------------------------------");
+      out.writeUTF("[나의 목록 관리 시스템]\n"
+          + "-----------------------------------------");
 
       new LoginListener(memberDao).service(prompt);
 
@@ -132,10 +131,10 @@ public class ServerApp {
     readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingDao)));
     mainMenu.add(readingMenu);
 
-    Menu helloMenu = new Menu("안녕!");
-    helloMenu.addActionListener(new HeaderListener());
-    helloMenu.addActionListener(new HelloListener());
-    helloMenu.addActionListener(new FooterListener());
-    mainMenu.add(helloMenu);
+    //    Menu helloMenu = new Menu("안녕!");
+    //    helloMenu.addActionListener(new HeaderListener());
+    //    helloMenu.addActionListener(new HelloListener());
+    //    helloMenu.addActionListener(new FooterListener());
+    //    mainMenu.add(helloMenu);
   }
 }

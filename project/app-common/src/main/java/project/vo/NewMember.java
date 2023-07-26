@@ -87,5 +87,7 @@ public class NewMember implements Serializable {
 
     return true;
   }
+
+
 }
 

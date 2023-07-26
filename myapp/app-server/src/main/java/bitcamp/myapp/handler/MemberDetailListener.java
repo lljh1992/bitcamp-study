@@ -16,7 +16,6 @@ public class MemberDetailListener implements ActionListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) throws IOException {
-
     int memberNo = prompt.inputInt("번호? ");
 
     Member m = memberDao.findBy(memberNo);
@@ -29,7 +28,5 @@ public class MemberDetailListener implements ActionListener {
     prompt.printf("이메일: %s\n", m.getEmail());
     prompt.printf("성별: %s\n", m.getGender() == 'M' ? "남성" : "여성");
     prompt.printf("가입일: %s\n", m.getCreatedDate());
-
-
   }
 }

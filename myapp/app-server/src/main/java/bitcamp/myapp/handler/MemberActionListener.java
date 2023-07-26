@@ -8,7 +8,6 @@ import bitcamp.util.BreadcrumbPrompt;
 public interface MemberActionListener extends ActionListener {
 
   static char inputGender(char gender, BreadcrumbPrompt prompt) throws IOException {
-
     String label;
     if (gender == 0) {
       label = "성별?\n";
@@ -17,7 +16,10 @@ public interface MemberActionListener extends ActionListener {
     }
 
     while (true) {
-      String menuNo = prompt.inputString(label + "  1. 남자\n" + "  2. 여자\n" + "> ");
+      String menuNo = prompt.inputString(label +
+          "  1. 남자\n" +
+          "  2. 여자\n" +
+          "> ");
 
       switch (menuNo) {
         case "1":
@@ -28,7 +30,6 @@ public interface MemberActionListener extends ActionListener {
           prompt.println("무효한 번호입니다.");
       }
     }
-
   }
 
 }

@@ -16,5 +16,6 @@ public interface NewMemberDao {
 
   boolean deleteNew(NewMember newmember);
 
+  NewMember findByNewId(String newId);
 
 }

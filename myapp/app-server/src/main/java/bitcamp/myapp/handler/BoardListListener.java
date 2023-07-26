@@ -26,12 +26,24 @@ public class BoardListListener implements ActionListener {
     List<Board> list = boardDao.list();
 
     for (Board board : list) {
-      prompt.printf("%d, %s, %s, %d, %s\n", board.getNo(), board.getTitle(),
-          board.getWriter().getName(), board.getViewCount(),
+      prompt.printf("%d, %s, %s, %d, %s\n",
+          board.getNo(),
+          board.getTitle(),
+          board.getWriter().getName(),
+          board.getViewCount(),
           dateFormatter.format(board.getCreatedDate()));
     }
   }
 
 }
+
+
+
+
+
+
+
+
+
 
 

@@ -20,7 +20,7 @@ public class MySQLNewMemberDao implements NewMemberDao {
     try (Statement stmt = con.createStatement()) {
 
       stmt.executeUpdate(String.format(
-          "insert into myapp_member(newid,newpassword,newname,newphonenumber) values('%s','%s','%s','%s')",
+          "insert into project_newmember(newid,newpassword,newname,newphonenumber) values('%s','%s','%s','%s')",
           newmember.getNewid(), newmember.getNewpassword(), newmember.getNewname(),
           newmember.getNewphonenumber()));
 
@@ -55,25 +55,63 @@ public class MySQLNewMemberDao implements NewMemberDao {
 
   @Override
   public boolean isExistingMember(String newmemberid) {
-    // TODO Auto-generated method stub
+    try (Statement stmt = con.createStatement();
+        ResultSet rs =
+            stmt.executeQuery("SELECT COUNT(*) AS count FROM project_newmember WHERE newid = '"
+                + newmemberid + "'")) {
+
+      if (rs.next()) {
+        int count = rs.getInt("count");
+        return count > 0;
+      }
+
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+
     return false;
   }
 
+
   @Override
   public int update(NewMember newmember) {
-    // TODO Auto-generated method stub
     return 0;
   }
 
   @Override
   public int delete(int no) {
-    // TODO Auto-generated method stub
     return 0;
   }
 
   @Override
   public boolean deleteNew(NewMember newmember) {
-    // TODO Auto-generated method stub
     return false;
   }
+
+  @Override
+  public NewMember findByNewId(String newId) {
+    try (Statement stmt = con.createStatement();
+        ResultSet rs =
+            stmt.executeQuery("SELECT * FROM project_newmember WHERE newid = '" + newId + "'")) {
+
+      if (rs.next()) {
+        NewMember newmember = new NewMember();
+        newmember.setNewno(rs.getInt("newmember_no"));
+        newmember.setNewid(rs.getString("newid"));
+        newmember.setNewpassword(rs.getString("newpassword"));
+        newmember.setNewname(rs.getString("newname"));
+        newmember.setNewphonenumber(rs.getString("newphonenumber"));
+
+        return newmember;
+      }
+
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+
+    return null;
+  }
+
+
+
 }

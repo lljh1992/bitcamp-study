@@ -17,7 +17,6 @@ public class MenuGroup extends Menu {
 
   @Override
   public void execute(BreadcrumbPrompt prompt) {
-
     try {
       prompt.appendBreadcrumb(this.getTitle());
 
@@ -44,7 +43,7 @@ public class MenuGroup extends Menu {
           }
         } catch (Exception e) {
           prompt.printf("실행 오류: %s\n", e.getMessage());
-          prompt.end(); // 클라이언트에게 응답 완료를 보내는 명령
+          prompt.end();
         }
       }
     } catch (Exception e) {

@@ -9,7 +9,7 @@ import bitcamp.net.NetProtocol;
 
 public class Prompt {
 
-  Map<String, Object> context = new HashMap<>();
+  Map<String,Object> context = new HashMap<>();
   StringBuffer buf = new StringBuffer();
   DataInputStream in;
   DataOutputStream out;
@@ -59,6 +59,12 @@ public class Prompt {
     this.out.writeUTF(NetProtocol.RESPONSE_END);
     buf.setLength(0);
   }
-
-
 }
+
+
+
+
+
+
+
+

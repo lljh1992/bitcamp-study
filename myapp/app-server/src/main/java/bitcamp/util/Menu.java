@@ -33,8 +33,6 @@ public class Menu {
       for (int i = 0; i < listeners.size(); i++) {
         ActionListener listener = listeners.get(i);
         listener.service(prompt);
-        prompt.end();
-
       }
     } catch (Exception e) {
       prompt.clear();
