@@ -1,16 +1,21 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/member/add")
 public class MemberAddListener implements MemberActionListener {
 
   MemberDao memberDao;
+  SqlSessionFactory sqlSessionFactory;
 
-  public MemberAddListener(MemberDao memberDao) {
+  public MemberAddListener(MemberDao memberDao, SqlSessionFactory sqlSessionFactory) {
     this.memberDao = memberDao;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -21,6 +26,13 @@ public class MemberAddListener implements MemberActionListener {
     m.setPassword(prompt.inputString("암호? "));
     m.setGender(MemberActionListener.inputGender((char)0, prompt));
 
-    memberDao.insert(m);
+    try {
+      memberDao.insert(m);
+      sqlSessionFactory.openSession(false).commit();
+
+    } catch (Exception e) {
+      sqlSessionFactory.openSession(false).rollback();
+      throw new RuntimeException(e);
+    }
   }
 }
