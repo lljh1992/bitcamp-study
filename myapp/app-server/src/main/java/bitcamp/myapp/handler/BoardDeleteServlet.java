@@ -30,8 +30,6 @@ public class BoardDeleteServlet implements Servlet {
     b.setWriter((Member) request.getAttribute("loginUser"));
     b.setCategory(category);
 
-
-
     try {
       if (boardDao.delete(b) == 0) {
         throw new Exception("해당 번호의 게시글이 없거나 삭제 권한이 없습니다.");
@@ -46,5 +44,14 @@ public class BoardDeleteServlet implements Servlet {
     }
   }
 }
+
+
+
+
+
+
+
+
+
 
 

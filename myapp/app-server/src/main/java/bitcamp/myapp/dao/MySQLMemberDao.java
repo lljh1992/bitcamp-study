@@ -35,7 +35,7 @@ public class MySQLMemberDao implements MemberDao {
 
   @Override
   public Member findByEmailAndPassword(Member member) {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.selectOne("bitcamp.myapp.dao.MemberDao.findByEmailAndPassword", member);
   }
 

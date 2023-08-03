@@ -25,12 +25,13 @@ public class BoardUpdateServlet implements Servlet {
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     int category = Integer.parseInt(request.getParameter("category"));
+
     Board board = new Board();
     board.setNo(Integer.parseInt(request.getParameter("no")));
     board.setTitle(request.getParameter("title"));
     board.setContent(request.getParameter("content"));
     board.setWriter((Member) request.getAttribute("loginUser"));
-    board.setNo(category);
+    board.setCategory(category);
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -43,25 +44,31 @@ public class BoardUpdateServlet implements Servlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>게시글 변경</h1>");
-
     try {
       if (boardDao.update(board) == 0) {
-        out.println("게시글이 없거나 변경 권한이 없습니다.");
+        out.println("<p>게시글이 없거나 변경 권한이 없습니다.</p>");
       } else {
-        out.println("변경했습니다!");
+        out.println("<p>변경했습니다!</p>");
       }
       sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
       sqlSessionFactory.openSession(false).rollback();
-      out.println("게시글 변경 실패입니다!");
+      out.println("<p>게시글 변경 실패입니다!</p>");
       e.printStackTrace();
     }
     out.println("</body>");
     out.println("</html>");
   }
-
-
 }
+
+
+
+
+
+
+
+
+
 
 
