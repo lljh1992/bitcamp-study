@@ -12,6 +12,7 @@ create table project_member(
   carnumber varchar(20) not null,
   VehicleOwnership varchar(20) null,
   residencestatus char(4) not null,
+  created_date date default (current_date()),
   entryTime datetime default now(),
   exitTime datetime default now()
 );
@@ -40,6 +41,9 @@ create table project_time(
   entryTime datetime,
   exitTime datetime
 );
+
+alter table myapp_member
+  add constraint myapp_member_uk unique (phonenumber);
 
 -- 게시판 작성자에 대해 외부키 설정
 alter table project_board

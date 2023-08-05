@@ -6,8 +6,6 @@ import project.vo.Member;
 
 public interface MemberActionListener extends ActionListener {
 
-
-
   static char inputResident(char type, BreadcrumbPrompt prompt) {
     String label;
     if (type == 0) {
