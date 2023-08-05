@@ -15,11 +15,11 @@ public class MemberDetailListener implements ActionListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    int memberNo = prompt.inputInt("번호?");
+    int memberNo = prompt.inputInt("번호: ");
 
     Member m = memberDao.findBy(memberNo);
     if (m == null) {
-      System.out.println("해당 번호의 회원이 없습니다!");
+      System.out.println("해당 번호의 회원이 없습니다.");
       return;
     }
     System.out.printf("동: %s\n", m.getBuilding());

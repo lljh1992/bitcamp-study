@@ -21,6 +21,7 @@ public class MemberAddListener implements ActionListener {
     m.setUnit(prompt.inputString("호수: "));
     m.setName(prompt.inputString("이름: "));
     m.setPhonenumber(prompt.inputString("H.P: "));
+    m.setPassword(prompt.inputString("암호: "));
     m.setCarnumber(prompt.inputString("차량 번호: "));
     m.setVehicleOwnership(prompt.inputString("차량 보유 현황: "));
     m.setResidencestatus(MemberActionListener.inputResident((char) 0, prompt));

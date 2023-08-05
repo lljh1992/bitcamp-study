@@ -19,16 +19,17 @@ public class MySQLMemberDao implements MemberDao {
   @Override
   public void insert(Member member) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "insert into project_member(building, unit, name, phonenumber, carnumber, VehicleOwnership, residencestatus)"
-            + " value(?,?,?,?,?,?,?)")) {
+        "insert into project_member(building, unit, name, phonenumber, password, carnumber, VehicleOwnership, residencestatus)"
+            + " value(?,?,?,?,sha1(?),?,?,?)")) {
 
       stmt.setString(1, member.getBuilding());
       stmt.setString(2, member.getUnit());
       stmt.setString(3, member.getName());
       stmt.setString(4, member.getPhonenumber());
-      stmt.setString(5, member.getCarnumber());
-      stmt.setString(6, member.getVehicleOwnership());
-      stmt.setString(7, String.valueOf(member.getResidencestatus()));
+      stmt.setString(5, member.getPassword());
+      stmt.setString(6, member.getCarnumber());
+      stmt.setString(7, member.getVehicleOwnership());
+      stmt.setString(8, String.valueOf(member.getResidencestatus()));
       stmt.executeUpdate();
 
     } catch (Exception e) {
@@ -71,17 +72,18 @@ public class MySQLMemberDao implements MemberDao {
   @Override
   public int update(Member member) {
     try (PreparedStatement stmt = con.prepareStatement("update project_member set" + " building=?,"
-        + " unit=?," + " name=?," + " phonenumber=?," + " carnumber=?," + " VehicleOwnership=?,"
-        + " residencestatus=?" + " where member_no=?")) {
+        + " unit=?," + " name=?," + " phonenumber=?," + " password=sha1(?)," + " carnumber=?,"
+        + " VehicleOwnership=?," + " residencestatus=?" + " where member_no=?")) {
 
       stmt.setString(1, member.getBuilding());
       stmt.setString(2, member.getUnit());
       stmt.setString(3, member.getName());
       stmt.setString(4, member.getPhonenumber());
-      stmt.setString(5, member.getCarnumber());
-      stmt.setString(6, member.getVehicleOwnership());
-      stmt.setString(7, String.valueOf(member.getResidencestatus()));
-      stmt.setInt(8, member.getNo());
+      stmt.setString(5, member.getPassword());
+      stmt.setString(6, member.getCarnumber());
+      stmt.setString(7, member.getVehicleOwnership());
+      stmt.setString(8, String.valueOf(member.getResidencestatus()));
+      stmt.setInt(9, member.getNo());
 
       return stmt.executeUpdate();
 
@@ -157,7 +159,7 @@ public class MySQLMemberDao implements MemberDao {
   @Override
   public Member findBy(int no) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "select member_no, building, unit, name, phonenumber, carnumber, VehicleOwnership, residencestatus from project_member where member_no=?")) {
+        "select member_no, building, unit, name, phonenumber, carnumber, VehicleOwnership, residencestatus, created_date from project_member where member_no=?")) {
 
       stmt.setInt(1, no);
 
@@ -172,10 +174,41 @@ public class MySQLMemberDao implements MemberDao {
           m.setCarnumber(rs.getString("carnumber"));
           m.setVehicleOwnership(rs.getString("VehicleOwnership"));
           m.setResidencestatus(rs.getString("residencestatus").charAt(0));
+          m.setCreatedDate(rs.getDate("created_date"));
           return m;
         }
         return null;
       }
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public Member findByPhonenumberAndPassword(Member param) {
+    try (PreparedStatement stmt = con.prepareStatement(
+        "select member_no, building, unit, name, phonenumber, carnumber, VehicleOwnership, residencestatus, created_date from project_member where phonenumber=? and password=sha1(?)")) {
+
+      stmt.setString(1, param.getPhonenumber());
+      stmt.setString(2, param.getPassword());
+
+      try (ResultSet rs = stmt.executeQuery()) {
+        if (rs.next()) {
+          Member m = new Member();
+          m.setNo(rs.getInt("member_no"));
+          m.setBuilding(rs.getString("building"));
+          m.setUnit(rs.getString("unit"));
+          m.setName(rs.getString("name"));
+          m.setPhonenumber(rs.getNString("phonenumber"));
+          m.setCarnumber(rs.getString("carnumber"));
+          m.setVehicleOwnership(rs.getString("VehicleOwnership"));
+          m.setResidencestatus(rs.getString("residencestatus").charAt(0));
+          m.setCreatedDate(rs.getDate("created_date"));
+          return m;
+        }
+        return null;
+      }
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

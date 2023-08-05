@@ -14,14 +14,15 @@ public class Member implements Serializable {
   public static final char RESIDENT = 'Y';
   public static final char OUTSIDER = 'N';
 
-  public int no;
-  public String building;
-  public String unit;
-  public String name;
-  public String phonenumber;
-  public String carnumber;
-  public String VehicleOwnership;
-  public char residencestatus;
+  private int no;
+  private String building;
+  private String unit;
+  private String name;
+  private String phonenumber;
+  private String password;
+  private String carnumber;
+  private String VehicleOwnership;
+  private char residencestatus;
   private Date createdDate;
 
   @Override
@@ -44,21 +45,14 @@ public class Member implements Serializable {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj == null) {
+    if (this == obj)
+      return true;
+    if (obj == null)
       return false;
-    }
-
-    if (this.getClass() != obj.getClass()) {
+    if (getClass() != obj.getClass())
       return false;
-    }
-
-    Member m = (Member) obj;
-
-    if (this.getNo() != m.getNo()) {
-      return false;
-    }
-
-    return true;
+    Member other = (Member) obj;
+    return no == other.no;
   }
 
   public int getNo() {
@@ -168,8 +162,6 @@ public class Member implements Serializable {
     }
   }
 
-
-
   public boolean isInside() {
     return isInside;
   }
@@ -185,6 +177,15 @@ public class Member implements Serializable {
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
 
 
 }

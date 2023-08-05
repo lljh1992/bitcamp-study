@@ -1,10 +1,10 @@
 package project.handler;
 
+import project.ClientApp;
 import project.dao.BoardDao;
 import project.util.ActionListener;
 import project.util.BreadcrumbPrompt;
 import project.vo.Board;
-import project.vo.Member;
 
 public class BoardAddListener implements ActionListener {
 
@@ -17,14 +17,9 @@ public class BoardAddListener implements ActionListener {
   @Override
   public void service(BreadcrumbPrompt prompt) {
     Board board = new Board();
-    board.setTitle(prompt.inputString("제목? "));
-    board.setContent(prompt.inputString("내용? "));
-
-    Member writer = new Member();
-    writer.setNo(prompt.inputInt("작성자? "));
-    board.setWriter(writer);
-
-    board.setPassword(prompt.inputString("암호? "));
+    board.setTitle(prompt.inputString("제목: "));
+    board.setContent(prompt.inputString("내용: "));
+    board.setWriter(ClientApp.loginUser);
 
     boardDao.insert(board);
   }

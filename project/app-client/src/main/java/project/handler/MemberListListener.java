@@ -24,7 +24,8 @@ public class MemberListListener implements ActionListener {
     for (Member member : list) {
       System.out.printf("%s,  %s,  %s,  %s,  %s,  %s,  %s,  %c\n", member.getNo(),
           member.getBuilding(), member.getUnit(), member.getName(), member.getPhonenumber(),
-          member.getCarnumber(), member.getVehicleOwnership(), member.getResidencestatus());
+          member.getCarnumber(), member.getVehicleOwnership(),
+          member.getResidencestatus() == 'Y' ? "거주자" : "외부인");
     }
   }
 

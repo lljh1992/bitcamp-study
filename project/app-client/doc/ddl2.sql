@@ -8,6 +8,7 @@ create table project_member(
   unit varchar(10) not null,
   name varchar(20) not null,
   phonenumber varchar(40) not null,
+  password varchar(100) not null,
   carnumber varchar(20) not null,
   VehicleOwnership varchar(20) null,
   residencestatus char(4) not null,

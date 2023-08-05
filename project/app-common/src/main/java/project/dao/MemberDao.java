@@ -18,4 +18,6 @@ public interface MemberDao {
 
   void saveExit(Member member);
 
+  Member findByPhonenumberAndPassword(Member m);
+
 }

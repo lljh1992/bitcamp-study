@@ -14,8 +14,8 @@ public class MemberDeleteListener implements ActionListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    if (memberDao.delete(prompt.inputInt("번호? ")) == 0) {
-      System.out.println("해당 번호의 회원이 없습니다!");
+    if (memberDao.delete(prompt.inputInt("번호: ")) == 0) {
+      System.out.println("해당 번호의 회원이 없습니다.");
     }
   }
 

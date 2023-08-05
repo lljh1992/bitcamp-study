@@ -17,6 +17,7 @@ import project.handler.BoardUpdateListener;
 import project.handler.FooterListener;
 import project.handler.HeaderListener;
 import project.handler.HelloListener;
+import project.handler.LoginListener;
 import project.handler.MemberAddListener;
 import project.handler.MemberDeleteListener;
 import project.handler.MemberDetailListener;
@@ -27,8 +28,11 @@ import project.handler.MemberUpdateListener;
 import project.util.BreadcrumbPrompt;
 import project.util.Menu;
 import project.util.MenuGroup;
+import project.vo.Member;
 
 public class ClientApp {
+
+  public static Member loginUser;
 
   MemberDao memberDao;
   BoardDao boardDao;
@@ -76,11 +80,13 @@ public class ClientApp {
 
     printTitle();
 
+    new LoginListener(memberDao).service(prompt);
+
     mainMenu.execute(prompt);
 
   }
 
-  public void prepareMenu() {
+  private void prepareMenu() {
 
     MenuGroup memberMenu = new MenuGroup("주차 관리 시스템");
     memberMenu.add(new Menu("차량 등록", new MemberAddListener(memberDao)));
@@ -113,8 +119,6 @@ public class ClientApp {
     helloMenu.addActionListener(new HelloListener());
     helloMenu.addActionListener(new FooterListener());
     mainMenu.add(helloMenu);
-
-    mainMenu.execute(prompt);
 
   }
 

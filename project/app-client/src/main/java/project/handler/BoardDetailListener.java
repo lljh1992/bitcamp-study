@@ -15,7 +15,7 @@ public class BoardDetailListener implements ActionListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    int boardNo = prompt.inputInt("번호? ");
+    int boardNo = prompt.inputInt("번호: ");
 
     Board board = boardDao.findBy(boardNo);
     if (board == null) {
