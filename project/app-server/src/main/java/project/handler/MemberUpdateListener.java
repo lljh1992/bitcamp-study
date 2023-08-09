@@ -1,19 +1,19 @@
 package project.handler;
 
 import java.io.IOException;
+import org.apache.ibatis.session.SqlSessionFactory;
 import project.dao.MemberDao;
 import project.util.BreadcrumbPrompt;
-import project.util.DataSource;
 import project.vo.Member;
 
 public class MemberUpdateListener implements MemberActionListener {
 
   MemberDao memberDao;
-  DataSource ds;
+  SqlSessionFactory sqlSessionFactory;
 
-  public MemberUpdateListener(MemberDao memberDao, DataSource ds) {
+  public MemberUpdateListener(MemberDao memberDao, SqlSessionFactory sqlSessionFactory) {
     this.memberDao = memberDao;
-    this.ds = ds;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -26,8 +26,7 @@ public class MemberUpdateListener implements MemberActionListener {
       return;
     }
 
-    m.setBuilding(prompt.inputString("동(%s) > ", m.getBuilding()));
-    m.setUnit(prompt.inputString("호수(%s) > ", m.getUnit()));
+    m.setBuilding(prompt.inputString("동-호수(%s) > ", m.getBuilding()));
     m.setName(prompt.inputString("이름(%s) > ", m.getName()));
     m.setPhonenumber(prompt.inputString("H.P(%s) > ", m.getPhonenumber()));
     m.setPassword(prompt.inputString("새암호 > "));
@@ -37,13 +36,10 @@ public class MemberUpdateListener implements MemberActionListener {
 
     try {
       memberDao.update(m);
-      ds.getConnection().commit();
+      sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
-      try {
-        ds.getConnection().rollback();
-      } catch (Exception e2) {
-      }
+      sqlSessionFactory.openSession(false).rollback();
       throw new RuntimeException(e);
     }
   }

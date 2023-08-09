@@ -20,7 +20,7 @@ public class MemberExitListener implements ActionListener {
     String recordVehicle = prompt.inputString("차량번호: ");
     boolean vehicleFound = false;
 
-    List<Member> list = memberDao.list();
+    List<Member> list = memberDao.findAll();
 
     for (Member member : list) {
       if (member.getCarnumber().equals(recordVehicle)) {
@@ -31,6 +31,7 @@ public class MemberExitListener implements ActionListener {
         member.getExitTimes();
         member.printExitTimes();
         memberDao.saveExit(member);
+
       }
     }
     if (!vehicleFound) {

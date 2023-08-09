@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.dao.MemberDao">
+
+  <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
+  <resultMap type="member" id="memberMap">
+    <id     column="building_no"        property="no"/>
+    <result column="building"           property="building"/>
+    <result column="name"               property="name"/>
+    <result column="phonenumber"        property="phonenumber"/>
+    <result column="password"           property="password"/>
+    <result column="carnumber"          property="carnumber"/>
+    <result column="VehicleOwnership"   property="VehicleOwnership"/>
+    <result column="residencestatus"    property="residencestatus"/>
+    <result column="created_date"       property="createdDate"/>
+  </resultMap>
+  
+  <select id="findBy" parameterType="int" resultMap="memberMap">
+  select
+    building_no,
+    building,
+    name,
+    phonenumber,
+    carnumber,
+    VehicleOwnership,
+    residencestatus,
+    created_date
+  from
+    project2_building
+  where
+    building_no=#{no}
+  </select>
+  
+  <select id="findByPhonenumberAndPassword" parameterType="member" resultMap="memberMap">
+  select
+    building_no,
+    building,
+    name,
+    phonenumber,
+    carnumber,
+    VehicleOwnership,
+    residencestatus,
+    created_date
+  from
+    project2_building
+  where
+    phonenumber=#{phonenumber}
+    and password=sha1(#{password})
+  </select>
+  
+  
+  
+</mapper>

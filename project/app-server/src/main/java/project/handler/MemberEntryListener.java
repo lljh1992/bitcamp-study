@@ -20,7 +20,7 @@ public class MemberEntryListener implements ActionListener {
     String recordVehicle = prompt.inputString("차량번호: ");
     boolean vehicleFound = false;
 
-    List<Member> list = memberDao.list();
+    List<Member> list = memberDao.findAll();
 
     for (Member member : list) {
       if (member.getCarnumber().equals(recordVehicle)) {
@@ -31,11 +31,13 @@ public class MemberEntryListener implements ActionListener {
         member.getEntryTimes();
         member.printEntryTimes();
         memberDao.saveEntry(member); // 차량번호에 해당하는 멤버의 입차 시간을 저장합니다.
+
       }
     }
 
     if (!vehicleFound) {
       prompt.println("등록된 차량이 아닙니다.");
+
     }
   }
 }

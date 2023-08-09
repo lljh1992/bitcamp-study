@@ -16,7 +16,6 @@ public class Member implements Serializable {
 
   private int no;
   private String building;
-  private String unit;
   private String name;
   private String phonenumber;
   private String password;
@@ -69,14 +68,6 @@ public class Member implements Serializable {
 
   public void setBuilding(String building) {
     this.building = building;
-  }
-
-  public String getUnit() {
-    return unit;
-  }
-
-  public void setUnit(String unit) {
-    this.unit = unit;
   }
 
   public String getName() {

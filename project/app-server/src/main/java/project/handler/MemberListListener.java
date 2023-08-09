@@ -17,13 +17,13 @@ public class MemberListListener implements ActionListener {
   @Override
   public void service(BreadcrumbPrompt prompt) {
     prompt.println("----------------------------------------------------------------");
-    prompt.println("번호, 동,   호수,  이름,  H.P,  차량 번호,  차량 보유 현황,  거주 여부");
+    prompt.println("번호, 동-호수,  이름,  H.P,  차량 번호,  차량 보유 현황,  거주 여부");
     prompt.println("----------------------------------------------------------------");
 
-    List<Member> list = memberDao.list();
+    List<Member> list = memberDao.findAll();
     for (Member member : list) {
-      prompt.printf("%s,  %s,  %s,  %s,  %s,  %s,  %s,  %s\n", member.getNo(), member.getBuilding(),
-          member.getUnit(), member.getName(), member.getPhonenumber(), member.getCarnumber(),
+      prompt.printf("%s,  %s,  %s,  %s,  %s,  %s,  %s\n", member.getNo(), member.getBuilding(),
+          member.getName(), member.getPhonenumber(), member.getCarnumber(),
           member.getVehicleOwnership(), member.getResidencestatus() == 'Y' ? "거주자" : "외부인");
     }
   }

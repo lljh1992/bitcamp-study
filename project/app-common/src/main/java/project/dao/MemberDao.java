@@ -6,9 +6,11 @@ import project.vo.Member;
 public interface MemberDao {
   void insert(Member member);
 
-  List<Member> list();
+  List<Member> findAll();
 
   Member findBy(int no);
+
+  Member findByPhonenumberAndPassword(Member m);
 
   int update(Member member);
 
@@ -18,6 +20,5 @@ public interface MemberDao {
 
   void saveExit(Member member);
 
-  Member findByPhonenumberAndPassword(Member m);
 
 }
