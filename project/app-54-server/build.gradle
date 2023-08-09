@@ -29,11 +29,6 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
     
-    // Reactor Netty 프레임워크
-    implementation platform('io.projectreactor:reactor-bom:2022.0.9') 
-    implementation 'io.projectreactor.netty:reactor-netty-core' 
-    implementation 'io.projectreactor.netty:reactor-netty-http'
-    
     
 }
 
