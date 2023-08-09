@@ -6,48 +6,92 @@
 
   <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
   <resultMap type="member" id="memberMap">
-    <id     column="member_no"          property="no"/>
-    <result column="building"           property="building"/>
-    <result column="unit"               property="unit"/>
+    <id     column="building_no"        property="building"/>
     <result column="name"               property="name"/>
     <result column="phonenumber"        property="phonenumber"/>
     <result column="password"           property="password"/>
     <result column="carnumber"          property="carnumber"/>
-    <result column="VehicleOwnership"   property="VehicleOwnership"/>
-    <result column="residencestatus"    property="residencestatus"/>
     <result column="created_date"       property="createdDate"/>
   </resultMap>
   
-<resultMap id="memberResultMap" type="member">
-  <collection property="entryTimes" ofType="java.sql.Timestamp">
-    <result column="entryTimes" />
-  </collection>
-</resultMap>
-  
-  
   <insert id="insert" parameterType="member">
-  insert into project_member(building, unit, name, phonenumber, password, carnumber, VehicleOwnership, residencestatus)
-  value(#{building},#{unit},#{name},#{phonenumber},sha1(#{password}),#{carnumber},#{VehicleOwnership},#{residencestatus})
+  insert into project2_building (building_no, name, phonenumber, password, carnumber)
+  values(#{building},#{name},#{phonenumber},sha1(#{password}),#{carnumber})
   </insert>
   
   <select id="findAll" resultMap="memberMap">
   select
-    member_no, 
-    building, 
-    unit, 
+    building_no, 
     name, 
-    phonenumber, 
-    carnumber, 
-    VehicleOwnership,
-    residencestatus
+    phonenumber,
+    carnumber
   from 
-    project_member 
+    project2_building 
   order by 
-    member_no asc;
+    building_no asc;
   </select>
   
+  <select id="findBy" parameterType="String" resultMap="memberMap">
+  select
+    building_no,
+    name,
+    phonenumber,
+    carnumber,
+    created_date
+  from
+    project2_building
+  where
+    building_no=#{building}
+  </select>
+  
+  <select id="findByPhonenumberAndPassword" parameterType="member" resultMap="memberMap">
+  select
+    building_no,
+    name,
+    phonenumber,
+    created_date
+  from
+    project2_building
+  where
+    phonenumber=#{phonenumber}
+    and password=sha1(#{password})
+  </select>
+  
+  <update id="update" parameterType="member">
+  update project2_building set
+    building_no=#{building},
+    name=#{name},
+    phonenumber=#{phonenumber},
+    password=sha1(#{password}),
+    carnumber=#{carnumber}
+  where
+    building_no=#{building}
+  </update>
+  
+  <delete id="delete" parameterType="String">
+  delete from project2_building
+  where
+    building_no=#{building}
+  </delete>
+  
+  <insert id="insertentryTime" parameterType="java.util.List">
+  insert into project2_inout (carnumber, entryTimes)
+  values(#{carnumber},now())
+  </insert>
+   
+  <!-- 
   <insert id="insertentryTime" parameterType="member">
-  insert into project_time (carnumber, entryTimes)
+  INSERT INTO project2_inout (car_no, entryTimes)
+  VALUES
+  <foreach collection="entryTimes" item="entryTime" index="index" separator=",">
+    (#{car_no}, #{entryTime})
+  </foreach>
+</insert>
+   -->
+  
+  <!--  
+  <insert id="insertentryTime" parameterType="member">
+  insert into project2_inout (carnumber, entryTimes)
   values
    <foreach collection="entryTimes" item="entryTime" index="index"
             open="(" separator="," close=")" >   
@@ -55,7 +99,7 @@
    </foreach>
   
   </insert>
-  
+   -->
   <!-- 
    <insert id="insertentryTime" parameterType="java.util.List">
   insert into project_time (carnumber, entryTimes)
@@ -75,59 +119,5 @@
    -->
      
      
-  <select id="findBy" parameterType="int" resultMap="memberMap">
-  select
-    member_no,
-    building,
-    unit,
-    name,
-    phonenumber,
-    carnumber,
-    VehicleOwnership,
-    residencestatus,
-    created_date
-  from
-    project_member
-  where
-    member_no=#{no}
-  </select>
-  
-  <select id="findByPhonenumberAndPassword" parameterType="member" resultMap="memberMap">
-  select
-    member_no,
-    building,
-    unit,
-    name,
-    phonenumber,
-    carnumber,
-    VehicleOwnership,
-    residencestatus,
-    created_date
-  from
-    project_member
-  where
-    phonenumber=#{phonenumber}
-    and password=sha1(#{password})
-  </select>
-  
-  <update id="update" parameterType="member">
-  update project_member set
-    building=#{building},
-    unit=#{unit},
-    name=#{name},
-    phonenumber=#{phonenumber},
-    password=sha1(#{password}),
-    carnumber=#{carnumber},
-    VehicleOwnership=#{VehicleOwnership},
-    residencestatus=#{residencestatus}
-  where
-    member_no=#{no}
-  </update>
-  
-  <delete id="delete" parameterType="int">
-  delete from project_member
-  where
-    member_no=#{no}
-  </delete>
   
 </mapper>
