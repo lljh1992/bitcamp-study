@@ -75,4 +75,10 @@ public class MySQLMemberDao implements MemberDao {
     return sqlSession.selectOne("project.dao.MemberDao.findByCar", carnummber);
   }
 
+  @Override
+  public List<Member> findinout() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    return sqlSession.selectList("project.dao.MemberDao.findinout");
+  }
+
 }

@@ -14,6 +14,7 @@ public interface MemberDao {
 
   Member findByCar(String carnummber);
 
+  List<Member> findinout();
 
   Member findByPhonenumberAndPassword(Member m);
 

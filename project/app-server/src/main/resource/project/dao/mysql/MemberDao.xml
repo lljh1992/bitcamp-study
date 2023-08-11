@@ -33,6 +33,17 @@
     building_no asc;
   </select>
   
+  <select id="findinout" parameterType="java.util.List" resultMap="memberMap">
+  select
+    carnumber,
+    entryTimes,
+    exitTimes
+  from 
+    project2_inout 
+  order by 
+    inout_no asc;
+  </select>
+  
   <select id="findBy" parameterType="String" resultMap="memberMap">
   select
     building_no,

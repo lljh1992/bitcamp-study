@@ -44,7 +44,7 @@ public class MemberListServlet implements Servlet {
     for (Member m : list) {
       out.printf(
           "<tr>" + " <td><a href='/member/detail?building=%s'>%s</a></td>" + "<td>%s</td>"
-              + " <td>%s</td>" + " <td><a href='/member/detail?building=%s'>%s</a></td></tr>",
+              + " <td>%s</td>" + " <td><a href='/member/detailcar?carnumber=%s'>%s</a></td></tr>",
           m.getBuilding(), m.getBuilding(), m.getName(), m.getPhonenumber(), m.getCarnumber(),
           m.getCarnumber());
     }
