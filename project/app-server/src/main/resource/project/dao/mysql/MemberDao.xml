@@ -12,7 +12,9 @@
     <result column="password"           property="password"/>
     <result column="carnumber"          property="carnumber"/>
     <result column="created_date"       property="createdDate"/>
+  
   </resultMap>
+  
   
   <insert id="insert" parameterType="member">
   insert into project2_building (building_no, name, phonenumber, password, carnumber)
@@ -42,6 +44,15 @@
     project2_building
   where
     building_no=#{building}
+  </select>
+  
+  <select id="findByCar" parameterType="String" resultMap="memberMap">
+  select
+    carnumber
+  from
+    project2_car
+  where
+    carnumber=#{carnumber}
   </select>
   
   <select id="findByPhonenumberAndPassword" parameterType="member" resultMap="memberMap">
@@ -74,50 +85,20 @@
     building_no=#{building}
   </delete>
   
-  <insert id="insertentryTime" parameterType="java.util.List">
+  <insert id="insertCar" parameterType="member">
+  insert into project2_car (building_no, carnumber)
+  values(#{building},#{carnumber})
+  </insert>
+  
+  <insert id="insertentryTime" parameterType="java.util.ArrayList">
   insert into project2_inout (carnumber, entryTimes)
   values(#{carnumber},now())
   </insert>
    
-  <!-- 
-  <insert id="insertentryTime" parameterType="member">
-  INSERT INTO project2_inout (car_no, entryTimes)
-  VALUES
-  <foreach collection="entryTimes" item="entryTime" index="index" separator=",">
-    (#{car_no}, #{entryTime})
-  </foreach>
-</insert>
-   -->
-  
-  <!--  
-  <insert id="insertentryTime" parameterType="member">
-  insert into project2_inout (carnumber, entryTimes)
-  values
-   <foreach collection="entryTimes" item="entryTime" index="index"
-            open="(" separator="," close=")" >   
-      #{carnumber},#{entryTime}
-   </foreach>
-  
+  <insert id="insertexitTime" parameterType="java.util.ArrayList">
+  insert into project2_inout (carnumber, exitTimes)
+  values(#{carnumber},now())
   </insert>
-   -->
-  <!-- 
-   <insert id="insertentryTime" parameterType="java.util.List">
-  insert into project_time (carnumber, entryTimes)
-  values(#{carnumber},#{entryTimes})
-</insert>
-  
-  
-   <insert id="insertexitTime" parameterType="member">
-  insert into project_time (carnumber, exitTimes)
-  values
-   <foreach collection="entryTimes" item="exitTimes" index="index"
-            open="(" separator="," close=")" >   
-      #{carnumber},#{exitTimes}
-   </foreach>
-  
-  </insert>
-   -->
-     
      
   
 </mapper>

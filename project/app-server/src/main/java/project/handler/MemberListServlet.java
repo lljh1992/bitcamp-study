@@ -31,7 +31,9 @@ public class MemberListServlet implements Servlet {
     out.println("<body>");
     out.println("<h1>입주자 목록</h1>");
     out.println("<div style='margin:5px;'>");
-    out.println("<a href='/member/form.html'>입주자 등록</a>");
+    out.println("<a href='/member/form.html'>입주자 등록</a>\n");
+    out.println("<a href='/member/entry.html'>입차</a>\n");
+    out.println("<a href='/member/exit.html'>출차</a>\n");
     out.println("</div>");
     out.println("<table border='1'>");
     out.println("<thead>");
@@ -42,8 +44,9 @@ public class MemberListServlet implements Servlet {
     for (Member m : list) {
       out.printf(
           "<tr>" + " <td><a href='/member/detail?building=%s'>%s</a></td>" + "<td>%s</td>"
-              + " <td>%s</td>" + " <td>%s</td></tr>",
-          m.getBuilding(), m.getBuilding(), m.getName(), m.getPhonenumber(), m.getCarnumber());
+              + " <td>%s</td>" + " <td><a href='/member/detail?building=%s'>%s</a></td></tr>",
+          m.getBuilding(), m.getBuilding(), m.getName(), m.getPhonenumber(), m.getCarnumber(),
+          m.getCarnumber());
     }
 
     out.println("</tbody>");
