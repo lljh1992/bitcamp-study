@@ -177,6 +177,11 @@ public class Member implements Serializable {
     this.password = password;
   }
 
+  public Object getInoutNo() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 
 
 }

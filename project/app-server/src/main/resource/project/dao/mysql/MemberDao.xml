@@ -33,8 +33,9 @@
     building_no asc;
   </select>
   
-  <select id="findinout" parameterType="java.util.List" resultMap="memberMap">
+  <select id="findinout" resultMap="memberMap">
   select
+    inout_no,
     carnumber,
     entryTimes,
     exitTimes
