@@ -12,8 +12,19 @@
     <result column="password"           property="password"/>
     <result column="carnumber"          property="carnumber"/>
     <result column="created_date"       property="createdDate"/>
+    
+    <collection property="entryTimes" ofType="java.util.List">
+    <result column="entryTime" javaType="java.sql.Timestamp" />
+  </collection>
+  
+  <!-- exitTimes 컬럼 매핑 -->
+  <collection property="exitTimes" ofType="java.util.List">
+    <result column="exitTime" javaType="java.sql.Timestamp" />
+  </collection>
   
   </resultMap>
+  
+  
   
   
   <insert id="insert" parameterType="member">
@@ -102,15 +113,20 @@
   values(#{building},#{carnumber})
   </insert>
   
-  <insert id="insertentryTime" parameterType="java.util.ArrayList">
+  <insert id="insertentryTime" parameterType="java.util.HashMap">
   insert into project2_inout (carnumber, entryTimes)
-  values(#{carnumber},now())
-  </insert>
-   
-  <insert id="insertexitTime" parameterType="java.util.ArrayList">
+  values
+  <foreach collection="entryTimes" item="entryTimes" separator=",">
+    (#{carnumber}, #{entryTimes})
+  </foreach>
+</insert>
+
+<insert id="insertexitTime" parameterType="java.util.HashMap">
   insert into project2_inout (carnumber, exitTimes)
-  values(#{carnumber},now())
-  </insert>
-     
+  values
+  <foreach collection="exitTimes" item="exitTimes" separator=",">
+    (#{carnumber}, #{exitTimes})
+  </foreach>
+</insert>
   
 </mapper>

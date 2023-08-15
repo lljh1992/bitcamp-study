@@ -8,7 +8,13 @@ public interface MemberDao {
 
   List<Member> findAll();
 
+  void insertCar(Member member);
+
   Member findBy(String building);
+
+  Member findByCar(String carnummber);
+
+  List<Member> findinout();
 
   Member findByPhonenumberAndPassword(Member m);
 

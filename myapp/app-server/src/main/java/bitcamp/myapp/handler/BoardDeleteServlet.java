@@ -18,7 +18,6 @@ public class BoardDeleteServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
       response.sendRedirect("/auth/form.html");
@@ -46,5 +45,14 @@ public class BoardDeleteServlet extends HttpServlet {
     }
   }
 }
+
+
+
+
+
+
+
+
+
 
 

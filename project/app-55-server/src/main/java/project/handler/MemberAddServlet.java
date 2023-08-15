@@ -43,6 +43,7 @@ public class MemberAddServlet implements Servlet {
 
     try {
       memberDao.insert(m);
+      memberDao.insertCar(m);
       sqlSessionFactory.openSession(false).commit();
       out.println("<p>등록 성공입니다!</p>");
 

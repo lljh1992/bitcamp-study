@@ -14,6 +14,7 @@ public class MemberListServlet implements Servlet {
 
   MemberDao memberDao;
 
+
   public MemberListServlet(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
@@ -31,7 +32,10 @@ public class MemberListServlet implements Servlet {
     out.println("<body>");
     out.println("<h1>입주자 목록</h1>");
     out.println("<div style='margin:5px;'>");
-    out.println("<a href='/member/form.html'>입주자 등록</a>");
+    out.println("<a href='/member/form.html'>입주자 등록</a>\n");
+    out.println("<a href='/member/entry.html'>입차</a>\n");
+    out.println("<a href='/member/exit.html'>출차</a>\n");
+    out.println("<a href='/member/detailcar'>입출차 기록</a>\n");
     out.println("</div>");
     out.println("<table border='1'>");
     out.println("<thead>");

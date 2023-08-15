@@ -12,7 +12,20 @@
     <result column="password"           property="password"/>
     <result column="carnumber"          property="carnumber"/>
     <result column="created_date"       property="createdDate"/>
+    
+    <collection property="entryTimes" ofType="java.util.List">
+    <result column="entryTime" javaType="java.sql.Timestamp" />
+  </collection>
+  
+  <!-- exitTimes 컬럼 매핑 -->
+  <collection property="exitTimes" ofType="java.util.List">
+    <result column="exitTime" javaType="java.sql.Timestamp" />
+  </collection>
+  
   </resultMap>
+  
+  
+  
   
   <insert id="insert" parameterType="member">
   insert into project2_building (building_no, name, phonenumber, password, carnumber)
@@ -31,6 +44,18 @@
     building_no asc;
   </select>
   
+  <select id="findinout" resultMap="memberMap">
+  select
+    inout_no,
+    carnumber,
+    entryTimes,
+    exitTimes
+  from 
+    project2_inout 
+  order by 
+    inout_no asc;
+  </select>
+  
   <select id="findBy" parameterType="String" resultMap="memberMap">
   select
     building_no,
@@ -42,6 +67,15 @@
     project2_building
   where
     building_no=#{building}
+  </select>
+  
+  <select id="findByCar" parameterType="String" resultMap="memberMap">
+  select
+    carnumber
+  from
+    project2_car
+  where
+    carnumber=#{carnumber}
   </select>
   
   <select id="findByPhonenumberAndPassword" parameterType="member" resultMap="memberMap">
@@ -74,50 +108,25 @@
     building_no=#{building}
   </delete>
   
-  <insert id="insertentryTime" parameterType="java.util.List">
-  insert into project2_inout (carnumber, entryTimes)
-  values(#{carnumber},now())
+  <insert id="insertCar" parameterType="member">
+  insert into project2_car (building_no, carnumber)
+  values(#{building},#{carnumber})
   </insert>
-   
-  <!-- 
-  <insert id="insertentryTime" parameterType="member">
-  INSERT INTO project2_inout (car_no, entryTimes)
-  VALUES
-  <foreach collection="entryTimes" item="entryTime" index="index" separator=",">
-    (#{car_no}, #{entryTime})
+  
+  <insert id="insertentryTime" parameterType="java.util.HashMap">
+  insert into project2_inout (carnumber, entryTimes)
+  values
+  <foreach collection="entryTimes" item="entryTimes" separator=",">
+    (#{carnumber}, #{entryTimes})
   </foreach>
 </insert>
-   -->
-  
-  <!--  
-  <insert id="insertentryTime" parameterType="member">
-  insert into project2_inout (carnumber, entryTimes)
+
+<insert id="insertexitTime" parameterType="java.util.HashMap">
+  insert into project2_inout (carnumber, exitTimes)
   values
-   <foreach collection="entryTimes" item="entryTime" index="index"
-            open="(" separator="," close=")" >   
-      #{carnumber},#{entryTime}
-   </foreach>
-  
-  </insert>
-   -->
-  <!-- 
-   <insert id="insertentryTime" parameterType="java.util.List">
-  insert into project_time (carnumber, entryTimes)
-  values(#{carnumber},#{entryTimes})
+  <foreach collection="exitTimes" item="exitTimes" separator=",">
+    (#{carnumber}, #{exitTimes})
+  </foreach>
 </insert>
-  
-  
-   <insert id="insertexitTime" parameterType="member">
-  insert into project_time (carnumber, exitTimes)
-  values
-   <foreach collection="entryTimes" item="exitTimes" index="index"
-            open="(" separator="," close=")" >   
-      #{carnumber},#{exitTimes}
-   </foreach>
-  
-  </insert>
-   -->
-     
-     
   
 </mapper>

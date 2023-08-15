@@ -25,11 +25,11 @@ insert into project2_board(board_no, title, content, writer, password, category)
   values(13, '공지사항3', '내용3', '000-0000', sha1('0000'), 2);
   
 -- project2_car 테이블 예제 데이터
-insert into project2_car(car_no, building, carnumber)
+insert into project2_car(car_no, building_no, carnumber)
   values(1, '108-1704', '11가1111');
-insert into project2_car(car_no, building, carnumber)
+insert into project2_car(car_no, building_no, carnumber)
   values(2, '101-1102', '22가2222');
-insert into project2_car(car_no, building, carnumber)
+insert into project2_car(car_no, building_no, carnumber)
   values(3, '104-1001', '33가3333');
   
 --project2_inout 테이블 예제 데이터

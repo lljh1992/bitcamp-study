@@ -58,4 +58,5 @@ public class MySQLBoardDao implements BoardDao {
     return sqlSession.delete("project.dao.BoardDao.delete", board);
   }
 
+
 }

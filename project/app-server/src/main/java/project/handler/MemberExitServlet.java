@@ -1,6 +1,7 @@
 package project.handler;
 
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import org.apache.ibatis.session.SqlSessionFactory;
 import project.dao.MemberDao;
 import project.util.Component;
@@ -23,10 +24,15 @@ public class MemberExitServlet implements Servlet {
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    Member member = memberDao.findByCar(request.getParameter("carnumber"));
+    String carnumber = request.getParameter("carnumber"); // 클라이언트에서 전송한 차량 번호 데이터
+    Timestamp exitTime = new Timestamp(System.currentTimeMillis()); // 현재 시간을 입차 시간으로 사용
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
+
+    // 차량 번호로 회원 정보 조회
+    Member member = memberDao.findByCar(carnumber);
+
     if (member == null) {
       out.println("<p>이 번호로 등록된 차량이 없습니다!</p>");
     } else {
@@ -34,18 +40,18 @@ public class MemberExitServlet implements Servlet {
       out.println("<html>");
       out.println("<head>");
       out.println("<meta charset='UTF-8'>");
-      out.println("<meta http-equiv='refresh' content='1;url=/member/list'>");
       out.println("<title>아파트 주차 관리 시스템</title>");
       out.println("</head>");
       out.println("<body>");
-      out.println("<h1>출차</h1>");
+      out.println("<h1>입차</h1>");
 
       try {
-        member.getExitTimes();
-        member.printExitTimes();
+        member.addExitTime(exitTime); // 현재 시간을 입차 시간으로 추가
         memberDao.saveExit(member); // 차량번호에 해당하는 멤버의 입차 시간을 저장합니다.
         sqlSessionFactory.openSession(false).commit();
+
         out.println("<p>등록 성공입니다!</p>");
+        out.println("<p>출차 시간: " + exitTime + "</p>");
 
       } catch (Exception e) {
         sqlSessionFactory.openSession(false).rollback();

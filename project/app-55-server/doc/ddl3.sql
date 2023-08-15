@@ -40,7 +40,7 @@ alter table project2_board
 
 create table project2_car(
   car_no int not null,
-  building varchar(10) not null,
+  building_no varchar(10) not null,
   carnumber varchar(20) not null
 );
 
@@ -52,12 +52,12 @@ alter table project2_car
   add constraint project2_car_uk unique (carnumber);
 
 alter table project2_car
-  add constraint project2_car_fk foreign key (building) references project2_building (building_no);
+  add constraint project2_car_fk foreign key (building_no) references project2_building (building_no);
 
 create table project2_inout(
   inout_no int not null,
   carnumber varchar(20) not null,
-  entryTimes datetime not null, 
+  entryTimes datetime, 
   exitTimes datetime
 );
 
@@ -67,6 +67,5 @@ alter table project2_inout
   
   
 alter table project2_inout
-  add constraint project2_inout_fk foreign key (car_num) references project2_car (car_no);
-
+  add constraint project2_inout_fk foreign key (carnumber) references project2_car (car_no);
   
