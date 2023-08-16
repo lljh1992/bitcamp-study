@@ -23,6 +23,7 @@ public class Member implements Serializable {
   // private String VehicleOwnership;
   // private char residencestatus;
   private Date createdDate;
+  private Date testTime;
 
   @Override
   public int hashCode() {
@@ -180,6 +181,14 @@ public class Member implements Serializable {
   public Object getInoutNo() {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  public Date getTestTime() {
+    return testTime;
+  }
+
+  public void setTestTime(Date testTime) {
+    this.testTime = testTime;
   }
 
 

@@ -57,8 +57,8 @@ alter table project2_car
 create table project2_inout(
   inout_no int not null,
   carnumber varchar(20) not null,
-  entryTimes datetime, 
-  exitTimes datetime
+  entryTimes TIMESTAMP, 
+  exitTimes TIMESTAMP
 );
 
 alter table project2_inout

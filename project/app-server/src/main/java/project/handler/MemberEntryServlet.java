@@ -1,6 +1,5 @@
 package project.handler;
 
-
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -47,8 +46,8 @@ public class MemberEntryServlet implements Servlet {
       out.println("<h1>입차</h1>");
 
       try {
-        member.addEntryTime(entryTime); // 현재 시간을 입차 시간으로 추가
-        memberDao.saveEntry(member); // 차량번호에 해당하는 멤버의 입차 시간을 저장합니다.
+        member.addEntryTime(entryTime);
+        memberDao.saveEntry(member); // 멤버의 입차 시간을 저장합니다.
         sqlSessionFactory.openSession(false).commit();
 
         out.println("<p>등록 성공입니다!</p>");
@@ -62,9 +61,6 @@ public class MemberEntryServlet implements Servlet {
 
       out.println("</body>");
       out.println("</html>");
-
     }
   }
 }
-
-
