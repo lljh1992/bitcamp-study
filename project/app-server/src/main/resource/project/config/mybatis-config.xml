@@ -23,5 +23,6 @@
   <mappers>
     <mapper resource="project/dao/mysql/BoardDao.xml"/>
     <mapper resource="project/dao/mysql/MemberDao.xml"/>
+    <mapper resource="project/dao/mysql/ParkingTimeDao.xml"/>
   </mappers>
 </configuration>

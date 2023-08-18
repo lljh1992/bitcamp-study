@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.dao.ParkingTimeDao">
+
+  <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
+    <!-- 
+    <collection property="entryTimes" ofType="java.util.List">
+    <result column="entryTime" javaType="java.sql.Timestamp" />
+  </collection>
+  
+  <collection property="exitTimes" ofType="java.util.List">
+    <result column="exitTime" javaType="java.sql.Timestamp" />
+  </collection>
+   -->
+  <resultMap type="parkingTime" id="parkingTimeMap">
+    <id     column="inout_no"        property="no"/>
+    <result column="carnumber"       property="carnumber"/>
+    <result column="entryTimes"       property="entryTime"/>
+    <result column="exitTimes"       property="exitTime"/>
+  </resultMap>
+  
+  <select id="findinout" resultMap="parkingTimeMap">
+  select
+    inout_no,
+    carnumber,
+    entryTimes,
+    exitTimes
+  from 
+    project2_inout 
+  order by 
+    inout_no asc
+  </select>
+  
+  <insert id="insertentryTime" parameterType="java.util.HashMap">
+  insert into project2_inout (carnumber, entryTimes)
+  values
+  <foreach collection="entryTimes" item="entryTimes" separator=",">
+    (#{carnumber}, #{entryTimes})
+  </foreach>
+</insert>
+
+<insert id="insertexitTime" parameterType="java.util.HashMap">
+  insert into project2_inout (carnumber, exitTimes)
+  values
+  <foreach collection="exitTimes" item="exitTimes" separator=",">
+    (#{carnumber}, #{exitTimes})
+  </foreach>
+</insert>
+  
+</mapper>

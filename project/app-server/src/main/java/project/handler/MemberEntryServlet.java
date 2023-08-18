@@ -9,6 +9,7 @@ import project.util.HttpServletRequest;
 import project.util.HttpServletResponse;
 import project.util.Servlet;
 import project.vo.Member;
+import project.vo.ParkingTime;
 
 @Component("/member/entry")
 public class MemberEntryServlet implements Servlet {
@@ -45,9 +46,12 @@ public class MemberEntryServlet implements Servlet {
       out.println("<body>");
       out.println("<h1>입차</h1>");
 
+      ParkingTime pt = new ParkingTime();
+      pt.setEntryTime(entryTime);// 멤버의 입차 시간을 저장합니다.
+      // System.out.println(pt.getEntryTime());
+
       try {
-        member.addEntryTime(entryTime);
-        memberDao.saveEntry(member); // 멤버의 입차 시간을 저장합니다.
+        pt.saveEntry(entryTime);
         sqlSessionFactory.openSession(false).commit();
 
         out.println("<p>등록 성공입니다!</p>");
