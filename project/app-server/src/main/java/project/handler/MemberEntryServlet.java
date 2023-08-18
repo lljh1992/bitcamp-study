@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import org.apache.ibatis.session.SqlSessionFactory;
 import project.dao.MemberDao;
+import project.dao.MySQLParkingTimeDao;
 import project.util.Component;
 import project.util.HttpServletRequest;
 import project.util.HttpServletResponse;
@@ -47,11 +48,12 @@ public class MemberEntryServlet implements Servlet {
       out.println("<h1>입차</h1>");
 
       ParkingTime pt = new ParkingTime();
+      pt.setCarnumber(carnumber);
       pt.setEntryTime(entryTime);// 멤버의 입차 시간을 저장합니다.
-      // System.out.println(pt.getEntryTime());
 
       try {
-        pt.saveEntry(entryTime);
+        MySQLParkingTimeDao parkingTimeDao = new MySQLParkingTimeDao(sqlSessionFactory);
+        parkingTimeDao.saveEntry(pt);
         sqlSessionFactory.openSession(false).commit();
 
         out.println("<p>등록 성공입니다!</p>");

@@ -12,20 +12,23 @@
     <result column="password"           property="password"/>
     <result column="carnumber"          property="carnumber"/>
     <result column="created_date"       property="createdDate"/>
-    
+    <!-- 
     <collection property="entryTimes" ofType="java.util.List">
     <result column="entryTime" javaType="java.sql.Timestamp" />
   </collection>
   
-  <!-- exitTimes 컬럼 매핑 -->
   <collection property="exitTimes" ofType="java.util.List">
     <result column="exitTime" javaType="java.sql.Timestamp" />
   </collection>
-  
+   -->
   </resultMap>
   
-  
-  
+  <resultMap type="parkingTime" id="parkingTimeMap">
+    <id     column="inout_no"        property="no"/>
+    <result column="carnumber"       property="carnumber"/>
+    <result column="entryTimes"       property="entryTime"/>
+    <result column="exitTimes"       property="exitTime"/>
+  </resultMap>
   
   <insert id="insert" parameterType="member">
   insert into project2_building (building_no, name, phonenumber, password, carnumber)
@@ -44,7 +47,7 @@
     building_no asc;
   </select>
   
-  <select id="findinout" resultMap="memberMap">
+  <select id="findinout" resultMap="parkingTimeMap">
   select
     inout_no,
     carnumber,
@@ -53,7 +56,7 @@
   from 
     project2_inout 
   order by 
-    inout_no asc;
+    inout_no asc
   </select>
   
   <select id="findBy" parameterType="String" resultMap="memberMap">

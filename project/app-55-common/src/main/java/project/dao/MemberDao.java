@@ -14,7 +14,7 @@ public interface MemberDao {
 
   Member findByCar(String carnummber);
 
-  List<Member> findinout();
+
 
   Member findByPhonenumberAndPassword(Member m);
 
@@ -22,9 +22,6 @@ public interface MemberDao {
 
   int delete(String building);
 
-  void saveEntry(Member member);
-
-  void saveExit(Member member);
 
 
 }

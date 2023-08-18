@@ -58,27 +58,10 @@ public class MySQLMemberDao implements MemberDao {
   }
 
   @Override
-  public void saveEntry(Member member) {
-    SqlSession sqlSession = sqlSessionFactory.openSession(false);
-    sqlSession.insert("project.dao.MemberDao.insertentryTime", member);
-  }
-
-  @Override
-  public void saveExit(Member member) {
-    SqlSession sqlSession = sqlSessionFactory.openSession(false);
-    sqlSession.insert("project.dao.MemberDao.insertexitTime", member);
-  }
-
-  @Override
   public Member findByCar(String carnummber) {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     return sqlSession.selectOne("project.dao.MemberDao.findByCar", carnummber);
   }
 
-  @Override
-  public List<Member> findinout() {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
-    return sqlSession.selectList("project.dao.MemberDao.findinout");
-  }
 
 }

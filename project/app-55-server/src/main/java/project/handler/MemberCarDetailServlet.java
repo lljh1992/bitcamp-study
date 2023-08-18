@@ -4,21 +4,24 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import project.dao.MemberDao;
+import project.dao.ParkingTimeDao;
 import project.util.Component;
 import project.util.HttpServletRequest;
 import project.util.HttpServletResponse;
 import project.util.Servlet;
-import project.vo.Member;
+import project.vo.ParkingTime;
 
 
 @Component("/member/detailcar")
 public class MemberCarDetailServlet implements Servlet {
 
   MemberDao memberDao;
+  ParkingTimeDao parkingTimeDao;
   SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-  public MemberCarDetailServlet(MemberDao memberDao) {
+  public MemberCarDetailServlet(MemberDao memberDao, ParkingTimeDao parkingTimeDao) {
     this.memberDao = memberDao;
+    this.parkingTimeDao = parkingTimeDao;
   }
 
   @Override
@@ -43,16 +46,16 @@ public class MemberCarDetailServlet implements Servlet {
     out.println("<tbody>");
 
     try {
-      List<Member> list = memberDao.findinout(); // 모든 회원 데이터 가져오기
+      List<ParkingTime> list = parkingTimeDao.findinout(); // 모든 회원 데이터 가져오기
 
-      for (Member m : list) {
+      for (ParkingTime m : list) {
         // List<Timestamp> entryTimes = m.getEntryTimes();
         // List<Timestamp> exitTimes = m.getExitTimes();
 
         out.println("<tr>");
         out.println("<td>" + m.getCarnumber() + "</td>");
-        out.println("<td>" + m.getEntryTimes() + "</td>");
-        out.println("<td>" + m.getExitTimes() + "</td>");
+        out.println("<td>" + m.getEntryTime() + "</td>");
+        out.println("<td>" + m.getExitTime() + "</td>");
         out.println("<td>");
 
         // SimpleDateFormat timeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

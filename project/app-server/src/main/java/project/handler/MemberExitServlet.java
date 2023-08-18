@@ -4,11 +4,13 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import org.apache.ibatis.session.SqlSessionFactory;
 import project.dao.MemberDao;
+import project.dao.MySQLParkingTimeDao;
 import project.util.Component;
 import project.util.HttpServletRequest;
 import project.util.HttpServletResponse;
 import project.util.Servlet;
 import project.vo.Member;
+import project.vo.ParkingTime;
 
 @Component("/member/exit")
 public class MemberExitServlet implements Servlet {
@@ -45,9 +47,13 @@ public class MemberExitServlet implements Servlet {
       out.println("<body>");
       out.println("<h1>입차</h1>");
 
+      ParkingTime pt = new ParkingTime();
+      pt.setCarnumber(carnumber);
+      pt.setExitTime(exitTime);
+
       try {
-        // member.addExitTime(exitTime); // 현재 시간을 입차 시간으로 추가
-        memberDao.saveExit(member); // 차량번호에 해당하는 멤버의 입차 시간을 저장합니다.
+        MySQLParkingTimeDao parkingTimeDao = new MySQLParkingTimeDao(sqlSessionFactory);
+        parkingTimeDao.saveExit(pt);
         sqlSessionFactory.openSession(false).commit();
 
         out.println("<p>등록 성공입니다!</p>");
