@@ -1,10 +1,11 @@
 // 썸네일 이미지 만들기
 package eomcs.servlet.ex04;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.UUID;
+import net.coobird.thumbnailator.ThumbnailParameter;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
+import net.coobird.thumbnailator.name.Rename;
+
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -13,10 +14,10 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
-import net.coobird.thumbnailator.ThumbnailParameter;
-import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.geometry.Positions;
-import net.coobird.thumbnailator.name.Rename;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.UUID;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 @WebServlet("/ex04/s8")
@@ -68,17 +69,18 @@ public class Servlet08 extends GenericServlet {
     // => mvnrepository.com에서 thumbnailator 라이브러리 검색
     // => build.gradle 에 추가
     // => '$ gradle eclipse' 실행
-    // => eclise IDE에서 프로젝트 리프래시
+    // => eclise IDE에서 프로젝트 리프래시ø
 
     // 2) 썸네일 이미지 만들기
     // => 원본 이미지 파일이 저장된 경로를 알려주고
     // 어떤 썸네일 이미지를 만들어야 하는지 설정한다.
-    Builder<File> thumbnailBuilder = Thumbnails.of(this.uploadDir + "/" + filename);
+
+    Thumbnails.Builder<File> thumbnailBuilder = Thumbnails.of(this.uploadDir + "/" + filename);
     thumbnailBuilder.size(20, 20);
     thumbnailBuilder.outputFormat("jpg");
     thumbnailBuilder.toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 
-    Builder<File> thumbnailBuilder2 = Thumbnails.of(this.uploadDir + "/" + filename);
+    Thumbnails.Builder<File> thumbnailBuilder2 = Thumbnails.of(this.uploadDir + "/" + filename);
     thumbnailBuilder2.size(20, 20);
     thumbnailBuilder2.crop(Positions.CENTER);
     thumbnailBuilder2.outputFormat("jpg");

@@ -292,3 +292,19 @@
   - Netty, Reactor 라이브러리를 사용하여 웹서버를 구축하는 방법
   - 웹브라우저를 이용하여 클라이언트를 구축하는 방법
   - 쿠키와 세션을 다루는 방법
+
+## 56. 앱 애플리케이션 자바 표준 기술 JavaEE 도입
+
+  - JavaEE 기술 소개
+  - JavaEE 버전 별 하위 기술 버전
+  - JavaEE 구현 서버 및 Servlet 컨테이너 관계
+  - Servlet API 사용법
+
+## 57. 파일 업로드 다루기 - multipart/form-data POST 요청 파라미터 인코딩
+
+  - apache.org의 라이브러리를 이용하여 multipart/form-data 파라미터를 다루는 방법
+  - 네이버클라우드 mysql DBMS 사용하기
+
+## 58. 파일 업로드 다루기 II - multipart/form-data POST 요청 파라미터 인코딩
+
+  - Servlet API를 이용하여 multipart/form-data 파라미터를 다루는 방법
