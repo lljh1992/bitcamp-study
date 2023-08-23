@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-//    id 'eclipse-wtp'
+    // id 'eclipse-wtp'
 }
 
 repositories {
@@ -50,4 +50,4 @@ eclipse {
       javaRuntimeName = "JavaSE-17"
     }
 }
- */
+*/

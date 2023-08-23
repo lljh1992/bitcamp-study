@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-//    id 'eclipse-wtp'
+    // id 'eclipse-wtp'
     id 'war'
 }
 
@@ -76,8 +76,7 @@ eclipse {
         }
     }
 }
-
- */
+*/
 
 war {
     archiveBaseName = "myapp"
