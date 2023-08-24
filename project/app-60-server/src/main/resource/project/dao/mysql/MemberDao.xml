@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.dao.MemberDao">
+
+  <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
+  <resultMap type="member" id="memberMap">
+    <id     column="building_no"        property="building"/>
+    <result column="name"               property="name"/>
+    <result column="phonenumber"        property="phonenumber"/>
+    <result column="password"           property="password"/>
+    <result column="carnumber"          property="carnumber"/>
+    <result column="created_date"       property="createdDate"/>
+    <!-- 
+    <collection property="entryTimes" ofType="java.util.List">
+    <result column="entryTime" javaType="java.sql.Timestamp" />
+  </collection>
+  
+  <collection property="exitTimes" ofType="java.util.List">
+    <result column="exitTime" javaType="java.sql.Timestamp" />
+  </collection>
+   -->
+  </resultMap>
+  
+  <resultMap type="parkingTime" id="parkingTimeMap">
+    <id     column="inout_no"        property="no"/>
+    <result column="carnumber"       property="carnumber"/>
+    <result column="entryTimes"       property="entryTime"/>
+    <result column="exitTimes"       property="exitTime"/>
+  </resultMap>
+  
+  <insert id="insert" parameterType="member">
+  insert into project2_building (building_no, name, phonenumber, password, carnumber)
+  values(#{building},#{name},#{phonenumber},sha1(#{password}),#{carnumber})
+  </insert>
+  
+  <select id="findAll" resultMap="memberMap">
+  select
+    building_no, 
+    name, 
+    phonenumber,
+    carnumber
+  from 
+    project2_building 
+  order by 
+    building_no asc;
+  </select>
+  
+  <select id="findinout" resultMap="parkingTimeMap">
+  select
+    inout_no,
+    carnumber,
+    entryTimes,
+    exitTimes
+  from 
+    project2_inout 
+  order by 
+    inout_no asc
+  </select>
+  
+  <select id="findBy" parameterType="String" resultMap="memberMap">
+  select
+    building_no,
+    name,
+    phonenumber,
+    carnumber,
+    created_date
+  from
+    project2_building
+  where
+    building_no=#{building}
+  </select>
+  
+  <select id="findByCar" parameterType="String" resultMap="memberMap">
+  select
+    carnumber
+  from
+    project2_car
+  where
+    carnumber=#{carnumber}
+  </select>
+  
+  <select id="findByPhonenumberAndPassword" parameterType="member" resultMap="memberMap">
+  select
+    building_no,
+    name,
+    phonenumber,
+    created_date
+  from
+    project2_building
+  where
+    phonenumber=#{phonenumber}
+    and password=sha1(#{password})
+  </select>
+  
+  <update id="update" parameterType="member">
+  update project2_building set
+    building_no=#{building},
+    name=#{name},
+    phonenumber=#{phonenumber},
+    password=sha1(#{password}),
+    carnumber=#{carnumber}
+  where
+    building_no=#{building}
+  </update>
+  
+  <delete id="delete" parameterType="String">
+  delete from project2_building
+  where
+    building_no=#{building}
+  </delete>
+  
+  <insert id="insertCar" parameterType="member">
+  insert into project2_car (building_no, carnumber)
+  values(#{building},#{carnumber})
+  </insert>
+  
+  <insert id="insertentryTime" parameterType="java.util.HashMap">
+  insert into project2_inout (carnumber, entryTimes)
+  values
+  <foreach collection="entryTimes" item="entryTimes" separator=",">
+    (#{carnumber}, #{entryTimes})
+  </foreach>
+</insert>
+
+<insert id="insertexitTime" parameterType="java.util.HashMap">
+  insert into project2_inout (carnumber, exitTimes)
+  values
+  <foreach collection="exitTimes" item="exitTimes" separator=",">
+    (#{carnumber}, #{exitTimes})
+  </foreach>
+</insert>
+  
+</mapper>
