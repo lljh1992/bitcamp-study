@@ -1,4 +1,4 @@
-<%@page import="com.eomcs.web.vo.Member"%>
+<%@page import="eomcs.vo.Member"%>
 <%@ page language="java" 
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
@@ -12,7 +12,7 @@
 <body>
 <h1>EL - 일반 객체에서 값 꺼내기</h1>
 <%
-Member2 member = new Member2();
+Member member = new Member();
 member.setNo(100);
 member.setName("홍길동");
 member.setEmail("hong@test.com");

@@ -10,19 +10,18 @@
     <a href='/board/list.jsp?category=1'>게시글</a>
     <a href='/board/list.jsp?category=2'>독서록</a>
 
-<%
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    if (loginUser == null) {
-      out.println("<a href='/auth/form.jsp'>로그인</a>");
-    } else {
-      if (loginUser.getPhoto() == null) {
-        out.println("<img style='height:40px' src='/images/avatar.png'>");
-      } else {
-        out.println(String.format(
-          "<img src='http://mvsenqskbqzl19010704.cdn.ntruss.com/member/%s?type=f&w=30&h=40&faceopt=true&ttype=jpg'>",
-                                                  loginUser.getPhoto()));
-      }
-      out.println(String.format("%s <a href='/auth/logout.jsp'>로그아웃</a>", loginUser.getName()));
-    }
-%>
+<jsp:useBean id="loginUser" class="bitcamp.myapp.vo.Member" scope="session"/>
+
+<% if (loginUser.getNo() == 0) { %>
+
+      <a href='/auth/form.jsp'>로그인</a>
+<% } else {
+      if (loginUser.getPhoto() == null) { %>
+      <img style='height:40px' src='/images/avatar.png'>
+<% } else { %>
+      <img src='http://guosqxeocfoi19010728.cdn.ntruss.com/member/${loginUser.photo}?type=f&w=30&h=40&faceopt=true&ttype=jpg'>
+<% } %>
+
+      ${loginUser.name} <a href='/auth/logout.jsp'>로그아웃</a>
+<% } %>
 </div>
