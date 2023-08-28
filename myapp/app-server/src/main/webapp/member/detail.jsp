@@ -51,7 +51,7 @@
 <td><input type='password' name='password'></td></tr>
 <tr><th>성별</th>
 <td><select name='gender'>
-<option value='M' <%=member.getGender() == 'M' ? "selected" : ""%>>남자</option>
+          <option value='M' <%=member.getGender() == 'M' ? "selected" : ""%>>남자</option>
           <option value='W' <%=member.getGender() == 'W' ? "selected" : ""%>>여자</option></select></td></tr>
 </table>
 <div>
