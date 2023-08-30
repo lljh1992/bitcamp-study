@@ -29,6 +29,9 @@ dependencies {
     
     // 임베디드 Tomcat 서버
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.79'
+
+    // JSTL 라이브러리
+    implementation 'jstl:jstl:1.2'
     
     // Amazon AWS Java SDK s3
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.530'

@@ -17,7 +17,6 @@
 		<servlet-name>/board/add.jsp</servlet-name>
 		<jsp-file>/board/add.jsp</jsp-file>
 		<multipart-config>
-			<location>/tmp</location>
 			<max-file-size>10000000</max-file-size>
 			<max-request-size>50000000</max-request-size>
 			<file-size-threshold>1000000</file-size-threshold>
@@ -32,7 +31,6 @@
 		<servlet-name>/board/update.jsp</servlet-name>
 		<jsp-file>/board/update.jsp</jsp-file>
 		<multipart-config>
-			<location>/tmp</location>
 			<max-file-size>10000000</max-file-size>
 			<max-request-size>50000000</max-request-size>
 			<file-size-threshold>1000000</file-size-threshold>
@@ -76,5 +74,8 @@
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
 	</welcome-file-list>
-
+	
+	<error-page>
+		<location>/error.jsp</location>
+	</error-page>
 </web-app>

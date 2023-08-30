@@ -26,9 +26,9 @@
   </resultMap>
   
   <resultMap type="attachedFile" id="attachedFileMap">
-    <id     column="board_file_no"       property="no"/>
-    <result column="filepath"          property="filePath"/>
-    <result column="board_no"        property="boardNo"/>
+    <id     column="board_file_no"  property="no"/>
+    <result column="filepath"       property="filePath"/>
+    <result column="board_no"       property="boardNo"/>
   </resultMap>
 
   <insert id="insert" parameterType="board"
@@ -105,7 +105,7 @@
     values 
     <foreach collection="attachedFiles" item="file" separator=",">(#{file.filePath}, #{no})</foreach>
   </insert>
-
+  
   <select id="findFileBy" parameterType="int" resultMap="attachedFileMap">
     select
       board_file_no,
@@ -119,7 +119,7 @@
   
   <delete id="deleteFile" parameterType="int">
     delete from myapp_board_file
-    where
+    where 
       board_file_no=#{no}
   </delete>
 
@@ -128,7 +128,6 @@
     where
     board_no=#{no}
   </delete>
-
 </mapper>
 
 
