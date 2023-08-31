@@ -39,7 +39,7 @@
     carnumber,
     entryTimes,
     exitTimes
-  from 
+  from
     project2_inout 
   order by 
     inout_no asc

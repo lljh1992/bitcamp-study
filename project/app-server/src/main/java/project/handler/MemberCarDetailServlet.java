@@ -55,8 +55,17 @@ public class MemberCarDetailServlet extends HttpServlet {
       for (ParkingTime m : list) {
         out.println("<tr>");
         out.println("<td>" + m.getCarnumber() + "</td>");
-        out.println("<td>" + m.getEntryTime() + "</td>");
-        out.println("<td>" + m.getExitTime() + "</td>");
+
+        if (m.getEntryTime() != null) {
+          out.println("<td>" + m.getEntryTime() + "</td>");
+        } else {
+          out.println("<td></td>");
+        }
+        if (m.getExitTime() != null) {
+          out.println("<td>" + m.getExitTime() + "</td>");
+        } else {
+          out.println("<td></td>");
+        }
         out.println("<td>");
         out.println("</td>");
         out.println("</tr>");
