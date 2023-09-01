@@ -12,6 +12,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.text.SimpleDateFormat;
 
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {
@@ -36,6 +37,7 @@ public class ContextLoaderListener implements ServletContextListener {
             ctx.setAttribute("memberDao", memberDao);
             ctx.setAttribute("parkingTimeDao", parkingTimeDao);
             ctx.setAttribute("ncpObjectStorageService", ncpObjectStorageService);
+            ctx.setAttribute("simpleDateFormatter", new SimpleDateFormat("yyyy-MM-dd"));
 
             System.out.println("ContextLoaderListener.contextInitialized() - 공통 객체 준비 완료!");
 

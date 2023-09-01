@@ -75,6 +75,11 @@ public class MySQLBoardDao implements BoardDao {
     return sqlSession.delete("project.dao.BoardDao.deleteFile", no);
   }
 
+  @Override
+  public int deleteFiles(int boardNo) {
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.delete("project.dao.BoardDao.deleteFiles", boardNo);
+  }
 
 
 }

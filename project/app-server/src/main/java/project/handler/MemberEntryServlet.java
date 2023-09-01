@@ -47,11 +47,11 @@ public class MemberEntryServlet extends HttpServlet {
       out.println("<head>");
       out.println("<meta charset='UTF-8'>");
       out.println("<title>아파트 주차 관리 시스템</title>");
-      out.println("<meta http-equiv='refresh' content='1;url=/member/list'>");
+      out.println("<meta http-equiv='refresh' content='1;url=/member/list.jsp'>");
       out.println("</head>");
       out.println("<body>");
 
-      request.getRequestDispatcher("/header").include(request, response);
+      request.getRequestDispatcher("/header.jsp").include(request, response);
 
       out.println("<h1>입차</h1>");
 
@@ -73,7 +73,7 @@ public class MemberEntryServlet extends HttpServlet {
         e.printStackTrace();
       }
 
-      request.getRequestDispatcher("/footer").include(request, response);
+      request.getRequestDispatcher("/footer.jsp").include(request, response);
 
       out.println("</body>");
       out.println("</html>");

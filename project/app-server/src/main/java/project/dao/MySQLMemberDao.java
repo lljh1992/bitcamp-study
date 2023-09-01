@@ -39,7 +39,7 @@ public class MySQLMemberDao implements MemberDao {
 
   @Override
   public Member findByPhonenumberAndPassword(Member member) {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.selectOne("project.dao.MemberDao.findByPhonenumberAndPassword", member);
   }
 

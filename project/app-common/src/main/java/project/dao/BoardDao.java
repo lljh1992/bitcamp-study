@@ -23,4 +23,6 @@ public interface BoardDao {
 
   int deleteFile(int fileNo);
 
+  int deleteFiles(int boardNo);
+
 }
