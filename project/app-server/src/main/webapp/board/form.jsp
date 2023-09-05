@@ -8,6 +8,36 @@
 <head>
     <meta charset='UTF-8'>
     <title>비트캠프</title>
+    <style>
+        table {
+            width: 20%;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+        th {
+            color: #020000;
+            white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+            margin: 50px;
+        }
+        div {
+            text-align: center;
+        }
+        form {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 

@@ -43,6 +43,9 @@ dependencies {
     // Amazon AWS Java SDK s3
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.530'
 
+    // Log4j 2.x 라이브러리
+    implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
 

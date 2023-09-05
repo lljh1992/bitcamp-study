@@ -93,7 +93,5 @@ alter table project2_inout
   add constraint primary key(inout_no),
   modify column inout_no int not null auto_increment;
   
-  
-alter table project2_inout
-  add constraint project2_inout_fk foreign key (carnumber) references project2_car (car_no);
+
   

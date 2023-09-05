@@ -35,7 +35,19 @@
         div {
             text-align: center;
         }
-
+        .table-container {
+            overflow-x: auto;
+            max-width: 100%;
+            max-height: 70vh;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .footer {
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
@@ -49,6 +61,7 @@
     <a href='/member/exit.html'>출차</a>
     <a href='/member/detailcar.jsp'>입출차 기록</a>
 </div>
+<div class="table-container">
 <table border='1'>
     <thead>
     <tr>
@@ -76,6 +89,7 @@
 
     </tbody>
 </table>
+</div>
 
 
 <jsp:include page="../footer.jsp"/>

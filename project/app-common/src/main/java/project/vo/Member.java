@@ -21,26 +21,12 @@ public class Member implements Serializable {
   private String photo;
 
   @Override
-  public String toString() {
-    return "Member{" +
-            "no=" + no +
-            ", building='" + building + '\'' +
-            ", name='" + name + '\'' +
-            ", phonenumber='" + phonenumber + '\'' +
-            ", password='" + password + '\'' +
-            ", carnumber='" + carnumber + '\'' +
-            ", createdDate=" + createdDate +
-            ", photo='" + photo + '\'' +
-            ", parkingTimes=" + parkingTimes +
-            '}';
-  }
-
-  @Override
   public int hashCode() {
     return Objects.hash(no);
   }
 
   // 입출차 기록
+  private boolean isInside;
   public List<ParkingTime> parkingTimes;
 
   @Override
@@ -110,6 +96,14 @@ public class Member implements Serializable {
 
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
+  }
+
+  public boolean isInside() {
+    return isInside;
+  }
+
+  public void setInside(boolean isInside) {
+    this.isInside = isInside;
   }
 
   public List<ParkingTime> getParkingTimes() {

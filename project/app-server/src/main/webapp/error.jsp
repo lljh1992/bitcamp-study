@@ -7,7 +7,7 @@
 <%
   sqlSessionFactory.openSession(false).rollback();
   if (request.getAttribute("refresh") != null) {
-    response.setHeader("Refresh", (String) request.getAttribute("refresh"));
+    //response.setHeader("Refresh", (String) request.getAttribute("refresh"));
   }
 %>
 

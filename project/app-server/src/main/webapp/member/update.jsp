@@ -10,12 +10,13 @@
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 <jsp:useBean id="ncpObjectStorageService" type="project.util.NcpObjectStorageService" scope="application"/>
 
+
 <%
-    request.setAttribute("refresh", "2;url=list.jsp");
 
     Member member = new Member();
-    member.setBuilding(request.getParameter("name"));
-    member.setPhonenumber(request.getParameter("H.P"));
+    member.setBuilding(request.getParameter("building"));
+    member.setName(request.getParameter("name"));
+    member.setPhonenumber(request.getParameter("phonenumber"));
     member.setPassword(request.getParameter("password"));
     member.setCarnumber(request.getParameter("carnumber"));
 
@@ -32,4 +33,5 @@
         sqlSessionFactory.openSession(false).commit();
         response.sendRedirect("list.jsp");
     }
+
 %>

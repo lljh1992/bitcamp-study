@@ -16,6 +16,45 @@
 <head>
     <meta charset='UTF-8'>
     <title>민원사항</title>
+    <style>
+        table {
+            width: 30%;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+            white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+        }
+        .table-container {
+            overflow-x: auto;
+            max-width: 100%;
+            max-height: 70vh;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .footer {
+            flex-shrink: 0;
+        }
+
+    </style>
 </head>
 <body>
 

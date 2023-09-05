@@ -38,7 +38,7 @@ public class MemberDetailServlet extends HttpServlet {
       out.println("<p>해당 번호의 회원이 없습니다!</p>");
 
     } else {
-      out.println("<form action='/member/update' method='post'> enctype='multipart/form-data'>");
+      out.println("<form action='/member/update' method='post' enctype='multipart/form-data'>");
       out.println("<table border='1'>");
       out.printf("<tr><th style='width:120px;'>사진</th>" + " <td style='width:300px;'>"
           + (member.getPhoto() == null ? "<img style='height:80px' src='/images/avatar.png'>"
