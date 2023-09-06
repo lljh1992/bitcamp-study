@@ -1,4 +1,4 @@
-package project.handler;
+package project.controller;
 
 import project.util.ActionListener;
 import project.util.ArrayList;

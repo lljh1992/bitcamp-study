@@ -3,7 +3,7 @@ package project.listener;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebListener;
-import project.handler.InitServlet;
+import project.controller.InitServlet;
 import project.util.SqlSessionFactoryProxy;
 
 @WebListener

@@ -3,7 +3,7 @@
  */
 package project;
 
-import project.handler.MemberHandler;
+import project.controller.MemberHandler;
 import util.Prompt;
 
 public class App {

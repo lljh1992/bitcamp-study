@@ -1,4 +1,4 @@
-package project.handler;
+package project.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;

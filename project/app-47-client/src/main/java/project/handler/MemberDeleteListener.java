@@ -1,4 +1,4 @@
-package project.handler;
+package project.controller;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

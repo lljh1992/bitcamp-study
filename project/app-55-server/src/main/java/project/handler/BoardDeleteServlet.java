@@ -1,4 +1,4 @@
-package project.handler;
+package project.controller;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import project.dao.BoardDao;

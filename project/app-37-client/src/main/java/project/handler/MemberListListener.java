@@ -1,4 +1,4 @@
-package project.handler;
+package project.controller;
 
 import java.util.List;
 import project.dao.MemberDao;

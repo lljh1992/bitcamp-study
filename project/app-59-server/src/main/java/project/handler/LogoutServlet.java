@@ -1,4 +1,4 @@
-package project.handler;
+package project.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

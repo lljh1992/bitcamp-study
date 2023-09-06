@@ -3,10 +3,10 @@
  */
 package project;
 
-import project.handler.BoardHandler;
-import project.handler.LoginHandler;
-import project.handler.MemberHandler;
-import project.handler.NewMemberHandler;
+import project.controller.BoardHandler;
+import project.controller.LoginHandler;
+import project.controller.MemberHandler;
+import project.controller.NewMemberHandler;
 import util.Prompt;
 
 public class App {

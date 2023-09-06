@@ -1,4 +1,4 @@
-package project.handler;
+package project.controller;
 
 import util.ArrayList;
 import util.Prompt;

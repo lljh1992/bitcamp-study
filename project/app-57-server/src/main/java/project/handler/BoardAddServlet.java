@@ -1,4 +1,4 @@
-package project.handler;
+package project.controller;
 
 import java.io.File;
 import java.io.IOException;

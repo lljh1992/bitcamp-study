@@ -1,4 +1,4 @@
-package project.handler;
+package project.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

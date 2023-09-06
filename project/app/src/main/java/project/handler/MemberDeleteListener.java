@@ -1,4 +1,4 @@
-package project.handler;
+package project.controller;
 
 import project.dao.MemberDao;
 import project.util.ActionListener;
