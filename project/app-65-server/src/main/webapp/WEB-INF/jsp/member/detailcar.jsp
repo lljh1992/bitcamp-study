@@ -1,7 +1,8 @@
 <%@ page
         language="java"
         pageEncoding="UTF-8"
-        contentType="text/html;charset=UTF-8" %> <%-- directive element --%>
+        contentType="text/html;charset=UTF-8"
+        trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -32,9 +33,6 @@
         h1 {
             text-align: center;
         }
-        div {
-            text-align: center;
-        }
         .table-container {
             overflow-x: auto;
             max-width: 100%;
@@ -48,6 +46,7 @@
         .footer {
             flex-shrink: 0;
         }
+
     </style>
 </head>
 <body>
@@ -55,40 +54,46 @@
 <jsp:include page="../header.jsp"/>
 
 <h1>입주자 목록 <a href='/'>[ < ]</a></h1>
-<div style='margin:5px;'>
-    <a href='/member/add'>입주자 등록</a>
-    <a href='/member/entry'>입차</a>
-    <a href='/member/exit'>출차</a>
-    <a href='/member/detailcar'>입출차 기록</a>
-</div>
+
+<div style='margin:5px;'></div>
 <div class="table-container">
+
 <table border='1'>
     <thead>
     <tr>
-        <th>동-호수</th>
-        <th>이름</th>
-        <th>H.P</th>
-        <th>차량 번호</th>
+        <th>차량번호</th>
+        <th>입차</th>
+        <th>출차</th>
     </tr>
     </thead>
+    <tbody>
 
-    <c:forEach items="${list}" var="member">
-        <tr>
-            <td><img
-                    src='http://guosqxeocfoi19010728.cdn.ntruss.com/member2/${member.photo}?type=f&w=30&h=40&faceopt=true&ttype=jpg'>
-                <a href='/member/detail?building=${member.building}'>${member.building}
-                </a>
-            </td>
-            <td>${member.name}</td>
-            <td>${member.phonenumber}</td>
-            <td>${member.carnumber}</td>
+    <c:forEach items="${list}" var="p">
+        <td>${p.getCarnumber()}</td>
+        <td>
+        <c:choose>
+            <c:when test="${not empty p.entryTime}">
+                ${p.entryTime}
+            </c:when>
+            <c:otherwise>
+            </c:otherwise>
+        </c:choose>
+        </td>
+        <td>
+        <c:choose>
+            <c:when test="${not empty p.exitTime}">
+                ${p.exitTime}
+            </c:when>
+            <c:otherwise>
+            </c:otherwise>
+        </c:choose>
+        </td>
         </tr>
     </c:forEach>
 
     </tbody>
 </table>
 </div>
-
 
 <jsp:include page="../footer.jsp"/>
 
