@@ -5,6 +5,8 @@ import bitcamp.myapp.service.NcpObjectStorageService;
 import bitcamp.myapp.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -12,6 +14,7 @@ import javax.servlet.http.Part;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/member")
 public class MemberController {
 
   {
@@ -21,12 +24,12 @@ public class MemberController {
   @Autowired MemberService memberService;
   @Autowired NcpObjectStorageService ncpObjectStorageService;
 
-  @RequestMapping("/member/form")
+  @GetMapping("form")
   public String add() {
     return "/WEB-INF/jsp/member/form.jsp";
   }
 
-  @RequestMapping("/member/add")
+  @PostMapping("add")
   public String add(
           Member member,
           Part photofile,
@@ -49,7 +52,7 @@ public class MemberController {
     }
   }
 
-  @RequestMapping("/member/delete")
+  @GetMapping("delete")
   public String delete(
           @RequestParam("no") int no,
           Map<String,Object> model) throws Exception {
@@ -67,7 +70,7 @@ public class MemberController {
     }
   }
 
-  @RequestMapping("/member/detail")
+  @GetMapping("detail")
   public String detail(
           @RequestParam("no") int no,
           Map<String,Object> model) throws Exception {
@@ -76,7 +79,7 @@ public class MemberController {
     return "/WEB-INF/jsp/member/detail.jsp";
   }
 
-  @RequestMapping("/member/list")
+  @GetMapping("list")
   public String list(
           Map<String,Object> model) throws Exception {
 
@@ -84,7 +87,7 @@ public class MemberController {
     return "/WEB-INF/jsp/member/list.jsp";
   }
 
-  @RequestMapping("/member/update")
+  @PostMapping("update")
   public String update(
           Member member,
           Part photofile,
