@@ -17,12 +17,8 @@ public class GlobalControllerAdvice {
   // 이 클래스에 프로퍼티 에디터를 등록하는 @InitBinder 메서드를 정의한다.
   @InitBinder
   public void initBinder(WebDataBinder binder) {
-
-    DatePropertyEditor propEditor = new DatePropertyEditor();
-    binder.registerCustomEditor(java.util.Date.class, propEditor);
-
+    binder.registerCustomEditor(java.util.Date.class, new DatePropertyEditor());
     binder.registerCustomEditor(Car.class, new CarPropertyEditor());
-
     binder.registerCustomEditor(Engine.class, new EnginePropertyEditor());
   }
 

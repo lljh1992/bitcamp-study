@@ -17,63 +17,65 @@ import project.vo.AttachedFile;
 import project.vo.Board;
 import project.vo.Member;
 
-@WebServlet("/board/add")
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-public class BoardAddController extends HttpServlet {
+public class BoardAddController implements PageController {
 
-  private static final long serialVersionUID = 1L;
+    BoardDao boardDao;
+    SqlSessionFactory sqlSessionFactory;
+    NcpObjectStorageService ncpObjectStorageService;
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      request.setAttribute("viewUrl", "/WEB-INF/jsp/board/form.jsp");
-  }
-
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    if (loginUser == null) {
-      request.getParts();
-      request.setAttribute("viewUrl", "redirect:../auth/login");
-      return;
+    public BoardAddController(
+            BoardDao boardDao,
+            SqlSessionFactory sqlSessionFactory,
+            NcpObjectStorageService ncpObjectStorageService) {
+        this.boardDao = boardDao;
+        this.sqlSessionFactory = sqlSessionFactory;
+        this.ncpObjectStorageService = ncpObjectStorageService;
     }
 
-    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-    NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
-
-    try {
-      Board board = new Board();
-      board.setWriter(loginUser);
-      board.setTitle(request.getParameter("title"));
-      board.setContent(request.getParameter("content"));
-      board.setCategory(Integer.parseInt(request.getParameter("category")));
-
-      ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
-      for (Part part : request.getParts()) {
-        if (part.getName().equals("files") && part.getSize() > 0) {
-          String uploadFileUrl = ncpObjectStorageService.uploadFile(
-                  "bitcamp-nc7-bucket-16", "board2/", part);
-          AttachedFile attachedFile = new AttachedFile();
-          attachedFile.setFilePath(uploadFileUrl);
-          attachedFiles.add(attachedFile);
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if (request.getMethod().equals("GET")) {
+            return "/WEB-INF/jsp/board/form.jsp";
         }
-      }
-      board.setAttachedFiles(attachedFiles);
 
-      boardDao.insert(board);
-      if (attachedFiles.size() > 0) {
-        boardDao.insertFiles(board);
-      }
+        Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+        if (loginUser == null) {
+            request.getParts();
+            return "redirect:../auth/login";
+        }
 
-      sqlSessionFactory.openSession(false).commit();
-      request.setAttribute("viewUrl", "redirect:list?category=" + request.getParameter("category"));
+        try {
+            Board board = new Board();
+            board.setWriter(loginUser);
+            board.setTitle(request.getParameter("title"));
+            board.setContent(request.getParameter("content"));
+            board.setCategory(Integer.parseInt(request.getParameter("category")));
 
-    } catch (Exception e) {
-      sqlSessionFactory.openSession(false).rollback();
-      request.setAttribute("message", "게시글 등록 오류");
-      request.setAttribute("refresh", "2;url=list?category=" + request.getParameter("category"));
-      request.setAttribute("exception", e);
+            ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
+            for (Part part : request.getParts()) {
+                if (part.getName().equals("files") && part.getSize() > 0) {
+                    String uploadFileUrl = ncpObjectStorageService.uploadFile(
+                            "bitcamp-nc7-bucket-16", "board2/", part);
+                    AttachedFile attachedFile = new AttachedFile();
+                    attachedFile.setFilePath(uploadFileUrl);
+                    attachedFiles.add(attachedFile);
+                }
+            }
+            board.setAttachedFiles(attachedFiles);
+
+            boardDao.insert(board);
+            if (attachedFiles.size() > 0) {
+                boardDao.insertFiles(board);
+            }
+
+            sqlSessionFactory.openSession(false).commit();
+            return "redirect:list?category=" + request.getParameter("category");
+
+        } catch (Exception e) {
+            sqlSessionFactory.openSession(false).rollback();
+            request.setAttribute("message", "게시글 등록 오류");
+            request.setAttribute("refresh", "2;url=list?category=" + request.getParameter("category"));
+            throw e;
+        }
     }
-  }
 }

@@ -14,25 +14,25 @@ import project.dao.MemberDao;
 import project.util.NcpObjectStorageService;
 import project.vo.Member;
 
-@WebServlet("/member/add")
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-public class MemberAddController extends HttpServlet {
+public class MemberAddController implements PageController {
 
-  private static final long serialVersionUID = 1L;
+  MemberDao memberDao;
+  SqlSessionFactory sqlSessionFactory;
+  NcpObjectStorageService ncpObjectStorageService;
+
+public MemberAddController(MemberDao memberDao, SqlSessionFactory sqlSessionFactory, NcpObjectStorageService ncpObjectStorageService) {
+  this.memberDao = memberDao;
+  this.sqlSessionFactory = sqlSessionFactory;
+  this.ncpObjectStorageService = ncpObjectStorageService;
+}
+
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setAttribute("viewUrl", "/WEB-INF/jsp/member/form.jsp");
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    if (request.getMethod().equals("GET")) {
+    return "/WEB-INF/jsp/member/form.jsp";
   }
-
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-
-    MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-    NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
-
+   
     try {
     Member m = new Member();
     m.setBuilding(request.getParameter("building"));
@@ -51,13 +51,13 @@ public class MemberAddController extends HttpServlet {
       memberDao.insert(m);
       memberDao.insertCar(m);
       sqlSessionFactory.openSession(false).commit();
-      request.setAttribute("viewUrl", "redirect:list");
+      return "redirect:list";
 
     } catch (Exception e) {
       sqlSessionFactory.openSession(false).rollback();
       request.setAttribute("message", "회원 등록 오류!");
       request.setAttribute("refresh", "2;url=list");
-      request.setAttribute("exception", e);
+      throw e;
     }
   }
 }

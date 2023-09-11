@@ -14,20 +14,24 @@ import project.dao.MemberDao;
 import project.util.NcpObjectStorageService;
 import project.vo.Member;
 
-@WebServlet("/member/update")
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-public class MemberUpdateController extends HttpServlet {
+public class MemberUpdateController implements PageController {
 
-    private static final long serialVersionUID = 1L;
+    MemberDao memberDao;
+    SqlSessionFactory sqlSessionFactory;
+    NcpObjectStorageService ncpObjectStorageService;
+
+    public MemberUpdateController(MemberDao memberDao, SqlSessionFactory sqlSessionFactory, NcpObjectStorageService ncpObjectStorageService) {
+        this.memberDao = memberDao;
+        this.sqlSessionFactory = sqlSessionFactory;
+        this.ncpObjectStorageService = ncpObjectStorageService;
+    }
+
+
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
-        SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-        NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
-
+      
 
         try {
             Member member = new Member();
@@ -48,15 +52,12 @@ public class MemberUpdateController extends HttpServlet {
                 throw new Exception("회원이 없습니다.");
             } else {
                 sqlSessionFactory.openSession(false).commit();
-                request.setAttribute("viewUrl", "redirect:list");
+                return "redirect:list";
             }
         } catch (Exception e) {
             sqlSessionFactory.openSession(false).rollback();
             request.setAttribute("refresh", "2;url=list");
-            request.setAttribute("exception", e);
+            throw e;
         }
     }
-
 }
-
-

@@ -12,18 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import project.dao.MemberDao;
 import project.vo.Member;
 
-@WebServlet("/member/list")
-public class MemberListController extends HttpServlet {
+public class MemberListController implements PageController {
 
-  private static final long serialVersionUID = 1L;
+  MemberDao memberDao;
+  public MemberListController(MemberDao memberDao) {
+    this.memberDao = memberDao;
+  }
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
+    
     request.setAttribute("list", memberDao.findAll());
-    request.setAttribute("viewUrl", "/WEB-INF/jsp/member/list.jsp");
+    return "/WEB-INF/jsp/member/list.jsp";
   }
 
 }

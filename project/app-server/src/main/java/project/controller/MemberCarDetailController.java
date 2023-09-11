@@ -11,19 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 import project.dao.ParkingTimeDao;
 
 
-@WebServlet("/member/detailcar")
-public class MemberCarDetailController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+public class MemberCarDetailController implements PageController {
+
+    ParkingTimeDao parkingTimeDao;
+    SimpleDateFormat dateFormatter;
+
+    public MemberCarDetailController(ParkingTimeDao parkingTimeDao, SimpleDateFormat dateFormatter) {
+        this.parkingTimeDao = parkingTimeDao;
+        this.dateFormatter = dateFormatter;
+    }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        ParkingTimeDao parkingTimeDao = (ParkingTimeDao) this.getServletContext().getAttribute("parkingTimeDao");
+    public String execute(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        
         request.setAttribute("list", parkingTimeDao.findinout());
-        request.setAttribute("viewUrl", "/WEB-INF/jsp/member/detailcar.jsp");
+        return "/WEB-INF/jsp/member/detailcar.jsp";
 
     }
 }
