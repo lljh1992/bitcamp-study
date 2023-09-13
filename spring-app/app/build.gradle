@@ -4,7 +4,7 @@ plugins {
 }
 
 tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8';
+    options.encoding = 'UTF-8'
 }
 
 war {
@@ -23,6 +23,9 @@ dependencies {
     // Jackson 라이브러리
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 
+
+    // JSTL 라이브러리
+    implementation 'jstl:jstl:1.2'
 
     // 임베디드 Tomcat 서버
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.79'

@@ -1,15 +1,14 @@
 // 요청 핸들러의 아규먼트 - @RequestBody : 클라이언트가 보낸 데이터를 한 덩어리로 받기
 package bitcamp.app1;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
-import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @Controller 
 @RequestMapping("/c04_9")
@@ -55,8 +54,8 @@ public class Controller04_9 {
     out.println("<h1>결과</h1>");
     out.printf("<p>통데이터:%s</p>\n", jsonData);
 
-    Car car = new Gson().fromJson(jsonData, Car.class);
-    out.printf("<p>%s</p>\n", car.toString());
+//    Car car = new Gson().fromJson(jsonData, Car.class);
+//    out.printf("<p>%s</p>\n", car.toString());
 
     out.println("</body></html>");
     return out0.toString();

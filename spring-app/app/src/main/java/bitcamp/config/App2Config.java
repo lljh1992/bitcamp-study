@@ -1,5 +1,8 @@
 package bitcamp.config;
 
+import bitcamp.app2.Controller04_1_Interceptor2;
+import bitcamp.app2.Controller04_1_Interceptor3;
+import bitcamp.app2.Controller04_1_Interceptor4;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.ViewResolver;
@@ -9,10 +12,6 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.util.UrlPathHelper;
-import bitcamp.app2.Controller04_1_Interceptor1;
-import bitcamp.app2.Controller04_1_Interceptor2;
-import bitcamp.app2.Controller04_1_Interceptor3;
-import bitcamp.app2.Controller04_1_Interceptor4;
 
 @ComponentScan("bitcamp.app2")
 // => 지정된 패키지를 뒤져서 @Component, @Controller 등 붙은 클래스에 대해 인스턴스를 생성한다.
@@ -36,6 +35,7 @@ public class App2Config implements WebMvcConfigurer {
   // 2) Java Config 설정
   @Bean
   public ViewResolver viewResolver() {
+    System.out.println("App2Config.viewResolver() 호출됨!");
     InternalResourceViewResolver vr = new InternalResourceViewResolver(
         "/WEB-INF/jsp2/", // prefix
         ".jsp" // suffix
@@ -75,6 +75,7 @@ public class App2Config implements WebMvcConfigurer {
   //
   @Override
   public void configurePathMatch(PathMatchConfigurer configurer) {
+    System.out.println("App2Config.configurePathMatch() 호출됨!");
     UrlPathHelper helper = new UrlPathHelper();
     helper.setRemoveSemicolonContent(false);
 
@@ -85,12 +86,12 @@ public class App2Config implements WebMvcConfigurer {
   // 이 설정을 사용하는 프론트 컨트롤러에 적용할 인터셉터 설정하기
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-
+    System.out.println("App2Config.addInterceptors() 호출됨!");
     // 1) 모든 요청에 대해 실행할 인터셉터 등록하기
     // => 인터셉터를 적용할 URL을 지정하지 않으면
     // 현재 프론트 컨트롤러의 모든 요청에 대해 적용된다.
     //
-    registry.addInterceptor(new Controller04_1_Interceptor1());
+//    registry.addInterceptor(new Controller04_1_Interceptor1());
 
     // 2) 특정 요청에 대해 실행할 인터셉터 등록하기
     // => 패턴: /c04_1/*

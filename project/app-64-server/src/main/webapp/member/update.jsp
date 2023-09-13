@@ -8,7 +8,7 @@
 
 <jsp:useBean id="memberDao" type="project.dao.MemberDao" scope="application"/>
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
-<jsp:useBean id="ncpObjectStorageService" type="project.util.NcpObjectStorageService" scope="application"/>
+<jsp:useBean id="ncpObjectStorageService" type="project.service.NcpObjectStorageService" scope="application"/>
 
 
 <%
