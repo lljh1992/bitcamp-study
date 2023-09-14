@@ -1,6 +1,8 @@
 package project.dao;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import project.vo.Member;
 
 public interface MemberDao {
@@ -14,7 +16,7 @@ public interface MemberDao {
 
   Member findByCar(String carnummber);
 
-  Member findByPhonenumberAndPassword(Member m);
+  Member findByPhonenumberAndPassword(@Param("phonenumber") String phonenumber, @Param("password") String password);
 
   int update(Member member);
 

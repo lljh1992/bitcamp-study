@@ -18,185 +18,154 @@ import java.util.ArrayList;
 @RequestMapping("/board")
 public class BoardController {
 
-  {
-    System.out.println("BoardController 생성됨!");
-  }
-
-  @Autowired
-  BoardService boardService;
-
-  @Autowired
-  NcpObjectStorageService ncpObjectStorageService;
-
-  @GetMapping("form")
-  public void form() {
-  }
-
-  @PostMapping("add")
-  public String add(
-          Board board,
-          MultipartFile[] files,
-          Model model,
-          HttpSession session) throws Exception {
-
-    Member loginUser = (Member) session.getAttribute("loginUser");
-    if (loginUser == null) {
-      return "redirect:../auth/form";
+    {
+        System.out.println("BoardController 생성됨!");
     }
 
-    board.setWriter(loginUser);
+    @Autowired
+    BoardService boardService;
 
-    try {
-      ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
-      for (MultipartFile part : files) {
-        if (part.getSize() > 0) {
-          String uploadFileUrl = ncpObjectStorageService.uploadFile(
-                  "bitcamp-nc7-bucket-16", "board/", part);
-          AttachedFile attachedFile = new AttachedFile();
-          attachedFile.setFilePath(uploadFileUrl);
-          attachedFiles.add(attachedFile);
+    @Autowired
+    NcpObjectStorageService ncpObjectStorageService;
+
+    @GetMapping("form")
+    public void form() {
+    }
+
+    @PostMapping("add")
+    public String add(
+            Board board,
+            MultipartFile[] files,
+            HttpSession session) throws Exception {
+
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/auth/form";
         }
-      }
-      board.setAttachedFiles(attachedFiles);
 
-      boardService.add(board);
-      return "redirect:list?category=" + board.getCategory();
+        board.setWriter(loginUser);
 
-    } catch (Exception e) {
-      model.addAttribute("message", "게시글 등록 오류!");
-      model.addAttribute("refresh", "2;url=list?category=" + board.getCategory());
-      throw e;
-    }
-  }
 
-  @GetMapping("delete")
-  public String delete(
-          int no,
-          int category,
-          Model model,
-          HttpSession session) throws Exception {
-
-    Member loginUser = (Member) session.getAttribute("loginUser");
-    if (loginUser == null) {
-      return "redirect:../auth/form";
-    }
-
-    try {
-      Board b = boardService.get(no);
-
-      if (b == null || b.getWriter().getNo() != loginUser.getNo()) {
-        throw new Exception("해당 번호의 게시글이 없거나 삭제 권한이 없습니다.");
-      } else {
-        boardService.delete(b.getNo());
-        return "redirect:list?category=" + category;
-      }
-
-    } catch (Exception e) {
-      model.addAttribute("refresh", "2;url=list?category=" + category);
-      throw e;
-    }
-  }
-
-  @GetMapping("detail/{category}/{no}")
-  public String detail(
-          @PathVariable int category,
-          @PathVariable int no,
-          Model model) throws Exception {
-    try {
-      Board board = boardService.get(no);
-      if (board != null) {
-        boardService.increaseViewCount(no);
-        model.addAttribute("board", board);
-      }
-      return "board/detail";
-
-    } catch (Exception e) {
-      model.addAttribute("refresh", "5;url=/board/list?category=" + category);
-      throw e;
-    }
-  }
-
-  @GetMapping("list")
-  public void list(
-          int category,
-          Model model) throws Exception {
-    try {
-      model.addAttribute("list", boardService.list(category));
-    } catch (Exception e) {
-      model.addAttribute("refresh", "1;url=/");
-      throw e;
-    }
-  }
-
-  @PostMapping("update")
-  public String update(
-          Board board,
-          MultipartFile[] files,
-          Model model,
-          HttpSession session) throws Exception {
-
-    Member loginUser = (Member) session.getAttribute("loginUser");
-    if (loginUser == null) {
-      return "redirect:../auth/form";
-    }
-
-    try {
-      Board b = boardService.get(board.getNo());
-      if (b == null || b.getWriter().getNo() != loginUser.getNo()) {
-        throw new Exception("게시글이 존재하지 않거나 변경 권한이 없습니다.");
-      }
-
-      ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
-      for (MultipartFile part : files) {
-        if (part.getSize() > 0) {
-          String uploadFileUrl = ncpObjectStorageService.uploadFile(
-                  "bitcamp-nc7-bucket-118", "board/", part);
-          AttachedFile attachedFile = new AttachedFile();
-          attachedFile.setFilePath(uploadFileUrl);
-          attachedFiles.add(attachedFile);
+        ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
+        for (MultipartFile part : files) {
+            if (part.getSize() > 0) {
+                String uploadFileUrl = ncpObjectStorageService.uploadFile(
+                        "bitcamp-nc7-bucket-16", "board/", part);
+                AttachedFile attachedFile = new AttachedFile();
+                attachedFile.setFilePath(uploadFileUrl);
+                attachedFiles.add(attachedFile);
+            }
         }
-      }
-      board.setAttachedFiles(attachedFiles);
+        board.setAttachedFiles(attachedFiles);
 
-      boardService.update(board);
-      return "redirect:list?category=" + b.getCategory();
+        boardService.add(board);
+        return "redirect:/board/list?category=" + board.getCategory();
 
-    } catch (Exception e) {
-      model.addAttribute("refresh", "2;url=detail?no=" + board.getNo());
-      throw e;
-    }
-  }
-
-  @GetMapping("fileDelete/{file}") // 예) .../fileDelete/category=1,boardNo=2/fileNo=30
-  public String fileDelete(
-          @MatrixVariable(name = "fileNo", pathVar = "file") int fileNo,
-          Model model,
-          HttpSession session) throws Exception {
-
-    Member loginUser = (Member) session.getAttribute("loginUser");
-    if (loginUser == null) {
-      return "redirect:../auth/form";
     }
 
-    Board board = null;
-    try {
-      AttachedFile attachedFile = boardService.getAttachedFile(fileNo);
-      board = boardService.get(attachedFile.getBoardNo());
-      if (board.getWriter().getNo() != loginUser.getNo()) {
-        throw new Exception("게시글 변경 권한이 없습니다!");
-      }
+    @GetMapping("delete")
+    public String delete(
+            int no,
+            int category,
+            HttpSession session) throws Exception {
 
-      if (boardService.deleteAttachedFile(fileNo) == 0) {
-        throw new Exception("해당 번호의 첨부파일이 없다.");
-      } else {
-        return "redirect:/app/board/detail/" + board.getCategory() + "/" + board.getNo();
-      }
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/auth/form";
+        }
 
-    } catch (Exception e) {
-      model.addAttribute("refresh", "2;url=/app/board/detail/" + board.getCategory() + "/" + board.getNo());
-      throw e;
+        Board b = boardService.get(no);
+
+        if (b == null || b.getWriter().getNo() != loginUser.getNo()) {
+            throw new Exception("해당 번호의 게시글이 없거나 삭제 권한이 없습니다.");
+        } else {
+            boardService.delete(b.getNo());
+            return "redirect:/board/list?category=" + category;
+        }
+
     }
-  }
+
+    @GetMapping("detail/{category}/{no}")
+    public String detail(
+            @PathVariable int no,
+            Model model) throws Exception {
+
+        Board board = boardService.get(no);
+        if (board != null) {
+            boardService.increaseViewCount(no);
+            model.addAttribute("board", board);
+        }
+        return "board/detail";
+
+    }
+
+    @GetMapping("list")
+    public void list(
+            int category,
+            Model model) throws Exception {
+
+        model.addAttribute("list", boardService.list(category));
+
+    }
+
+    @PostMapping("update")
+    public String update(
+            Board board,
+            MultipartFile[] files,
+            HttpSession session) throws Exception {
+
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/auth/form";
+        }
+
+
+        Board b = boardService.get(board.getNo());
+        if (b == null || b.getWriter().getNo() != loginUser.getNo()) {
+            throw new Exception("게시글이 존재하지 않거나 변경 권한이 없습니다.");
+        }
+
+        ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
+        for (MultipartFile part : files) {
+            if (part.getSize() > 0) {
+                String uploadFileUrl = ncpObjectStorageService.uploadFile(
+                        "bitcamp-nc7-bucket-118", "board/", part);
+                AttachedFile attachedFile = new AttachedFile();
+                attachedFile.setFilePath(uploadFileUrl);
+                attachedFiles.add(attachedFile);
+            }
+        }
+        board.setAttachedFiles(attachedFiles);
+
+        boardService.update(board);
+        return "redirect:/board/list?category=" + b.getCategory();
+
+    }
+
+    @GetMapping("fileDelete/{attachedFile}") // 예) .../fileDelete/attachedFile;no=30
+    public String fileDelete(
+            @MatrixVariable("no") int no,
+            HttpSession session) throws Exception {
+
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/auth/form";
+        }
+
+        Board board = null;
+
+        AttachedFile attachedFile = boardService.getAttachedFile(no);
+        board = boardService.get(attachedFile.getBoardNo());
+        if (board.getWriter().getNo() != loginUser.getNo()) {
+            throw new Exception("게시글 변경 권한이 없습니다!");
+        }
+
+        if (boardService.deleteAttachedFile(no) == 0) {
+            throw new Exception("해당 번호의 첨부파일이 없다.");
+        } else {
+            return "redirect:/board/detail/" + board.getCategory() + "/" + board.getNo();
+        }
+    }
 }
 
 

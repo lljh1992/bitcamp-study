@@ -1,6 +1,8 @@
 package project.dao;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import project.vo.AttachedFile;
 import project.vo.Board;
 
@@ -9,7 +11,7 @@ public interface BoardDao {
 
   List<Board> findAll(int category);
 
-  Board findBy(int category, int no);
+  Board findBy(@Param("categoryNo") int category, @Param("boardNo") int no);
 
   int update(Board board);
 
